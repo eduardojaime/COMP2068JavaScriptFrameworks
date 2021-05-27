@@ -1,0 +1,22 @@
+{
+  "name": "lesson02demoa",
+  "version": "1.0.0",
+  "description": "This is just a Tax calculator demo for class A",
+  "main": "tax.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "demo",
+    "tax",
+    "calculator",
+    "georgian",
+    "college"
+  ],
+  "author": "Eduardo Jaime",
+  "license": "ISC",
+  "dependencies": {
+    "accounting": "^0.4.1",
+    "nodemon": "^2.0.7"
+  }
+}

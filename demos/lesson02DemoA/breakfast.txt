@@ -1,0 +1,14 @@
+bagel
+toast
+pancakes
+omelet
+fruits
+sandwich
+smoothie
+bacon
+pizza
+salad
+rice
+eggs
+waffles
+french toast
