@@ -13,7 +13,7 @@ function parent() {
         console.log(message); // message is accessible
     }
     
-    child();
+    return child;
 } // message is destroyed
 
 // Access message
@@ -22,4 +22,7 @@ function parent() {
 console.log(message);
 
 // 3) call parent function
-parent();
+const childFN = parent();
+// even though parent was executed already and returned the child function
+// child() remembers the environment in which it was created (i.e. variables like message)
+childFN();
