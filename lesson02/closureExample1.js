@@ -1,3 +1,4 @@
+// Exploring the concept of Scope
 // create a wrapper function with a function inside
 function parent() {
     var message = "Hello World"; // message variable is created
