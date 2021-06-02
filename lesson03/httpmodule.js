@@ -1,5 +1,6 @@
 // Example: https://www.w3schools.com/nodejs/nodejs_http.asp
-var http = require('http');
+// Documentation: https://nodejs.org/api/http.html
+const http = require('http');
 
 //create a server object:
 http.createServer(function (req, res) {
