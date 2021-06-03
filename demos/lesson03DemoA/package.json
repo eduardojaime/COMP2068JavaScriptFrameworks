@@ -1,0 +1,23 @@
+{
+  "name": "demolesson3",
+  "version": "1.0.0",
+  "description": "This is a demonstration of the Connect package",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [
+    "Connect",
+    "Georgian",
+    "College",
+    "JavaScript",
+    "Frameworks",
+    "COMP2068"
+  ],
+  "author": "Eduardo Jaime",
+  "license": "ISC",
+  "dependencies": {
+    "connect": "^3.7.0"
+  }
+}
