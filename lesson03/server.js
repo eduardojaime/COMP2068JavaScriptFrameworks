@@ -1,4 +1,4 @@
-// 1) install Connec via NPM and import it in the project
+// 1) install Connect via NPM and import it in the project
 const connect = require('connect');
 // 2) create a connect application
 const app = connect();

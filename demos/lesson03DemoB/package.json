@@ -1,25 +1,21 @@
 {
-  "name": "lesson03",
+  "name": "lesson03demo",
   "version": "1.0.0",
-  "description": "Demo for Lesson 3: Using the Connect module",
+  "description": "",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
   "keywords": [
-    "demo",
-    "georgian",
-    "college",
-    "connect",
-    "module",
-    "javascript",
-    "frameworks"
+    "Demo",
+    "Connect",
+    "Georgian",
+    "College"
   ],
   "author": "Eduardo Jaime",
   "license": "ISC",
   "dependencies": {
-    "connect": "^3.7.0",
-    "prompt": "^1.1.0"
+    "connect": "^3.7.0"
   }
 }
