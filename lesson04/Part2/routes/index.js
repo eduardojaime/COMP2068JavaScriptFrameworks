@@ -8,6 +8,13 @@ router.get('/', function(req, res, next) {
 
 // // Add About Route here
 // router.get('/about', (req, res, next) => {
+
+//   res.render('about', {
+//     title: 'About Us',
+//     content: 'This is the tools we have used in this exercise:',
+//     tools: tools
+//   })
+
 //   // Alternatively this can come from MongoDB (or any other DB)
 //   let tools = [
 //     {

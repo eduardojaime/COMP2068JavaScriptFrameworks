@@ -6,7 +6,9 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+// Create Controller/Router object
 let aboutRouter = require('./routes/about');
+let projectsRouter = require('./routes/projects');
 
 var app = express();
 
@@ -22,7 +24,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+// Register new middleware (controller/router) to routes
 app.use('/about', aboutRouter);
+app.use('/projects', projectsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

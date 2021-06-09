@@ -16,6 +16,7 @@ router.get('/', (req, res, next) => {
       }];
   
     res.render('about', {
+      title: 'This is the About Page',
       content: 'This is the tools we have used in this exercise:',
       tools: tools
     })
