@@ -1,0 +1,20 @@
+{
+  "name": "lesson04demo01",
+  "version": "1.0.0",
+  "description": "Lesson 4 Demo Part 1",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Express",
+    "Module",
+    "Georgian",
+    "College"
+  ],
+  "author": "Eduardo Jaime",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
