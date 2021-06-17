@@ -3,7 +3,7 @@
 ### Part 1 Create and Configure a Mongo database
 
 - Go to Mongo Cloud Atlas and Sign up for an account
-- Install MongoDB Atlas
+- Install MongoDB Compass
 - Create cluster
 - Set up access via Security > DB Access
 - Set up IP Whitelist > Security > Network Access
