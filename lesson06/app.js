@@ -29,7 +29,7 @@ app.use('/courses', coursesRouter);
 
 // Option 1) Hardcode connection string and connect
 let userName = 'admin';
-let password = 'comp2068strongpass2021';
+let password = 'password';
 let connectionString = `mongodb+srv://${userName}:${password}@cluster0.86msx.mongodb.net/comp2068`;
 // Option 2) Add connection string to Config file
 // const config = require('./config/globals');

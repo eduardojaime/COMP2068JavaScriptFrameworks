@@ -1,115 +1,67 @@
 # Instructions
 
-### Part 1 Create and Configure a Mongo database
+### Part 1 Modify your UI to show a dropdown list instead of a text box when adding a new project
 
-- Go to Mongo Cloud Atlas and Sign up for an account
-- Install MongoDB Compass
-- Create cluster
-- Set up access via Security > DB Access
-- Set up IP Whitelist > Security > Network Access
-    - Add 0.0.0.0/0 to allow all IP addresses
-- Check cluster is running
-- Check collections
-    - List of collections must be empty
-- Click on Connect, select Compass to get the connection string needed for the project
-- Open Compass and connect
-    - Create a new DB
-    - Set default collection as Projects
+- In routes/projects.js:
+    - Reference course model.
+    - Call Course.find() inside get route associated to '/add'.
+    - Pass list to view as a parameter along with title
+    - Add .sort at the end of the find() clause
+- In views/projects/add
+    - Modify the view to accept two model objects: projects and courses
+    - Convert courses input tag into a select tag
+    - At this point, view will render an empty dropdown list
+    - Use the #each loop structure to add list items similar to what's done in Index.hbs
+        - Use the option tag and the name attribute of each element
+- Sort courses by modifying
 
-### Part 2 Create a Project Tracker Application
+### Part 2 Improve Projects Index view: Delete links and format date
 
-- Use Express Generator to create a new app using scaffolding
-    - Create a new folder using the command line
-    - Run command:
-        - npx express-generator --view=hbs
-    - Install packages via 
-        - npm i
-    - Run via 
-        - npm start or nodemon
-    - Remove unused routes:
-        - /routes/users.js
-        - app.js delete:
-            - var usersRouter = require('./routes/users');
-            - app.use('/users', usersRouter);
-    - Add Projects route
-        - In Views: 
-            - Create new folder called projects
-            - Add index.hbs with just a title
-        - In Routes:
-            - Create projects.js
-            - Import express
-            - Create router object
-            - Add get middleware > render view in 'project/index'
-            - Export router module
-        - In app.js:
-            - Create router object
-            - Use router object on '/projects' endpoint
-### Part 3 Connect 
+- Go to views/index.hbs
+    - Add a column to the table to add a link to /projects/delete/{ID}
+    - Add a bit of client-side JavaScript to add a confirmation message:
+        - Create scripts.js under /public/javascript
+        - Create confirmDeletion() function
+        - Add script reference to layout, so we can reuse it
+    - Back to index.hbs
+        - Associate the newly created function to the delete link via the onclick attribute
+- Go to routes/projects.js
+    - Add a GET handler for /delete
+    - Call the remove method of the Project model and pass id as parameter in a json object
+    - Redirect once it's done
 
-- Search for mongoose on https://npmjs.com
-- Install mongoose package
-    - npm i mongoose
-- On app.js
-    - Import mongoose into the project and create an object
-    - After the .use() calls to register controllers
-        - Create the connection string variable
-        - Call the connect() method of the mongoose object:
-            - Pass connection string
-            - Pass options as parameters to avoid warnings
-            - Modify username or password to show error message
-        - Alternatively > Add connection string to globals.js
-            - Create a new folder in the root called 'config'
-            - Create globals.js
-            - Create a json object called configuration than will include key value pairs
-            - Export this object
-            
-### Part 4 Create a Model and bind it to the UI to add new projects
+### Part 3 Handle Editing a Project
 
-- Create a folder in the root called models
-- Create a projects.js file inside of this folder
-    - Import mongoose into the  file and create object
-    - Define an schema for this project object using the mapping notation
-    - Create schema object by calling new mongoose(schemaDefinition)
-        - Point out: type, required, default
-    - Create a model object by calling mongoose.model(schhemaObj)
-    - Export model
-- On Views/Projects/Index.hbs
-    - Add links to /Projects/Add
-    - Navigate to path to see 404
-- On Routes/projects.js
-    - Add GET handler pointing to '/add'
-    - Middleware function:
-        - Res.render('projects/add', { title: 'details' });
-- On Views/Projects add Add.hbs
-    - Add {{title}}
-    - Build form:
-        - form tag with method=post
-        - fieldset element wrapping a label and input for each field
-            - Input name has to match name of fields in mongoose schema
-        - button tag to trigger POST
-    - Try navigating to this form, fill it in and submit… Why is it showing 404?
-- On Routes/Projects.js
-    - Import model in project
-    - Add POST handler for '/add'
-    - Call .create() method of Project model
-    - Pass fields as json object
-    - Handle callback function for errors and success message
-        - Redirect to /projects
-- Navigate to /Projects/Add and try it out
-- Open MongoDB Compass and explore the collection
-
-### Part 5 Show a list of data
-
-- On Routes/Projects.js
-    - Go back to GET handler for '/'
-    - Move const Project at the top
-    - Call Project.find()
-        - Callback function returns error and a lists of project object
-        - Use if else to handle error
-        - Else > pass data inside res.render options
-- On Views/Projects/Index.hbs
-    - Use a loop to print elements {#each}
-    - Add a table
-    - Add table headers
-    - Add individual elements
-- Reload page to view data
+- In the views folder:
+    - Copy the Add.hbs view into a new view named Edit.hbs
+    - In /Projects/Index.hbs
+        - Modify the form to add a link to Edit the page
+        - Try it out > 404
+- Go to routes/projects.js to add a handler for /Edit
+    - Add GET handler for /edit/:_id
+    - Use the ID parameter to fetch this document
+        - Use findById()
+    - If found:
+        - Use the courses model object to get a list of courses, to pass them to the view
+        - Pass this document to the view to prepopulate the edit view
+- Go back to /Projects/Edit.hbs
+    - Add one more field set to display the Status
+        - Hardcode the options since they won't change
+    - Add value="" attributes to each field to link them to attributes in our model
+    - For the date there's still some formatting that needs to be applied
+        - For now remove the type attribute
+    - For selecting the correct value from the dropdown:
+        - Add an hbs helper function
+- Go to App.js
+    - Add the helper function after the database connection
+    - Use hbs.registerHelper()
+- Back to /Projects/Edit.hbs
+    - For Courses call the function inside the each statement for each option
+    - For Status call the function 3 times, one for each option
+- Go to /routes/projects.js
+    - Add a POST handler for /edit/:_id
+    - Use the model object and call findOneAndUpdate
+        - Pass id
+        - Pass a JSON object to map the properties
+        - Handle error
+        - If successful Redirect to /Projects

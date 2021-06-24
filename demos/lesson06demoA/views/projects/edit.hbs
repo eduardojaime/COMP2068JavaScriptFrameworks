@@ -1,0 +1,39 @@
+<h1>
+  {{title}}
+</h1>
+{{! TODO Add fields to be filled in and a button }}
+<form method="POST">
+  {{! FIELDS }}
+  <fieldset>
+      <label for="name" class="col-2">Name:</label>
+      <input name="name" id="name" required value="{{project.name}}" />
+  </fieldset>
+  <fieldset>
+      <label for="dueDate" class="col-2">Due Date:</label>
+      <input name="dueDate" id="dueDate" required value="{{project.dueDate}}" />
+  </fieldset>
+  <fieldset>
+      <label for="course" class="col-2">Course:</label>
+      {{!-- <input name="course" id="course" required /> --}}
+      <select name="course" id="course">
+      {{#each courses}}
+          {{!-- compare the name of the current course against the value in the model --}}
+          {{createOption this.name ../project.course}}
+      {{/each}}
+      </select>
+  </fieldset>
+  <fieldset>
+      <label for="status" class="col-2">Status:</label>
+      <select name="status" id="status">
+          {{!-- hardcode values --}}
+          {{!-- <option>TO DO</option>
+          <option>IN PROGRESS</option>
+          <option>DONE</option> --}}
+          {{createOption 'TO DO' ../project.status}}
+          {{createOption 'IN PROGRESS' ../project.status}}
+          {{createOption 'DONE' ../project.status}}
+      </select>
+  </fieldset>
+  {{! A BUTTON }}
+  <button class="offset-3 btn btn-primary">Save</button>
+</form>

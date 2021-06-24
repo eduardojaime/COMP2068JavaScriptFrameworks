@@ -14,7 +14,12 @@
   </fieldset>
   <fieldset>
       <label for="course" class="col-2">Course:</label>
-      <input name="course" id="course" required />
+      {{!-- <input name="course" id="course" required /> --}}
+      <select name="course" id="course">
+      {{#each courses}}
+          <option>{{this.name}}</option>
+      {{/each}}
+      </select>
   </fieldset>
   {{! A BUTTON }}
   <button class="offset-3 btn btn-primary">Save</button>

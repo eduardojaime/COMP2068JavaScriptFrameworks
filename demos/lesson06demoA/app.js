@@ -10,6 +10,7 @@ const mongoose = require('mongoose');
 // create the router/controller object
 var indexRouter = require('./routes/index');
 var projectsRouter = require('./routes/projects');
+const coursesRouter = require('./routes/courses');
 
 var app = express();
 
@@ -26,6 +27,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Use the router object associated to a path
 app.use('/', indexRouter);
 app.use('/projects', projectsRouter);
+app.use('/courses', coursesRouter);
 
 // After all the use methods for my routes
 // need a connection string
@@ -37,6 +39,20 @@ mongoose.connect(connectionString, { useNewUrlParser: true, useUnifiedTopology: 
   .catch((err) => {
     console.log(err);
   });
+
+// Register hbs helper function for selecting options in dropdown list
+const hbs = require('hbs');
+
+hbs.registerHelper('createOption', (currentValue, selectedValue) => {
+  var selectedAttribute = '';
+  if (currentValue == selectedValue) {
+    selectedAttribute = 'selected';
+  }
+  // use templates for simplicity
+  // return new hbs.safeString(`<option ${selectedAttribute}>${currentValue}</option>`);
+  return new hbs.SafeString('<option '+ selectedAttribute +'>' + currentValue + '</option>');
+})
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

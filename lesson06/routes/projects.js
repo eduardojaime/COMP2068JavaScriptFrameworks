@@ -105,7 +105,7 @@ router.post('/edit/:_id', (req,res,next) => {
         status: req.body.status
     }, (err, updatedProject) => {
         if (err) {
-            console.log(err);
+            console.log(err)
         }
         else {
             res.redirect('/projects');
