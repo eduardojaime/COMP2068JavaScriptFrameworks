@@ -1,0 +1,20 @@
+<h1>{{title}}</h1>
+{{!-- add link for navigation --}}
+<a href="/projects/add">Add a new Project</a>
+{{!-- show data --}}
+<table>
+    <thead>
+        <td>Name</td>
+        <td>Due Date</td>
+        <td>Course</td>
+        <td>Status</td>
+    </thead>
+    {{#each dataset}}
+    <tr>
+        <td>{{this.name}}</td>
+        <td>{{this.dueDate}}</td>
+        <td>{{this.course}}</td>
+        <td>{{this.status}}</td>
+    </tr>
+    {{/each}}
+</table>
