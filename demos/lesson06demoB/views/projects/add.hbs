@@ -12,7 +12,11 @@
     </fieldset>
     <fieldset>
         <label for="course" class="col-2">Course:</label>
-        <input name="course" id="course"/>
+        <select name="course" id="course">
+        {{#each courses}}
+            <option>{{this.name}}</option>
+        {{/each}}
+        </select>
     </fieldset>
     <button class="offset-3 btn btn-primary">Save</button>
 </form>

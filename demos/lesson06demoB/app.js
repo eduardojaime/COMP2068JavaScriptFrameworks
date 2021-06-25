@@ -4,10 +4,10 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-
 // Create a router object
 var indexRouter = require('./routes/index');
 var projectsRouter = require('./routes/projects');
+var coursesRouter = require('./routes/courses');
 
 var app = express();
 
@@ -24,6 +24,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // register path with the router
 app.use('/', indexRouter);
 app.use('/projects', projectsRouter);
+app.use('/courses', coursesRouter);
 
 // After all the custom routers/controllers
 // Import mongoose into the project
@@ -38,6 +39,21 @@ mongoose.connect(connectionString, { useNewUrlParser: true, useUnifiedTopology: 
   .catch((err) => {
     console.log(err);
   });
+
+// HBS helper method to select values from dropdown lists
+const hbs = require('hbs');
+
+hbs.registerHelper('createOption', (currentValue, selectedValue) => {
+  //initialize a attribute
+  var selectedAttribute = '';
+  if (currentValue == selectedValue) {
+    selectedAttribute = 'selected'
+  }
+  // render html code for an <option> element
+  // it will render <option selected>Text</option> if this is the selected option in Mongo
+  return new hbs.SafeString("<option " + selectedAttribute +">" + currentValue + "</option>");
+});
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
