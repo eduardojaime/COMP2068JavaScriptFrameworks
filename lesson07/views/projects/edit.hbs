@@ -14,7 +14,7 @@
     <label for="dueDate" class="col-2">
       Due Date:
     </label>
-    <input name="dueDate" id="dueDate" required value="{{project.dueDate}}" />
+    <input name="dueDate" id="dueDate" required type="date" value="{{toShortDate project.dueDate}}" />
   </fieldset>
   <fieldset>
     <label for="course" class="col-2">

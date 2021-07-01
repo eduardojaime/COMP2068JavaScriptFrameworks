@@ -16,7 +16,7 @@
   {{#each dataset}}
   <tr>
     <td>{{this.name}}</td>
-    <td>{{this.dueDate}}</td>
+    <td>{{toShortDate this.dueDate}}</td>
     <td>{{this.course}}</td>
     <td>{{this.status}}</td>
     <td><a href="/projects/edit/{{this._id}}" 

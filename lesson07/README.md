@@ -1,67 +1,81 @@
 # Instructions
 
-### Part 1 Modify your UI to show a dropdown list instead of a text box when adding a new project
+### Part 1 Part 1 Catch up from last week
 
-- In routes/projects.js:
-    - Reference course model.
-    - Call Course.find() inside get route associated to '/add'.
-    - Pass list to view as a parameter along with title
-    - Add .sort at the end of the find() clause
-- In views/projects/add
-    - Modify the view to accept two model objects: projects and courses
-    - Convert courses input tag into a select tag
-    - At this point, view will render an empty dropdown list
-    - Use the #each loop structure to add list items similar to what's done in Index.hbs
-        - Use the option tag and the name attribute of each element
-- Sort courses by modifying
+- In app.js
+    - Create hbs helper function 'shortDate' to format a date value to localedatestring
+- In Views/Projects/Index.hbs
+    - Modify this.dueDate to display formatted date
+- In Views/Projects/Edit.hbs
+    - Modify the dueDate input field to display formatted date
+        - Add type="date" back
+        - Call toShortDate function
 
-### Part 2 Improve Projects Index view: Delete links and format date
+For more info about HBS helper functions visit handlebarsjs.com.
 
-- Go to views/index.hbs
-    - Add a column to the table to add a link to /projects/delete/{ID}
-    - Add a bit of client-side JavaScript to add a confirmation message:
-        - Create scripts.js under /public/javascript
-        - Create confirmDeletion() function
-        - Add script reference to layout, so we can reuse it
-    - Back to index.hbs
-        - Associate the newly created function to the delete link via the onclick attribute
-- Go to routes/projects.js
-    - Add a GET handler for /delete
-    - Call the remove method of the Project model and pass id as parameter in a json object
-    - Redirect once it's done
+### Part 2 Implementing Passport
 
-### Part 3 Handle Editing a Project
+- Make sure project is not running and open a terminal
+    - Install the following packages via npm
+        - passport-local
+        - passport-local-mongoose
+        - express-session
+- In app.js
+    - Since our controllers will use passport, all related declarations must be places before the app = express() instruction
+        - Import passport and express-session
+        - Configure passport before any custom router/controller declaration (app.use())
+        - Call app.use and register:
+            - passport.initialize()
+            - passport.session();
+- In the models folder
+    - Create User.js
+        - Define schema and model the same way as any other model
+        - Since this is a special model for user management
+            - Import passport-local-mongoose
+            - Call userSchema.plugin(plm) to extend the model functionality and use the password salting/hashing feature
+            - https://github.com/expressjs/session#readme
+- In app.js
+    - Link passport to our model that extends passport-local-mongoose
+        - Import model
+        - Call passport.use and specify a strategy
+    - Set passport to read/write user data to/from session object
+        - Call passport.serializeUser to write user into to a session variable
+        - Call passport deserializeUser to get the information from the session variable
+            
+### Part 3 Add Register and Login functionality
 
-- In the views folder:
-    - Copy the Add.hbs view into a new view named Edit.hbs
-    - In /Projects/Index.hbs
-        - Modify the form to add a link to Edit the page
-        - Try it out > 404
-- Go to routes/projects.js to add a handler for /Edit
-    - Add GET handler for /edit/:_id
-    - Use the ID parameter to fetch this document
-        - Use findById()
-    - If found:
-        - Use the courses model object to get a list of courses, to pass them to the view
-        - Pass this document to the view to prepopulate the edit view
-- Go back to /Projects/Edit.hbs
-    - Add one more field set to display the Status
-        - Hardcode the options since they won't change
-    - Add value="" attributes to each field to link them to attributes in our model
-    - For the date there's still some formatting that needs to be applied
-        - For now remove the type attribute
-    - For selecting the correct value from the dropdown:
-        - Add an hbs helper function
-- Go to App.js
-    - Add the helper function after the database connection
-    - Use hbs.registerHelper()
-- Back to /Projects/Edit.hbs
-    - For Courses call the function inside the each statement for each option
-    - For Status call the function 3 times, one for each option
-- Go to /routes/projects.js
-    - Add a POST handler for /edit/:_id
-    - Use the model object and call findOneAndUpdate
-        - Pass id
-        - Pass a JSON object to map the properties
-        - Handle error
-        - If successful Redirect to /Projects
+- In the Views folder
+    - Create register.hbs
+    - Create login.hbs
+    - Copy the HTML code from Blackboard (Lesson 7 folder) to save time
+- In routes/index.js
+    - Add GET handler for '/register' and render register.hbs view with a title
+    - Add GET handler for '/login' and render login.hbs view with a title
+    - Try navigating to your pages
+- In views/layout
+    - Add links to login and register to the right side of your navbar
+    - Navbar link: https://www.w3schools.com/bootstrap4/bootstrap_navbar.asp
+    - Also add Bootstrap 4.6 from the CDN: https://www.bootstrapcdn.com/ scroll down to find 4.6
+- In routes/index.js
+    - Import the User model
+    - Add POST handler for '/register' and use the User module to register a new User
+        - User.register(new User(), password)
+        - Password gets passed as a separate parameter so that it can be hashed
+        - If registration is successful
+            - Call req.login() and pass the newuser object to log the user in
+            - Redirect to /projects page
+        - Try creating a new account and view MongoDB collection
+        - What's hash and salt?
+    - Add POST handler for '/login'
+        - Import passport in our file
+        - Instead of a regular middleware callback use passport.authenticate
+        - Specify success and failure redirect
+        - Failure message needs to be handled
+    - Modify the GET handler for '/login
+        - Get message from req.session.messages
+        - Clear out messages
+        - Pass the messages to the view
+    - In login.hbs
+        - Make sure messages are rendered
+            - Danger alert for invalid
+            - Info alert for prompting the user to enter their credentials
