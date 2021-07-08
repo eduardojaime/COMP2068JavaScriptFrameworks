@@ -1,6 +1,6 @@
 # Instructions
 
-### Part 1 Part 1 Catch up from last week
+### Part 1 Catch up from last week
 
 - In app.js
     - Create hbs helper function 'shortDate' to format a date value to localedatestring
@@ -10,13 +10,17 @@
     - Modify the dueDate input field to display formatted date
         - Add type="date" back
         - Call toShortDate function
+- In Views/Layout.hbs
+    - Add Bootstrap 4 CSS and JS links from CDN: https://www.bootstrapcdn.com/
+    - Add a Bootstrap navbar: https://www.w3schools.com/bootstrap4/bootstrap_navbar.asp
 
-For more info about HBS helper functions visit handlebarsjs.com.
+For more info about HBS helper functions visit handlebarsjs.com
 
 ### Part 2 Implementing Passport
 
 - Make sure project is not running and open a terminal
     - Install the following packages via npm
+        - passport
         - passport-local
         - passport-local-mongoose
         - express-session
@@ -54,8 +58,8 @@ For more info about HBS helper functions visit handlebarsjs.com.
     - Try navigating to your pages
 - In views/layout
     - Add links to login and register to the right side of your navbar
-    - Navbar link: https://www.w3schools.com/bootstrap4/bootstrap_navbar.asp
-    - Also add Bootstrap 4.6 from the CDN: https://www.bootstrapcdn.com/ scroll down to find 4.6
+        - Navbar link: https://www.w3schools.com/bootstrap4/bootstrap_navbar.asp
+        - Bootstrap 4.6 CDN: https://www.bootstrapcdn.com/ scroll down to find 4.6
 - In routes/index.js
     - Import the User model
     - Add POST handler for '/register' and use the User module to register a new User
@@ -65,7 +69,7 @@ For more info about HBS helper functions visit handlebarsjs.com.
             - Call req.login() and pass the newuser object to log the user in
             - Redirect to /projects page
         - Try creating a new account and view MongoDB collection
-        - What's hash and salt?
+            - What's hash and salt?
     - Add POST handler for '/login'
         - Import passport in our file
         - Instead of a regular middleware callback use passport.authenticate

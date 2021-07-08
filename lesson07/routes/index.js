@@ -11,6 +11,7 @@ router.get('/', function (req, res, next) {
 
 // GET handler for /login
 router.get('/login', (req, res, next) => {
+  // res.render('login', { title: 'Login' });
   // Obtain messages if any
   let messages = req.session.messages || [];
   // Clear messages
