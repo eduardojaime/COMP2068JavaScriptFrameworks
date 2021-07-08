@@ -1,0 +1,13 @@
+<h1>{{title}}</h1>
+{{!-- TODO: ADD NAVIGATION TO /ADD PAGE --}}
+<a href="/courses/add">Add a new Project</a>
+<table>
+    <thead>
+        <th>Name</th>
+    </thead>
+    {{#each dataset}}
+    <tr>
+        <td>{{this.name}}</td>
+    </tr>
+    {{/each}}
+</table>
