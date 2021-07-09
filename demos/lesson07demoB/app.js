@@ -9,6 +9,10 @@ var indexRouter = require('./routes/index');
 var projectsRouter = require('./routes/projects');
 var coursesRouter = require('./routes/courses');
 
+// Import passport and session
+const passport = require('passport');
+const session = require('express-session');
+
 var app = express();
 
 // view engine setup
@@ -20,6 +24,28 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+// configure session
+// https://www.npmjs.com/package/express-session
+app.use(session({
+  secret: 's2021projectTracker',
+  resave: false,
+  saveUninitialized: false
+}));
+
+// initialize and set passport session
+app.use(passport.initialize());
+// makes sure passport uses express-session to handle user session
+app.use(passport.session());
+
+// Link passport to a user model
+const User = require('./models/user');
+// Configure strategy to use: Local Strategy
+passport.use(User.createStrategy());
+
+// Set passport to write/read user data to/from session object
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 // register path with the router
 app.use('/', indexRouter);
@@ -54,6 +80,9 @@ hbs.registerHelper('createOption', (currentValue, selectedValue) => {
   return new hbs.SafeString("<option " + selectedAttribute +">" + currentValue + "</option>");
 });
 
+hbs.registerHelper('toShortDate', (longDateValue) =>{
+  return new hbs.SafeString(longDateValue.toLocaleDateString('en-CA'));
+});
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
