@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{title}}</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src="/javascript/script.js"></script>
+    {{!-- add Bootstrap https://www.bootstrapcdn.com/ --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">  </head>
+  <body>
+    {{!-- https://www.w3schools.com/bootstrap4/bootstrap_navbar.asp --}}
+    <!-- Grey with black text -->
+      <nav class="navbar navbar-expand-sm bg-light navbar-light">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Active</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/Projects">Projects</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/Courses">Courses</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+          {{#if user}}
+            <li class="nav-item"><a class="nav-link" href="#">{{user.username}}</a></li>
+            <li class="nav-item"><a class="nav-link" href="/Logout">Logout</a></li>
+          {{else}}
+            <li class="nav-item"><a class="nav-link" href="/Register">Register</a></li>
+            <li class="nav-item"><a class="nav-link" href="/Login">Login</a></li>
+          {{/if}}
+        </ul>
+    </nav>
+    {{{body}}}
+    {{!-- Add bootstrap --}}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
+  </body>
+</html>

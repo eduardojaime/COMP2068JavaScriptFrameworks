@@ -1,0 +1,51 @@
+<h1>
+  {{title}}
+</h1>
+<form method="POST">
+  {{! Input names have to match the name of the fields in the mongo schema object }}
+  {{! Mapping is not automatic, but it's best practices }}
+  <fieldset>
+    <label for="name" class="col-2" >
+      Name:
+    </label>
+    <input name="name" id="name" required value="{{project.name}}"/>
+  </fieldset>
+  <fieldset>
+    <label for="dueDate" class="col-2">
+      Due Date:
+    </label>
+    <input name="dueDate" id="dueDate" required type="date" value="{{toShortDate project.dueDate}}" />
+  </fieldset>
+  <fieldset>
+    <label for="course" class="col-2">
+      Course:
+    </label>
+    <select name="course" id="course">
+      {{#each courses}}
+        <!--<option>{{this.name}}</option>-->
+        {{!-- Modify this block of code with a helper method (app.js) to add a selected option --}}
+        {{createOption this.name ../project.course }}
+      {{/each}}
+    </select>
+  </fieldset>
+  {{!-- Add fieldsets for Status --}}
+  <fieldset>
+    <label for="status" class="col-2">
+      Status:
+    </label>
+    <select name="status" id="status">
+      {{!-- Hardcode values as these won't change --}}
+      {{!-- <option>TO DO</option>
+      <option>IN PROGRESS</option>
+      <option>DONE</option> --}}
+      {{!-- Use helper instead --}}
+      {{createOption 'TO DO' ../project.status}}
+      {{createOption 'IN PROGRESS' ../project.status}}
+      {{createOption 'DONE' ../project.status}}
+    </select>
+  </fieldset>
+  {{! Button needs to be inside <form> element to trigger POST }}
+  <button class="offset-3 btn btn-primary">
+    Save
+  </button>
+</form>
