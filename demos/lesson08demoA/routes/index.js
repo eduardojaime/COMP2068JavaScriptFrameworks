@@ -25,7 +25,7 @@ router.get('/login', (req, res, next) => {
 // POST handler for login
 // Syntax will be a bit different since I'll use the passport module directly
 router.post('/login', passport.authenticate('local', {
-  succcessRedirect: '/projects',
+  successRedirect: '/projects',
   failureRedirect: '/login',
   failureMessage: 'Invalid Credentials'
 }));
