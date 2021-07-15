@@ -37,8 +37,8 @@ router.get('/register', (req, res, next) => {
 router.post('/register', (req, res, next) => {
   // Create a new user based on the information from the page
   User.register(new User({
-      username: req.body.username
-    }),
+    username: req.body.username
+  }),
     req.body.password,
     (err, newUser) => {
       if (err) {
@@ -62,5 +62,20 @@ router.get('/logout', (req, res, next) => {
   // redirect to login page
   res.redirect('/login');
 });
+
+// GET handler for /github
+// call passport authenticate and pass the name of the stragety 
+// and the information we require from github
+router.get('/github', passport.authenticate('github', { scope: ['user.email'] }));
+
+// GET handler for /github/callback 
+// this is the url they come back to after entering their credentials
+router.get('/github/callback',
+  // callback to send user back to login if unsuccessful
+  passport.authenticate('github', { failureRedirect: '/login' }),
+  // callback when login is successful
+  (req, res, next) => { res.redirect('/projects') }
+);
+
 
 module.exports = router;

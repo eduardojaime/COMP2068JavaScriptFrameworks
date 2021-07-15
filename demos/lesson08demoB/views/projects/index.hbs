@@ -1,0 +1,27 @@
+<h1>{{title}}</h1>
+{{!-- TODO: ADD NAVIGATION TO /ADD PAGE --}}
+<a href="/projects/add">Add a new Project</a>
+{{!-- TODO: ADD A TABLE TO DISPLAY ALL MY PROJECTS IN MY DB --}}
+<table>
+    <thead>
+        <th>Name</th>
+        <th>Due Date</th>
+        <th>Course</th>
+        <th>Status</th>
+        <th></th>
+    </thead>
+    {{#each dataset}}
+    <tr>
+        <td>{{this.name}}</td>
+        <td>{{toShortDate this.dueDate}}</td>
+        <td>{{this.course}}</td>
+        <td>{{this.status}}</td>
+        <td>
+            <a href="/projects/edit/{{this._id}}" class="btn btn-primary">Edit</a>
+            <a href="/projects/delete/{{this._id}}" 
+                class="btn btn-danger"
+                onclick="return confirmDeletion();">Delete</a>
+        </td>
+    </tr>
+    {{/each}}
+</table>

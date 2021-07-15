@@ -4,7 +4,10 @@ const plm = require('passport-local-mongoose');
 
 var userSchemaDefinition = {
     username: String,
-    password: String
+    password: String,
+    oauthId: String,
+    oauthProvider: String,
+    created: Date
 }
 
 var userSchema = new mongoose.Schema(userSchemaDefinition);

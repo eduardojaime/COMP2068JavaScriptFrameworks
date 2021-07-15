@@ -3,20 +3,21 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-// Import Mongoose into the project after installing it
+
+// import mongoose
 const mongoose = require('mongoose');
 
-// Create router objects
+// create the router/controller object
 var indexRouter = require('./routes/index');
 var projectsRouter = require('./routes/projects');
-var coursesRouter = require('./routes/courses');
+const coursesRouter = require('./routes/courses');
 
-// Import passport modules
 const passport = require('passport');
 const session = require('express-session');
+// Import the new strategy from the package we installed
 const githubStrategy = require('passport-github2').Strategy;
 
-// Import globals file
+// Import global config file
 const config = require('./config/globals');
 
 var app = express();
@@ -31,103 +32,92 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Configure passport module https://www.npmjs.com/package/express-session
-// secret is a salt value used for hashing
-// save forces the session to be saved back to the session store 
-// even if it's never modified during the request
+// Configure passport session cookie
 app.use(session({
-  secret: 's2021pr0j3ctTracker',
+  secret: 's2021projectTracker',
   resave: false,
   saveUninitialized: false
 }));
 
 // Initialize passport
 app.use(passport.initialize());
+// Makes sure passport uses the configured session (express-session)
 app.use(passport.session());
 
 // Link passport to the user model
 const User = require('./models/user');
+// use default local strategy > username/password
 passport.use(User.createStrategy());
 
-// Configure passport-github2 with the API keys and user model
-// We need to handle two scenarios: new user, or returning user
+// configure github strategy
+// first parameter is the strategy object
+// second is a callback function that handles this authentication
 passport.use(new githubStrategy({
-  clientID: config.github.clientId,
-  clientSecret: config.github.clientSecret,
-  callbackURL: config.github.callbackUrl
-},
-  // create async callback function
-  // profile is github profile
+    clientID: config.github.clientId,
+    clientSecret: config.github.clientSecret,
+    callbackURL: config.github.callbackUrl
+  }, 
   async (accessToken, refreshToken, profile, done) => {
-    // search user by ID
+    // search user by ID 
     const user = await User.findOne({ oauthId: profile.id });
-    // user exists (returning user)
+    // user exist (returning user)
     if (user) {
-      // no need to do anything else
       return done(null, user);
     }
     else {
-      // new user so register them in the db
+      // new user, register them in the db
       const newUser = new User({
         username: profile.username,
         oauthId: profile.id,
         oauthProvider: 'Github',
         created: Date.now()
       });
-      // add to DB
+      // add to db
       const savedUser = await newUser.save();
-      // return
       return done(null, savedUser);
     }
-  }
-));
+  })
+);
 
-// Set passport to write/read user data to/from session object
+// set passport to write/read user data to/from session object
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-// Register router objects
+
+// Use the router object associated to a path
 app.use('/', indexRouter);
 app.use('/projects', projectsRouter);
 app.use('/courses', coursesRouter);
 
-// Option 1) Hardcode connection string and connect
-let userName = 'admin';
-let password = 'comp2068strongpass2021';
-let connectionString = `mongodb+srv://${userName}:${password}@cluster0.86msx.mongodb.net/comp2068`;
-// Option 2) Add connection string to Config file
-// const config = require('./config/globals');
-// let connectionString = config.db;
-
-// Use the connect method, and the two handlers to try to connect to the DB
+// After all the use methods for my routes
+// need a connection string
+const connectionString = 'mongodb+srv://admin:<password>@cluster0.86msx.mongodb.net/comp2068';
 mongoose.connect(connectionString, { useNewUrlParser: true, useUnifiedTopology: true })
   .then((message) => {
     console.log('Connected successfully!');
   })
-  .catch((error) => {
-    console.log(`Error while connecting! ${error}`);
+  .catch((err) => {
+    console.log(err);
   });
 
-// HBS Helper Method to select values from dropdown lists
+// Register hbs helper function for selecting options in dropdown list
 const hbs = require('hbs');
-const e = require('express');
-// function name and helper function with parameters
+
 hbs.registerHelper('createOption', (currentValue, selectedValue) => {
-  // initialize selected property
-  var selectedProperty = '';
-  // if values are equal set selectedProperty accordingly
+  var selectedAttribute = '';
   if (currentValue == selectedValue) {
-    selectedProperty = 'selected';
+    selectedAttribute = 'selected';
   }
-  // return html code for this option element
-  // return new hbs.SafeString('<option '+ selectedProperty +'>' + currentValue + '</option>');
-  return new hbs.SafeString(`<option ${selectedProperty}>${currentValue}</option>`);
+  // use templates for simplicity
+  // return new hbs.safeString(`<option ${selectedAttribute}>${currentValue}</option>`);
+  return new hbs.SafeString('<option '+ selectedAttribute +'>' + currentValue + '</option>');
 });
 
-// helper function to format date values
-hbs.registerHelper('toShortDate', (longDateValue) => {
-  return new hbs.SafeString(longDateValue.toLocaleDateString('en-CA'));
+// Converts long date to yyyy-MM-dd
+hbs.registerHelper('toShortDate', (longDateValue)=>{
+  return new hbs.SafeString(longDateValue.toLocaleDateString("en-CA"));
 });
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

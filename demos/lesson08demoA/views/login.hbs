@@ -1,16 +1,16 @@
 <h1>
-  Login
+  {{ title }}
 </h1>
-
 {{#if messages}}
-    <div class="alert alert-danger">
-        Invalid credentials
-    </div>
+<div class="alert alert-danger">
+    Invalid Credentials
+</div>
 {{else}}
-    <div class="alert alert-info">
-        Please enter your credentials
-    </div>
+<div class="alert alert-info">
+    Please enter your Credentials
+</div>
 {{/if}}
+
 <form method="post">
   <fieldset class="form-group">
     <label for="username" class="col-2 control-label">
@@ -28,7 +28,7 @@
     <button class="btn btn-info offset-3">
       Login
     </button>
-    <a class="btn btn-info" href="/github">Login with Github</a>
+    <a href="/github" class="btn btn-info">Login with GitHub</a>
     <hr />
     Need an account?
     <a href="/register" title="Register">

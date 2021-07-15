@@ -1,0 +1,14 @@
+<h1>{{title}}</h1>
+{{!-- add link for navigation --}}
+<a href="/courses/add">Add a new Course</a>
+{{!-- show data --}}
+<table>
+    <thead>
+        <td>Name</td>
+    </thead>
+    {{#each dataset}}
+    <tr>
+        <td>{{this.name}}</td>
+    </tr>
+    {{/each}}
+</table>
