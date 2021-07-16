@@ -5,9 +5,18 @@ const router = express.Router();
 // Also import this...
 const Course = require('../models/course');
 
+function IsLoggedIn(req, res, next) {
+    if (req.isAuthenticated()) {
+        // User is authenticated, just continue processing
+        return next();
+    }
+    // short-circuit pipeline > send annonymous user to a login page   
+    res.redirect('/login');
+}
+
 // Step 2 Define routes and middleware > 3 operations: show all courses, get to add, post to add
 // GET handler for /courses
-router.get('/', (req, res, next) => {
+router.get('/', IsLoggedIn, (req, res, next) => {
     Course.find((err, courses) => {
         if (err) {
             console.log(err);
@@ -24,12 +33,12 @@ router.get('/', (req, res, next) => {
 });
 
 // GET handler for /courses/add
-router.get('/add', (req, res, next) => {
+router.get('/add', IsLoggedIn, (req, res, next) => {
     res.render('courses/add', { title: 'Add a new Course', user: req.user });
 });
 
 // POST handler for /courses/add
-router.post('/add', (req, res, next) => {
+router.post('/add', IsLoggedIn, (req, res, next) => {
     // Use the ?? object to create a new document
     Course.create({
         name: req.body.name

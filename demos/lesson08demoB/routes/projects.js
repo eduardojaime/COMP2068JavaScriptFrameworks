@@ -6,11 +6,20 @@ const router = express.Router();
 const Project = require('../models/project');
 const Course = require('../models/course');
 
+function IsLoggedIn(req, res, next) {
+    if (req.isAuthenticated()) {
+        // User is authenticated, just continue processing
+        return next();
+    }
+    // short-circuit pipeline > send annonymous user to a login page   
+    res.redirect('/login');
+}
+
 // use the router object to associate a Path with a Middleware (function)
 // Path is the part of your URL after / 
 // e.g. localhost:3000/Projects > path is /projects
 // Route is the rule > combination of path and middleware
-router.get('/', (req, res, next) => {
+router.get('/', IsLoggedIn, (req, res, next) => {
     // res.render('projects/index', { title: 'Project Tracker' });
     Project.find((err, projects) => {
         if (err) {
@@ -27,7 +36,7 @@ router.get('/', (req, res, next) => {
 });
 
 // Route for GET to /Projects/Add
-router.get('/add', (req, res, next) => {
+router.get('/add', IsLoggedIn, (req, res, next) => {
     // res.render('projects/add', { title: 'Add a new Project' });
     // How can I return a list of courses?
     Course.find((err, courses) => {
@@ -45,7 +54,7 @@ router.get('/add', (req, res, next) => {
 });
 
 // configure the route to handle POST to /add
-router.post('/add', (req, res, next) => {
+router.post('/add', IsLoggedIn, (req, res, next) => {
     Project.create(
         {
             name: req.body.name,
@@ -64,7 +73,7 @@ router.post('/add', (req, res, next) => {
 });
 
 // GET handler for /projects/delete/_id
-router.get('/delete/:_id', (req, res, next) => {
+router.get('/delete/:_id', IsLoggedIn, (req, res, next) => {
     Project.remove(
         {
             _id: req.params._id
@@ -80,7 +89,7 @@ router.get('/delete/:_id', (req, res, next) => {
 });
 
 // GET handler for /projects/edit/_id 
-router.get('/edit/:_id', (req, res, next) => {
+router.get('/edit/:_id', IsLoggedIn, (req, res, next) => {
     // res.render('projects/edit', { title: 'Update a Project' });
     Project.findById(req.params._id, (err, project) => {
         if (err) {
@@ -104,7 +113,7 @@ router.get('/edit/:_id', (req, res, next) => {
     })
 });
 // POST handler for /projects/edit/id
-router.post('/edit/:_id', (req, res, next) => {
+router.post('/edit/:_id', IsLoggedIn, (req, res, next) => {
     Project.findOneAndUpdate(
         {   // filter to identify the document in the DB
             _id: req.params._id
