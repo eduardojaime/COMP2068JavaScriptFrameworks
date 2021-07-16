@@ -64,4 +64,16 @@ router.get('/logout', (req, res, next) => {
 });
 
 
+// GET handler for /github
+router.get('/github', passport.authenticate('github', { scope: ["user.email"] }));
+
+// GET handler for /github/callback
+router.get('/github/callback', 
+  passport.authenticate('github', { failureRedirect: '/login'}),
+  (req, res, next) => {
+    res.redirect('/projects');
+  }
+);
+
+
 module.exports = router;
