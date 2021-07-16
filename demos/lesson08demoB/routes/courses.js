@@ -16,7 +16,8 @@ router.get('/', (req, res, next) => {
             // I have a list of courses?? how to send them back to the view?
             res.render('courses/index', {
                 title: 'Course List',
-                dataset: courses
+                dataset: courses,
+                user: req.user
             });
         }
     });
@@ -24,7 +25,7 @@ router.get('/', (req, res, next) => {
 
 // GET handler for /courses/add
 router.get('/add', (req, res, next) => {
-    res.render('courses/add', { title: 'Add a new Course' });
+    res.render('courses/add', { title: 'Add a new Course', user: req.user });
 });
 
 // POST handler for /courses/add

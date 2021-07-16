@@ -6,7 +6,7 @@ const passport = require('passport');
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-  res.render('index', { title: 'Express' });
+  res.render('index', { title: 'Express', user: req.user });
 });
 
 // GET handlers for Login
@@ -53,6 +53,14 @@ router.post('/register', (req, res, next) => {
         });
       }
     });
+});
+
+// GET handler for /Logout
+router.get('/logout', (req, res, next) => {
+  // log the user out using the request object
+  req.logout();
+  // send them back to login
+  res.redirect('/login');
 });
 
 
