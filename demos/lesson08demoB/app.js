@@ -12,6 +12,10 @@ var coursesRouter = require('./routes/courses');
 // Import passport and session
 const passport = require('passport');
 const session = require('express-session');
+// Import strategy class from passport-github2 package
+const githubStrategy = require('passport-github2').Strategy;
+// Import global configs file
+const config = require('./config/globals');
 
 var app = express();
 
@@ -42,6 +46,38 @@ app.use(passport.session());
 const User = require('./models/user');
 // Configure strategy to use: Local Strategy
 passport.use(User.createStrategy());
+// Configure strategy to use: Github Strategy
+passport.use(new githubStrategy(
+  {
+    clientID: config.github.clientId,
+    clientSecret: config.github.clientSecret,
+    callbackURL: config.github.callbackURL
+  },
+  // callback function handle whether there's already a user in the DB
+  async (accessToken, refreshToken, profile, done) => {
+    // determine if we already have a user in our DB
+    const user = await User.findOne({ oauthId: profile.id });
+    // Handle new or returning user
+    if (user) {
+      // returning user, already in my db
+      return done(null, user);
+    }
+    else {
+      // user doesn't exist in my db
+      const newUser = new User(
+        {
+          username: profile.username,
+          oauthId: profile.id,
+          oauthProvider: 'Github',
+          created: Date.now()
+        }        
+      );
+      const savedUser = await newUser.save();
+
+      return done(null, savedUser);
+    }
+  }
+));
 
 // Set passport to write/read user data to/from session object
 passport.serializeUser(User.serializeUser());
