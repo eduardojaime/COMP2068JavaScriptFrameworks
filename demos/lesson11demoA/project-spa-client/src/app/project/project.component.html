@@ -13,7 +13,8 @@
         <input name="course" id="course" required [(ngModel)]="course" />
     </fieldset>
     <!-- Handle click event -->
-    <button class="btn btn-primary offset-3" (click)="addProject()">Save</button>
+    <button class="btn btn-primary offset-3" (click)="addProject()" *ngIf="!this._id">Save</button>
+    <button class="btn btn-success offset-3" (click)="updateProject()" *ngIf="this._id" >Update</button>
 </form>
 <hr>
 <table class="table table-striped table-hover">
@@ -32,6 +33,7 @@
             <td>{{project.dueDate | date}}</td>
             <td>{{project.course}}</td>
             <td>
+                <button class="btn btn-info" (click)="selectProject(project)">Edit</button>
                 <button class="btn btn-danger" (click)="deleteProject(project._id)">Delete</button>
             </td>
         </tr>

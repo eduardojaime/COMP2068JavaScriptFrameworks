@@ -14,6 +14,8 @@ export class ProjectComponent implements OnInit {
   constructor(private projectService: ProjectService) { }
   // create variable to hold list of projects to pass to view
   projects: any;
+  // create variable to hold id of selected project
+  _id!: string;
   // create variables to hold project info captured in the UI
   name!: string;
   dueDate!: string;
@@ -53,7 +55,35 @@ export class ProjectComponent implements OnInit {
     }
   }
 
+  selectProject(project: any): void {
+    this._id = project._id;
+    this.name = project.name;
+    this.dueDate = project.dueDate;
+    this.course = project.course;
+  }
+
+  updateProject() : void {
+    // use the values loaded in the input fields to create a new object
+    // new object includes an ID that will be used for updating it in the server
+    // Prepare data
+    let selectedProject = {
+      _id: this._id,
+      name: this.name,
+      dueDate: this.dueDate,
+      course: this.course
+    }
+
+    // call the service
+    this.projectService.updateProject(selectedProject).subscribe(response => {
+      this.getProjects();
+    });
+
+    // cleanup
+    this.clearForm();
+  }
+
   clearForm():void {
+    this._id = ''; // make sure to clear id out or you might be saving/updating the wrong project
     this.name = '';
     this.dueDate = '';
     this.course = '';

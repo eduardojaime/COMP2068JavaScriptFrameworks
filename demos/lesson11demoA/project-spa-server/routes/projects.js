@@ -55,4 +55,17 @@ router.delete('/:_id', (req, res, next) => {
     });
 });
 
+// PUT handler for /projects, project to be updated is received in the request body
+router.put('/', (req, res, next) => {
+    // find one and update based on id sent in request body object
+    Project.findOneAndUpdate({ _id: req.body._id }, req.body, (err, project) => {
+        if (err) {
+            return res.json(err).status(400);
+        }
+        else {
+            return res.json(project).status(202); // resource accepted
+        }
+    });
+});
+
 module.exports = router;

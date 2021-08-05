@@ -25,4 +25,8 @@ export class ProjectService {
     return this.http.delete(environment.serverApiUrl + '/projects/' + _id);
   }
 
+  updateProject(selectedProject: any) {
+    return this.http.put(environment.serverApiUrl + '/projects', selectedProject);
+  }
+
 }
