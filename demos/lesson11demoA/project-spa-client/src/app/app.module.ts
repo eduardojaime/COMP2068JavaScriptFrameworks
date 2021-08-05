@@ -5,15 +5,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ProjectComponent } from './project/project.component';
 
-// Import service and http client
-import { ProjectService } from './services/project.service';
+// import httpclientmodule and project service
 import { HttpClientModule } from '@angular/common/http';
-
-// Import FormsModule to enable data-binding for add/edit
+import { ProjectService } from './services/project.service';
+// import FormsModule to be able to use 2way data binding
 import { FormsModule } from '@angular/forms';
 
-
-// Add imported modules to the application
+// configure the app to use these two
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,8 +23,8 @@ import { FormsModule } from '@angular/forms';
     HttpClientModule,
     FormsModule
   ],
-  // Provider is something that gets data
+  // provider is something that gets data
   providers: [ProjectService],
-  bootstrap: [ProjectComponent]
+  bootstrap: [ProjectComponent] // [AppComponent]
 })
 export class AppModule { }

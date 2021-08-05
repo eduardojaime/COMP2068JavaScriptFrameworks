@@ -2,9 +2,10 @@
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+// no slash in apiurl
 export const environment = {
   production: false,
-  serverAPI: 'http://localhost:3000'
+  serverApiUrl: 'http://localhost:3000'
 };
 
 /*
