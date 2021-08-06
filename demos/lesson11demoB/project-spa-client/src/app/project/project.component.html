@@ -16,7 +16,8 @@
         <input name="course" id="course" required [(ngModel)]="course" />
     </fieldset>
     <!-- Add event biding using (click) -->
-    <button class="btn btn-primary offset-3" (click)="addProject()">Save</button>
+    <button class="btn btn-primary offset-3" *ngIf="!this._id" (click)="addProject()">Save</button>
+    <button class="btn btn-success offset-3" *ngIf="this._id" (click)="updateProject()" >Update</button> 
 </form>
 
 <hr>
@@ -27,6 +28,7 @@
             <td>Name</td>
             <td>Due Date</td>
             <td>Course</td>
+            <td></td>
         </tr>
     </thead>
     <!-- Syntax to loop through a list -->
@@ -36,6 +38,11 @@
             <td>{{project.name}}</td>
             <td>{{project.dueDate | date}}</td>
             <td>{{project.course}}</td>
+            <td>
+                <a class="btn btn-info" (click)="selectProject(project)">Edit</a>
+                &nbsp;
+                <a class="btn btn-danger" (click)="deleteProject(project._id)" >Delete</a>
+            </td>
         </tr>
     </tbody>
 </table>

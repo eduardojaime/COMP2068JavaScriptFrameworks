@@ -23,4 +23,15 @@ export class ProjectService {
     return this.http.post(this.projectsApiUrl, newProject);
   }
 
+  updateProject(selectedProject: any) {
+    return this.http.put(this.projectsApiUrl, selectedProject);
+  }
+
+  deleteProject(_id: any) {
+    // passing id value as part of the request url
+    // request url looks like this
+    // http://localhost:3000/Projects/60d622d14fc7aa13d4420243
+    return this.http.delete(this.projectsApiUrl + '/' + _id);
+  }
+
 }
