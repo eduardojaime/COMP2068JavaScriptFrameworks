@@ -29,7 +29,19 @@ router.get('/', (req, res, next) => {
             return res.json(projects).status(200); //OK success
         }
     });
-
 });
+
+// POST handler for /Projects
+router.post('/', (req, res, next) => {
+    Project.create(req.body, (err, project) => {
+        if (err) {
+            return res.json(err).status(501);
+        }
+        else {
+            return res.json(project).status(201); // resource created
+        }
+    });
+});
+
 
 module.exports = router;

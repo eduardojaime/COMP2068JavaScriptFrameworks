@@ -8,6 +8,8 @@ import { ProjectComponent } from './project/project.component';
 // import HttClientModule and Project Service class
 import { HttpClientModule } from '@angular/common/http';
 import { ProjectService } from './services/project.service';
+// Import FormsModule to enable binding my form fields
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,8 @@ import { ProjectService } from './services/project.service';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [ProjectService],
   bootstrap: [ProjectComponent]

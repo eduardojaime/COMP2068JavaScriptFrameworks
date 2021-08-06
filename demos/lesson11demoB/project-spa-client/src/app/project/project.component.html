@@ -1,4 +1,26 @@
 <h1>Project Tracker</h1>
+
+<hr>
+
+<form>
+    <fieldset class="form-group">
+        <label for="name" class="col-3">Name: </label>
+        <input name="name" id="name" required [(ngModel)]="name" />
+    </fieldset>
+    <fieldset class="form-group">
+        <label for="dueDate" class="col-3">Due Date: </label>
+        <input name="dueDate" id="dueDate" required [(ngModel)]="dueDate" />
+    </fieldset>
+    <fieldset class="form-group">
+        <label for="course" class="col-3">Course: </label>
+        <input name="course" id="course" required [(ngModel)]="course" />
+    </fieldset>
+    <!-- Add event biding using (click) -->
+    <button class="btn btn-primary offset-3" (click)="addProject()">Save</button>
+</form>
+
+<hr>
+
 <table class="table table-striped table-hover">
     <thead>
         <tr>
@@ -9,9 +31,11 @@
     </thead>
     <!-- Syntax to loop through a list -->
     <!-- foreach(var project in projects) -->
-    <tr *ngFor="let project of projects">
-        <td>{{project.name}}</td>
-        <td>{{project.dueDate}}</td>
-        <td>{{project.course}}</td>
-    </tr>
+    <tbody>
+        <tr *ngFor="let project of projects">
+            <td>{{project.name}}</td>
+            <td>{{project.dueDate | date}}</td>
+            <td>{{project.course}}</td>
+        </tr>
+    </tbody>
 </table>
