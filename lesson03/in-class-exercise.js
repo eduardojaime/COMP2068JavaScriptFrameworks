@@ -1,6 +1,6 @@
 // Complete the code below to print the numbers from 1 to 20
 // run this app using the 'node' command in the terminal
-// open a browser and navigate to http://localost:3000
+// open a browser and navigate to http://localhost:3000
 let http = ____________('http');
 
 http.createServer((req, res) =>  {

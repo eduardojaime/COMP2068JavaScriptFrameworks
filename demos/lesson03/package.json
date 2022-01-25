@@ -1,0 +1,20 @@
+{
+  "name": "lesson03",
+  "version": "1.0.0",
+  "description": "This lesson demonstrates how to use the Connect module",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [
+    "connect",
+    "lu",
+    "node"
+  ],
+  "author": "Eduardo Jaime",
+  "license": "ISC",
+  "dependencies": {
+    "connect": "^3.7.0"
+  }
+}

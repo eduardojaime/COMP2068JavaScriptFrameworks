@@ -7,7 +7,7 @@ const http = require('http');
 // use method chaining to call listen()
 http.createServer((request, response) => {
     // tell the client that this was successful and I'm sending back plain text
-    response.writeHead(200, { 'Content-Type': 'text-plain' });
+    response.writeHead(200, { 'Content-Type': 'text/plain' });
     // Send some text content
     response.write('Hello World!');
     // mark response as finished
