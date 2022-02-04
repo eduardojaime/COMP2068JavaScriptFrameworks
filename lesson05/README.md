@@ -1,23 +1,21 @@
 # Instructions
 
-### Part 1 Create and Configure a Mongo database
-
+### Part 1 Creating and Configuring a Mongo database
 - Go to Mongo Cloud Atlas and Sign up for an account
-- Install MongoDB Compass
-- Create cluster
-- Set up access via Security > DB Access
-- Set up IP Whitelist > Security > Network Access
-    - Add 0.0.0.0/0 to allow all IP addresses
-- Check cluster is running
-- Check collections
-    - List of collections must be empty
-- Click on Connect, select Compass to get the connection string needed for the project
+    - Create cluster
+    - Set up access via Security > DB Access
+    - Set up IP Whitelist > Security > Network Access
+        - Add 0.0.0.0/0 to allow all IP addresses
+    - Check cluster is running
+    - Check collections
+        - List of collections must be empty
+    - Click on Connect, select Compass to get the connection string needed for the project
+- Install MongoDB Compass tool
 - Open Compass and connect
     - Create a new DB
     - Set default collection as Projects
 
-### Part 2 Create a Project Tracker Application
-
+### Part 2 Creating a Project Tracker Application
 - Use Express Generator to create a new app using scaffolding
     - Create a new folder using the command line
     - Run command:
@@ -44,8 +42,7 @@
         - In app.js:
             - Create router object
             - Use router object on '/projects' endpoint
-### Part 3 Connect 
-
+### Part 3 Connecting our Application to MongoDB 
 - Search for mongoose on https://npmjs.com
 - Install mongoose package
     - npm i mongoose
@@ -63,8 +60,7 @@
             - Create a json object called configuration than will include key value pairs
             - Export this object
             
-### Part 4 Create a Model and bind it to the UI to add new projects
-
+### Part 4 Creating a Model and bind it to the UI to add new projects
 - Create a folder in the root called models
 - Create a projects.js file inside of this folder
     - Import mongoose into the  file and create object
@@ -98,8 +94,7 @@
 - Navigate to /Projects/Add and try it out
 - Open MongoDB Compass and explore the collection
 
-### Part 5 Show a list of data
-
+### Part 5 Showing a list of data
 - On Routes/Projects.js
     - Go back to GET handler for '/'
     - Move const Project at the top
