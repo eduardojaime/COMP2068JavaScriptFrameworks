@@ -3,6 +3,8 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+// Import mongoose into the project
+const mongoose = require('mongoose');
 
 // Router objects
 var indexRouter = require('./routes/index');
@@ -24,13 +26,25 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/projects', projectsRouter);
 
+// After custom routes, use the connect method to open a connection to your mongodb cluster
+let connectionString = 'mongodb+srv://admin:strongpassword2022@cluster0.86msx.mongodb.net/projecttracker';
+mongoose.connect(connectionString, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then((message) => {
+    console.log('Connected successfully!');
+  })
+  .catch((error) => {
+    // Use tilde for string interpolation `
+    console.log(`Error while connection! ${error}`);
+  });
+
+
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};

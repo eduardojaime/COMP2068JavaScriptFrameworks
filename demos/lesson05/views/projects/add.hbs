@@ -1,0 +1,22 @@
+<h1>
+  {{title}}
+</h1>
+{{! POST is the most common way for sending data to the server }}
+<form method="POST">
+  {{! Input names have to match the attributes in our model }}
+  <fieldset>
+    <label for="name" class="col-2">Name:</label>
+    <input name="name" id="name" required />
+  </fieldset>
+  <fieldset>
+    <label for="dueDate" class="col-2">Due date:</label>
+    <input name="dueDate" id="dueDate" type="date" />
+  </fieldset>
+  <fieldset>
+    <label for="course" class="col-2">Course:</label>
+    <input name="course" id="course" />
+  </fieldset>
+  {{!-- What happens to STATUS??? --}}
+  {{!-- Add a button to trigger the POST request --}}
+  <button class="offset-3 btn btn-primary">Save</button>
+</form>
