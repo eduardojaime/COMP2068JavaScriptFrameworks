@@ -1,0 +1,30 @@
+<h1>{{title}}</h1>
+{{!-- Add links to CRUD operations --}}
+<a href="/projects/add" class="btn btn-primary">Add a new project</a>
+<a href="/courses" class="btn btn-primary">Manage Courses</a>
+
+{{!-- Add a table to show data --}}
+{{!-- To Show data --}}
+<table class="table table-striped table-hover">
+  <thead>
+    <th>Name</th>
+    <th>Due Date</th>
+    <th>Course</th>
+    <th>Status</th>
+    <th>Actions</th>
+  </thead>
+  {{!-- dataset is a list of projects --}}
+  {{#each dataset}}
+  <tr>
+    <td>{{this.name}}</td>
+    <td>{{this.dueDate}}</td>
+    <td>{{this.course}}</td>
+    <td>{{this.status}}</td>
+    <td>
+      {{!-- Add edit and delete buttons --}}
+      <a href="/projects/edit/{{this._id}}" class="btn btn-success">Edit</a>
+      <a href="/projects/delete/{{this._id}}" class="btn btn-danger" onclick="return confirmDeletion();">Delete</a>
+    </td>
+  </tr>
+  {{/each}}
+</table>
