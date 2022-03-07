@@ -16,6 +16,7 @@
   {{#each dataset}}
   <tr>
     <td>{{this.name}}</td>
+    {{!-- Use the hbs helper function to format the date accordingly --}}
     <td>{{toShortDate this.dueDate}}</td>
     <td>{{this.course}}</td>
     <td>{{this.status}}</td>

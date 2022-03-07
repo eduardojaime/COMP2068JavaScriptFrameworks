@@ -12,6 +12,7 @@ router.get('/', function (req, res, next) {
 // GET handler for /login
 router.get('/login', (req, res, next) => {
   // res.render('login', { title: 'Login' });
+  
   // Obtain messages if any
   let messages = req.session.messages || [];
   // Clear messages
@@ -36,6 +37,7 @@ router.get('/register', (req, res, next) => {
 //POST handler for /register
 router.post('/register', (req, res, next) => {
   // Create a new user based on the information from the page
+  // three parameters: new user object, password, callback function
   User.register(new User({
       username: req.body.username
     }),

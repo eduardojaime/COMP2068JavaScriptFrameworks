@@ -49,7 +49,6 @@ passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-
 // Register router objects
 app.use('/', indexRouter);
 app.use('/projects', projectsRouter);

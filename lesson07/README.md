@@ -3,7 +3,7 @@
 ### Part 1 Catch up from last week
 
 - In app.js
-    - Create hbs helper function 'shortDate' to format a date value to localedatestring
+    - Create hbs helper function 'toShortDate' to format a date value to localeDatestring('en-CA')
 - In Views/Projects/Index.hbs
     - Modify this.dueDate to display formatted date
 - In Views/Projects/Edit.hbs
@@ -25,7 +25,7 @@ For more info about HBS helper functions visit handlebarsjs.com
         - passport-local-mongoose
         - express-session
 - In app.js
-    - Since our controllers will use passport, all related declarations must be places before the app = express() instruction
+    - Since our controllers will use passport, all related declarations must be placed before the app = express() instruction
         - Import passport and express-session
         - Configure passport before any custom router/controller declaration (app.use())
         - Call app.use and register:

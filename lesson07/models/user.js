@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+// Take the out of the box functionality from the plm package to extend the user model
 const plm = require('passport-local-mongoose');
 
 var userSchemaDefinition = {
