@@ -6,6 +6,7 @@ const Project = require('../models/projects');
 const Course = require('../models/course');
 const passport = require('passport');
 
+// add reusable middleware function to inject it in our handlers below that need authorization
 function IsLoggedIn(req,res,next) {
     if (req.isAuthenticated()) {
         return next();
@@ -14,7 +15,7 @@ function IsLoggedIn(req,res,next) {
 }
 
 // Add GET for index
-router.get('/', IsLoggedIn, (req, res, next) => {
+router.get('/', (req, res, next) => {
     // res.render('projects/index', { title: 'Project Tracker' });
 
     Project.find((err, projects) => {
