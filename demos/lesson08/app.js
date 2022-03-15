@@ -14,6 +14,7 @@ var coursesRouter = require('./routes/courses');
 // Passport related objects
 const passport = require('passport');
 const session = require('express-session');
+const githubStrategy = require('passport-github2').Strategy;
 
 var app = express();
 
@@ -39,9 +40,39 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-// 3) Link passport to user model (mongoose)
+// 3a) Link passport to user model (mongoose)
 const User = require('./models/user');
 passport.use(User.createStrategy()); // passport will use the User model to create a strategy based on its fields
+
+// 3b) Create github oauth strategy
+// when handling
+passport.use(new githubStrategy({
+  clientID: "dbf8e12b2b033c5c5992",
+  clientSecret: "4043b87031a74b03d9c3f44d1fdc16ee5cbde46c",
+  callbackURL: "http://localhost:3000/github/callback"
+},
+  async (accessToken, refreshToken, profile, done) => {
+    // search user by ID
+    const user = await User.findOne({ oauthId: profile.id });
+    // if exists just continue
+    if (user) {
+      return done(null, user);
+    }
+    // else create a new user in our db (this is a new user that authenticated 
+    // with github credentials to our app)
+    else {
+      const newUser = new User({
+        username: profile.username,
+        oauthId: profile.id,
+        oauthProvider: 'GitHub',
+        created: Date.now()
+      });
+      const savedUser = await newUser.save();
+      return done(null, savedUser);
+    }
+  }
+));
+
 
 // 4) Set passport to write/read user data to/from session object
 passport.serializeUser(User.serializeUser());
@@ -73,9 +104,9 @@ hbs.registerHelper('createOption', (currentValue, selectedValue) => {
   }
 
   // Example: <option selected>TO DO</option>
-  return new hbs.SafeString('<option '+ selectedProperty +'>' + currentValue + '</option>')
+  return new hbs.SafeString('<option ' + selectedProperty + '>' + currentValue + '</option>')
 
-});  
+});
 
 // LongDateValue comes from the UI as 'Sun Feb 13 2022 19:00:00 GMT-0500 (Eastern Standard Time)'
 // and this helper method will return 2022-02-13 << international format

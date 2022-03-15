@@ -60,4 +60,22 @@ router.get('/logout', (req, res, next) => {
   res.redirect('/login');
 });
 
+
+// GET handler for /github
+// us sending the user to github
+// let passport stragety handle it, no need for custom middleware function
+router.get('/github', passport.authenticate('github', { scope: ['user.email']}));
+
+// GET handler for /github/callback
+// github sending the user back to us (with a token)
+router.get('/github/callback',
+  // handle user with token, redirects to login if unsuccessful
+  passport.authenticate('github', {failureRedirect: '/login'}),
+  // executes when authentication is successful
+  (req, res, next) => {
+    res.redirect('/projects');
+  }
+);
+
+
 module.exports = router;
