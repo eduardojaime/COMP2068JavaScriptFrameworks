@@ -66,7 +66,7 @@
         - body {}
 - In project.component.html
     - Change the text to read Project Tracker
-    - Modify the <p> element to a <div class="card">
+    - Modify the <p> element to a <div class="card highlight-card">
         
 ### Part 3 Displaying mock data on the application
 
