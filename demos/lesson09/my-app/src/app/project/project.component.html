@@ -1,0 +1,33 @@
+<h1>Project Tracker</h1>
+
+<!-- 
+    <div class="card highlight-card">
+    {{ project.name }} for {{ project.course }}
+</div> 
+-->
+
+<div class="card-container">
+    <!-- Print as many cards as elements in my list -->
+    <!-- Use *ngFor to loop lists -->
+    <!-- foreach (project in projects) -->
+    <!-- bind click event to onSelect handler -->
+    <div *ngFor="let project of projects" class="card highlight-card" (click)="onSelect(project)">
+        {{ project.name }} for {{ project.course }}
+    </div> 
+</div>
+<!-- create a form to show info for selected project -->
+<section *ngIf="selectedProject">
+    <h2>Project Details</h2>
+    <fieldset>
+        <label class="lbl">ID: </label>
+        <input [(ngModel)]="selectedProject.id" />
+    </fieldset>
+    <fieldset>
+        <label class="lbl">Name: </label>
+        <input [(ngModel)]="selectedProject.name" />
+    </fieldset>
+    <fieldset>
+        <label class="lbl">Course: </label>
+        <input [(ngModel)]="selectedProject.course" />
+    </fieldset>
+</section>
