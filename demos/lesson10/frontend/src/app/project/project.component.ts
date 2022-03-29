@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+// import project service class
+import { ProjectService } from '../services/project.service';
 
 @Component({
   selector: 'app-project',
@@ -7,9 +9,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProjectComponent implements OnInit {
 
-  constructor() { }
+  // field to store list of projects
+  projects: any; // similar to var projects = [];
+
+  // Dependency Injection
+  constructor(private projectService: ProjectService) { }
 
   ngOnInit(): void {
+    // directly call the service here
+    this.getProjects();
   }
-
+  
+  getProjects() : void {
+    // subscribe patter for two way data binding
+    this.projectService.getProjects().subscribe(response => {
+      this.projects = response;
+    });
+  }
 }

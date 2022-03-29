@@ -2,6 +2,17 @@ const express = require('express');
 const router = express.Router();
 
 const PROJECT = require('../models/project');
+const config = require('../config/globals');
+
+// add middleware to handle CORS request coming from frontend
+router.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', config.clientUrl);
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    // very important, call next to continue execution of middleware pipeline
+    next();
+});
+
 
 // GET handler for '/api/projects'
 // Return a list of all projects in my DB
