@@ -1,16 +1,17 @@
+// Scope
 // In JS inheritance flows inwards
 // X is available within any function
 // but variables inside these functions are not available outside of them
 var x = 1;
 
 function addNumber() {
-    return 3 + x;  
+    return x + 3;  
     // x = x + 3;
     // return x;  
 }
 
 function multiplyNumber() {
-    return 3 * x;
+    return x * 3;
     // x = x * 3;
     // return x;
 }
