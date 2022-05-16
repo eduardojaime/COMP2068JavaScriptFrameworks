@@ -20,7 +20,9 @@ http.createServer((request, response) => {
     let subtotal = queryString.subtotal;
     // calculate tax
     let tax = subtotal * 0.13; // 13% tax in Ontario
-    let total = subtotal + tax;
+    
+    // let total = subtotal + tax;
+    let total = Number(subtotal) + Number(tax);
 
     // show in response content
     response.write('<h4>Subtotal: ' + subtotal + '</h4>');
