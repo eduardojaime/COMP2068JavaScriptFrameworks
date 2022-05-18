@@ -4,7 +4,7 @@ const fs = require('fs');
 // by default methods are asynchronous in node
 // this methods needs a third parameter: a callback function that will execute when fs is done reading the file
 // this callback function needs two parameters: error and the contents of the file
-let food = fs.readFile('food.txt', 'utf-8', (error, food) => {
+fs.readFile('food.txt', 'utf-8', (error, food) => {
     console.log(food);
 });
 
@@ -15,8 +15,7 @@ console.log('We ate all this stuff for breakfast');
 
 // the program is not waiting for the reading function to finish before it continues
 // reading a file takes longer than printing a message
-
-let drinks = fs.readFile('drinks.txt', 'utf-8', (error, drinks) => {
+fs.readFile('drinks.txt', 'utf-8', (error, drinks) => {
     console.log(drinks);
 });
 

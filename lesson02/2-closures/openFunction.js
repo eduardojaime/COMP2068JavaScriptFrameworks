@@ -6,6 +6,6 @@ function openFunction() {
 } // 3) block level variable destroyed
 
 // 2) Call twice, what values will be shown?
-openFunction(); // 1  
-openFunction(); // 1
-// 3) Why do we get 1?
+openFunction(); // 2 
+openFunction(); // 2
+// 3) Why do we get 2?
