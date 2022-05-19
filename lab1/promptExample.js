@@ -3,6 +3,7 @@ var prompt = require('prompt');
 // Start the prompt
 prompt.start();
 
+console.log('Please enter username and email:');
 //
 // Get two properties from the user: username and email
 //

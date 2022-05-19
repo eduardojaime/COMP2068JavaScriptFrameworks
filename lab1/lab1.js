@@ -3,8 +3,8 @@ const prompt = require('prompt');
 
 // INPUT
 // call prompt.get() to obtain input from user > R
-// generater input from the computer > R
-
+// generate input from the computer > R
+// print out both selections
 
 // PROCESS
 // if else 
