@@ -13,7 +13,8 @@ function closedFunction() {
 // 2) Call twice, what values will be shown?
 closedFunction();   
 closedFunction(); 
-// 3) Why do we get nothing? > we are calling the function but variables in scope of increment are not persisted
+// 3) Why do we get nothing?
+// closedFunctions returns the definition of increment not its execution
 
 // 4) Create a variable and set it to the result of calling closedFunction() which is increment
 let countMe = closedFunction();
