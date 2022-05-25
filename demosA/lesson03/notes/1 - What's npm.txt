@@ -1,0 +1,11 @@
+What is NPM?
+- Node Package Manager 
+- Repository for packages (WEB) & CLI for installing these packages (Terminal > npm i)
+- Packages become dependencies in our project (why? how?)
+  - Project depends on these packages
+  - App needs this files on the server to run
+  - Knowing which version is in use is important
+- Packages are stored in the node_mules folder
+- package.json
+
+NOTE: Module ~ Package ~ Extensions (less used)

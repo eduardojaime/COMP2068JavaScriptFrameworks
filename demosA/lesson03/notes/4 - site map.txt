@@ -1,0 +1,16 @@
+Site Map
+
+Endpoints
+/ (home)
+/Home
+/About   > handleAbout
+/Contact
+/Products
+/Blog
+/SignIn
+/Register
+/Support
+/Shop
+
+These are also called routes
+
