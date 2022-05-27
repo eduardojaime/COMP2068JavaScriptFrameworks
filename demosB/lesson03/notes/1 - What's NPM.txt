@@ -1,0 +1,12 @@
+What's NPM?
+- Node Package Manager
+- brew install npm or just by installing node
+- it comes with node
+- two ways to use it:
+	- browse the online repo at npmjs.com
+	- CLI which allows you to install pckgs
+- where are packages stored?
+	- In our project in node_modules folder
+- package.json is for tracking our dependencies
+- Packages become 'dependencies' why??
+	- our implementation depends on the package

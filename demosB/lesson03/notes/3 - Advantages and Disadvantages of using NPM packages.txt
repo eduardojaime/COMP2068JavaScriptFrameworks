@@ -1,0 +1,14 @@
+What are the advantges of using NPM packages in our apps?
+- Improve functionality 
+- Save time and effort
+- Often brings simplicity
+- No need to reinvent the wheel (e.g. Authentication)
+- If the packages has a large user base, you'll get updates/support/documentation
+- Reusability (across your company's apps)
+
+What are the disadvantages of using NPM packages in our apps?
+- Dependencies on foreign code
+- Size of dependencies increase size of the project
+- Handling deprecated packages (see related article)
+- Cannot be customized easily
+
