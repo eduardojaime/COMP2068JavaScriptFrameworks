@@ -1,0 +1,14 @@
+{
+  "name": "l04-part1",
+  "version": "1.0.0",
+  "description": "This is a Hello World App",
+  "main": "app1.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Eduardo Jaime",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.1"
+  }
+}
