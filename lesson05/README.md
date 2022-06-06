@@ -10,7 +10,7 @@
     - Check cluster is running
     - Check collections
         - List of collections must be empty
-    - Click on Connect, select Compass to get the connection string needed for the project
+    - Click on Clusters > Connect, and select Compass to get the connection string needed for the project
 - Install MongoDB Compass tool
 - Open Compass and connect
     - Create a new DB
