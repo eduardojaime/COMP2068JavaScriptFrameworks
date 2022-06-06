@@ -4,6 +4,7 @@
 - Go to Mongo Cloud Atlas and Sign up for an account
     - Create cluster
     - Set up access via Security > DB Access
+        - Add new user with username admin and a strong pasword
     - Set up IP Whitelist > Security > Network Access
         - Add 0.0.0.0/0 to allow all IP addresses
     - Check cluster is running
