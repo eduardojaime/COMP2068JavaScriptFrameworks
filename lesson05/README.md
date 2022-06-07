@@ -20,7 +20,7 @@
 - Use Express Generator to create a new app using scaffolding
     - Create a new folder using the command line
     - Run command:
-        - npx express-generator --view=hbs
+        - npx express-generator --view=hbs or express --view=hbs
     - Install packages via 
         - npm i
     - Run via 
