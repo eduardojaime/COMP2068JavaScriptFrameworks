@@ -43,6 +43,7 @@
         - In app.js:
             - Create router object
             - Use router object on '/projects' endpoint
+
 ### Part 3 Connecting our Application to MongoDB 
 - Search for mongoose on https://npmjs.com
 - Install mongoose package
