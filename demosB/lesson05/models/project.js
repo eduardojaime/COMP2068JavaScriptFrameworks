@@ -1,15 +1,17 @@
-// naming convention is routes are plural, models are singular
+// naming convention > models are singular, routers are plural
+// model is an object that represents my data and interacts with the db
+
 // Import mongoose
 const mongoose = require('mongoose');
 // Create schema definition using mapping notation
 // Define what you want your data to look like
 const projectsSchemaDefinition = {
     name: {
-        type: String,
+        type: String, // data type string
         required: true
     },
     dueDate: {
-        type: Date
+        type: Date // data type date
     },
     course: {
         type: String,
@@ -17,7 +19,7 @@ const projectsSchemaDefinition = {
     },
     status: {
         type: String,
-        default: 'TO DO'
+        default: 'TO DO' // all projects added to my db will be in TO DO
     }
 }
 // Create a mongoose schema using the definition object
