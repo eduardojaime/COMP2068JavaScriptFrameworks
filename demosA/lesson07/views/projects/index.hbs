@@ -1,0 +1,27 @@
+<h1>{{title}}</h1>
+{{!-- TODO: add navigation to add a new project --}}
+<a href="/projects/add">Add a new project</a>
+{{!-- TODO: add a table to display projects from MongoDB --}}
+<table class="table table-striped table-hover">
+  <thead>
+    <th>Name</th>
+    <th>Due Date</th>
+    <th>Course</th>
+    <th>Status</th>
+    <th></th>
+  </thead>
+  <tbody>
+  {{#each dataset}}
+    <tr>
+      <td>{{this.name}}</Td>
+      <td>{{toShortDate this.dueDate}}</Td>
+      <td>{{this.course}}</Td>
+      <td>{{this.status}}</Td>
+      <td>
+        <a href="/projects/edit/{{this._id}}" class="btn btn-primary">Edit</a>
+        <a href="/projects/delete/{{this._id}}" class="btn btn-danger" onclick="confirmDeletion()">Delete</a>
+      </td>
+    </tr>
+  {{/each}}
+  </tbody>
+</table>
