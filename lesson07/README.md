@@ -37,8 +37,12 @@ For more info about HBS helper functions visit handlebarsjs.com
         - Since this is a special model for user management
             - Import passport-local-mongoose
             - Call userSchema.plugin(plm) to extend the model functionality and use the password salting/hashing feature
-            - https://github.com/expressjs/session#readme
 - In app.js
+    - Initialize and configure the session object by calling app.use and passing the session object as a method
+        - Provide the following: https://github.com/expressjs/session#readme
+            - Secret
+            - Resave
+            - saveUninitialized
     - Link passport to our model that extends passport-local-mongoose
         - Import model
         - Call passport.use and specify a strategy
