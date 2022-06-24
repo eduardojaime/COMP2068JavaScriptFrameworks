@@ -8,6 +8,11 @@ var mongoose = require('mongoose');
 var config = require('./config/globals');
 var hbs = require('hbs');
 
+// Import Passport and Express Session
+var passport = require('passport');
+var session = require('express-session');
+var User = require('./models/user');
+
 var indexRouter = require('./routes/index');
 // var usersRouter = require('./routes/users');
 var projectsRouter = require('./routes/projects');
@@ -25,6 +30,21 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Session & Passport is configured before route declaration
+app.use(session({
+  secret: 'ProjectTrackerB2022',
+  resave: false,
+  saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+
+// configure local strategy > username/password
+passport.use(User.createStrategy()); // createStrategy() method comes from PLM
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+// Route declaration
 app.use('/', indexRouter);
 // app.use('/users', usersRouter);
 app.use('/projects', projectsRouter);
