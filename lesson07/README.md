@@ -27,10 +27,15 @@ For more info about HBS helper functions visit handlebarsjs.com
 - In app.js
     - Since our controllers will use passport, all related declarations must be placed before the app = express() instruction
         - Import passport and express-session
+        - Initialize and configure the session object by calling app.use and passing the session object as a method
+            - Provide the following: https://github.com/expressjs/session#readme
+                - Secret
+                - Resave
+                - saveUninitialized
         - Configure passport before any custom router/controller declaration (app.use())
-        - Call app.use and register:
-            - passport.initialize()
-            - passport.session();
+            - Call app.use and register:
+                - passport.initialize()
+                - passport.session();
 - In the models folder
     - Create User.js
         - Define schema and model the same way as any other model
@@ -38,11 +43,6 @@ For more info about HBS helper functions visit handlebarsjs.com
             - Import passport-local-mongoose
             - Call userSchema.plugin(plm) to extend the model functionality and use the password salting/hashing feature
 - In app.js
-    - Initialize and configure the session object by calling app.use and passing the session object as a method
-        - Provide the following: https://github.com/expressjs/session#readme
-            - Secret
-            - Resave
-            - saveUninitialized
     - Link passport to our model that extends passport-local-mongoose
         - Import model
         - Call passport.use and specify a strategy
