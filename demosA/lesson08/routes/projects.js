@@ -16,7 +16,8 @@ router.get('/', (req, res, next) => {
             res.render('projects/index',
                 {
                     title: 'Welcome to Project Tracker 2022',
-                    dataset: projects
+                    dataset: projects, 
+                    user: req.user
                 });
         }
     });
@@ -29,7 +30,10 @@ router.get('/add', (req, res, next) => {
     Course.find((err, courses) => {
         if (err) { console.log(err); }
         else {
-            res.render('projects/add', { title: "Add a new Project", courses: courses });
+            res.render('projects/add', { 
+                title: "Add a new Project", 
+                courses: courses, 
+                user: req.user });
         }
     }).sort({ name: 1 });
 });
@@ -75,7 +79,8 @@ router.get('/edit/:_id', (req, res, next) =>{
                     {
                         title:'Edit a Project', 
                         project: project, 
-                        courses: courses
+                        courses: courses, 
+                        user: req.user
                     });
                 }
             }).sort({name: 1});

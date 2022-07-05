@@ -15,7 +15,7 @@
     - Import Passport
     - Modify every method that renders a view and add user object
         - Every GET handler
--  Try out to verify the navbar changes accordingly
+- Try out to verify the navbar changes accordingly
 - In Routes/Index.js
     - Add GET handler for logout
         - Call logout() using the request object

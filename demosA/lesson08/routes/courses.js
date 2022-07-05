@@ -7,14 +7,18 @@ router.get('/', (req, res, next) => {
     Course.find((err, courses)=>{
         if (err) {console.log(err);}
         else {
-            res.render('courses/index', {title:'Available Courses', dataset: courses});
+            res.render('courses/index', {
+                title:'Available Courses', 
+                dataset: courses, 
+                user: req.user
+            });
         }
     });
 });
 
 // GET handler for /Courses/Add
 router.get('/add', (req, res, next) => {
-    res.render('courses/add', {title:'Add a new Course'});
+    res.render('courses/add', {title:'Add a new Course', user: req.user});
 });
 
 // POST handler for /Courses/Add
