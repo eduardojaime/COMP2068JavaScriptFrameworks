@@ -2,8 +2,15 @@ const express = require('express');
 const router = express.Router();
 const Course = require('../models/course');
 
+function IsLoggedIn(req, res, next) {
+    if (req.isAuthenticated()) {
+       return next(); // carry on with the next middleware function
+    }
+    res.redirect('/login');
+}
+
 // GET handlers for /Courses/
-router.get('/', (req, res, next) => {
+router.get('/', IsLoggedIn,  (req, res, next) => {
     Course.find((err, courses)=>{
         if (err) {console.log(err);}
         else {
@@ -17,12 +24,12 @@ router.get('/', (req, res, next) => {
 });
 
 // GET handler for /Courses/Add
-router.get('/add', (req, res, next) => {
+router.get('/add', IsLoggedIn, (req, res, next) => {
     res.render('courses/add', {title:'Add a new Course', user: req.user});
 });
 
 // POST handler for /Courses/Add
-router.post('/add', (req, res, next) => {
+router.post('/add', IsLoggedIn, (req, res, next) => {
     Course.create(
         {
             name: req.body.name

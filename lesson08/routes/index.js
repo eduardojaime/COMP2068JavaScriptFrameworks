@@ -76,5 +76,4 @@ router.get('/github/callback',
   (req, res, next) => { res.redirect('/projects') }
 );
 
-
 module.exports = router;

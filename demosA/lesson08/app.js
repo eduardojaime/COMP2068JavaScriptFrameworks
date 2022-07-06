@@ -9,6 +9,8 @@ var config = require('./config/globals');
 var hbs = require('hbs');
 // Import Passport and Session modules and User model
 var passport = require('passport');
+// Import github strategy object
+var githubStrategy = require('passport-github2').Strategy;
 var session = require('express-session');
 var User = require('./models/user');
 
@@ -46,6 +48,33 @@ passport.use(User.createStrategy());
 // Set passport to write/read user data from/to session object
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+
+// configure github strategy
+passport.use(new githubStrategy({
+  clientID: config.github.clientId,
+  clientSecret: config.github.clientSecret,
+  callbackURL: config.github.callbackUrl
+},
+async (accessToken, refreshToken, profile, done) => {
+  // is this a new user in my db?
+  const user = await User.findOne({ oauthId: profile.id });
+  if (user) {
+    // user exists in db, so just continue the process
+    return done(null, user);
+  }
+  else {
+    // this is the first time user logs in with github
+    const newUser = new User({
+      username: profile.username,
+      oauthId: profile.id,
+      oauthProvider: 'GitHub',
+      created: Date.now()
+    });
+    const savedUser = await newUser.save();
+    return done(null, savedUser);
+  }
+}
+));
 
 app.use('/', indexRouter);
 // app.use('/users', usersRouter);

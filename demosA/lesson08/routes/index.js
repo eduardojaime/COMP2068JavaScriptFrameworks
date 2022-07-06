@@ -61,4 +61,17 @@ router.get('/logout', (req, res, next) => {
   });
 });
 
+
+// GET handler for /github
+// calls passport authenticate and pass the name of the strategy
+router.get('/github', passport.authenticate('github', {scope: ['user.email']}));
+
+// GET handler for /github/callback
+// this is the url they come back to after login in github.com
+router.get('/github/callback', 
+  passport.authenticate('github', { failureRedirect: '/login' }), 
+  (req, res, next) => {
+    res.redirect('/projects');
+  });
+
 module.exports = router;
