@@ -6,6 +6,13 @@ const router = express.Router();
 const Project = require('../models/project');
 const Course = require('../models/course');
 
+function IsLoggedIn(req, res, next) {
+    if (req.isAuthenticated()) {
+        return next();
+    }
+    res.redirect('/login');
+}
+
 // configure routes
 // GET handler /Projects/
 router.get('/', (req, res, next) => {
@@ -16,7 +23,8 @@ router.get('/', (req, res, next) => {
             res.render('projects/index',
                 {
                     title: 'Welcome to Project Tracker 2022',
-                    dataset: projects
+                    dataset: projects,
+                    user: req.user
                 });
         }
     });
@@ -24,18 +32,22 @@ router.get('/', (req, res, next) => {
 
 // Adding a project
 // GET handler /Projects/Add
-router.get('/add', (req, res, next) => {
+router.get('/add', IsLoggedIn, (req, res, next) => {
     // res.render('projects/add', { title: "Add a new Project"});
     Course.find((err, courses) => {
         if (err) { console.log(err); }
         else {
-            res.render('projects/add', { title: "Add a new Project", courses: courses });
+            res.render('projects/add', { 
+                title: "Add a new Project", 
+                courses: courses,
+                user: req.user
+             });
         }
     }).sort({ name: 1 });
 });
 
 // POST handler /Projects/Add
-router.post('/add', (req, res, next) => {
+router.post('/add', IsLoggedIn, (req, res, next) => {
     Project.create(
         {
             name: req.body.name, // extract values from form (body) by input id
@@ -50,7 +62,7 @@ router.post('/add', (req, res, next) => {
 });
 
 // GET handler for /Projects/Delete/_id
-router.get('/delete/:_id', (req, res, next) =>{
+router.get('/delete/:_id', IsLoggedIn, (req, res, next) =>{
     Project.remove({
         _id: req.params._id
     }, 
@@ -63,7 +75,7 @@ router.get('/delete/:_id', (req, res, next) =>{
 });
 
 // GET handler for /Projects/Edit/_id
-router.get('/edit/:_id', (req, res, next) =>{
+router.get('/edit/:_id', IsLoggedIn, (req, res, next) =>{
     Project.findById(req.params._id, (err, project)=>{
         if (err) { console.log(err);}
         else {
@@ -75,7 +87,8 @@ router.get('/edit/:_id', (req, res, next) =>{
                     {
                         title:'Edit a Project', 
                         project: project, 
-                        courses: courses
+                        courses: courses,
+                        user: req.user
                     });
                 }
             }).sort({name: 1});
@@ -84,7 +97,7 @@ router.get('/edit/:_id', (req, res, next) =>{
 });
 
 // POST handler for /Projects/Edit/:_id
-router.post('/edit/:_id', (req, res, next) => {
+router.post('/edit/:_id', IsLoggedIn, (req, res, next) => {
     Project.findOneAndUpdate(
         {
             _id: req.params._id

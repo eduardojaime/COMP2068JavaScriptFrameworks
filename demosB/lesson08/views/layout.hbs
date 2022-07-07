@@ -16,17 +16,28 @@
         <li class="nav-item active">
           <a class="nav-link" href="/Projects">Projects</a>
         </li>
-        <li class="nav-item active">
-          <a class="nav-link" href="/Courses">Courses</a>
-        </li>
+        {{#if user}}
+          <li class="nav-item active">
+            <a class="nav-link" href="/Courses">Courses</a>
+          </li>
+        {{/if}}
       </ul>
       <ul class="navbar-nav ml-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="/Login">Login</a>
-        </li>
-        <li class="nav-item active">
-          <a class="nav-link" href="/Register">Register</a>
-        </li>
+        {{#if user}} 
+          <li class="nav-item active">
+            <a class="nav-link" href="#">{{user.username}}</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="/Logout">Logout</a>
+          </li>
+        {{else}}
+          <li class="nav-item active">
+            <a class="nav-link" href="/Login">Login</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="/Register">Register</a>
+          </li>
+        {{/if}}
       </ul>
     </nav>
     {{{body}}}
