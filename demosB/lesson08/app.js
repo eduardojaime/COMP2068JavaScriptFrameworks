@@ -10,6 +10,7 @@ var hbs = require('hbs');
 
 // Import Passport and Express Session
 var passport = require('passport');
+var githubStrategy = require('passport-github2').Strategy;
 var session = require('express-session');
 var User = require('./models/user');
 
@@ -17,6 +18,7 @@ var indexRouter = require('./routes/index');
 // var usersRouter = require('./routes/users');
 var projectsRouter = require('./routes/projects');
 var coursesRouter = require('./routes/courses');
+const { github } = require('./config/globals');
 
 var app = express();
 
@@ -43,6 +45,32 @@ app.use(passport.session());
 passport.use(User.createStrategy()); // createStrategy() method comes from PLM
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+
+// configure github strategy > oauth 2.0
+passport.use(new githubStrategy({
+  clientID: config.github.clientId,
+  clientSecret: config.github.clientSecret,
+  callbackURL: config.github.callbackUrl
+},
+// callback funtion to handle github user
+async (accessToken, refreshToken, profile, done) => {
+  const user = await User.findOne({ oauthId: profile.id });
+  if (user) {
+    return done(null, user);
+  }
+  else {
+    const newUser = new User({
+      username: profile.username,
+      oauthId: profile.id,
+      oauthProvider: 'Github',
+      created: Date.now()
+    });
+    const savedUser = await newUser.save();
+    return done(null, savedUser);
+  }
+}
+));
+
 
 // Route declaration
 app.use('/', indexRouter);

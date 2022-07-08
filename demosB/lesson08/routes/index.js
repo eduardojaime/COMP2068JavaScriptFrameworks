@@ -14,7 +14,7 @@ router.get('/login', (req, res, next) => {
   let messages = req.session.messages || []; // if undefined then set as empty list
   // clear messages as soon as you retrieve them
   console.log(messages);
-  
+
   req.session.messages = [];
   // pass to the view
   res.render('login', { title: 'Log in to your account', messages: messages });
@@ -56,9 +56,19 @@ router.post('/register', (req, res, next) => {
 
 // GET handler for /logout
 router.get('/logout', (req, res, next) => {
-  req.session.destroy(function(err) {
+  req.session.destroy(function (err) {
     res.redirect('/login');
   });
 });
+
+// GET handler for /github > called when user clicks Login with GitHub from login page
+router.get('/github', passport.authenticate('github', { scope: ['user.email'] }));
+
+// GET handler for /github/callback > called when user comes back from GitHub.com 
+// after entering their credentials
+router.get('/github/callback',
+  passport.authenticate('github', { failureRedirect: '/login' }),
+  (req, res, next) => { res.redirect('/projects'); }
+);
 
 module.exports = router;
