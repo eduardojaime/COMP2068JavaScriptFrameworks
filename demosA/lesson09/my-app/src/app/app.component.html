@@ -341,7 +341,8 @@
       </g>
     </svg>
 
-    <span>{{ title }} app is running!</span>
+    <!-- Interpolation binding -->
+    <span>{{title}} app is running!</span>
 
     <svg id="rocket-smoke" xmlns="http://www.w3.org/2000/svg" width="516.119" height="1083.632" viewBox="0 0 516.119 1083.632">
       <title>Rocket Ship Smoke</title>
@@ -385,6 +386,9 @@
     </a>
 
   </div>
+  
+  <!-- Property Binding  -->
+  <img [src]="mainImageUrl" />
 
   <!-- Next Steps -->
   <h2>Next Steps</h2>
@@ -393,6 +397,7 @@
   <input type="hidden" #selection>
 
   <div class="card-container">
+    <!-- Event binding (click) -->
     <button class="card card-small" (click)="selection.value = 'component'" tabindex="0">
       <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
       <span>New Component</span>
@@ -425,6 +430,8 @@
   </div>
 
   <!-- Terminal -->
+
+  <!-- Property Binding > Switch -->
   <div class="terminal" [ngSwitch]="selection.value">
       <pre *ngSwitchDefault>ng generate component xyz</pre>
       <pre *ngSwitchCase="'material'">ng add @angular/material</pre>

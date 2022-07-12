@@ -1,3 +1,4 @@
+// similar to express router object
 import { Component } from '@angular/core';
 
 @Component({
@@ -5,6 +6,10 @@ import { Component } from '@angular/core';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
+// similar to module.exports
 export class AppComponent {
-  title = 'my-app';
+  pageTitle = 'Welcome to my first Angular App!';
+  title = 'Project Tracker in Angular';
+  mainImageUrl = '/imgs/logo.png';
+
 }
