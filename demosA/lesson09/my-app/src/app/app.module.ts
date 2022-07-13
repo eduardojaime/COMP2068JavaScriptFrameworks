@@ -6,6 +6,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 // similar to creating router object
 import { ProjectComponent } from './project/project.component';
+// import FormsModule to be able to use 2-way data binding
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -14,7 +16,8 @@ import { ProjectComponent } from './project/project.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule // inject module to enable ngModel directive
   ],
   providers: [],
   bootstrap: [ProjectComponent]
