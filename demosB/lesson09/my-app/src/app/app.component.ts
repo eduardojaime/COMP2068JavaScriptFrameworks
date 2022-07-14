@@ -1,3 +1,5 @@
+// similar to router filer
+// index.js
 import { Component } from '@angular/core';
 
 @Component({
@@ -6,5 +8,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'my-app';
+  title = 'Project Tracker';
+  imgUrl = '/img/logo.png';
 }
