@@ -6,6 +6,8 @@ import { AppRoutingModule } from './app-routing.module';
 // similar to creating the indexRouter object
 import { AppComponent } from './app.component';
 import { ProjectComponent } from './project/project.component';
+// enable 2 way data binding with FormsModule
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -14,7 +16,8 @@ import { ProjectComponent } from './project/project.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule // register imported module in app
   ],
   providers: [],
   bootstrap: [ProjectComponent] // similar to app.use('/', indexRouter);

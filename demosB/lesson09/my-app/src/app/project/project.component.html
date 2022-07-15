@@ -13,24 +13,27 @@
 <!-- I have a list and I want to show a card div for every element of the list -->
 <div class="card-container">
     <!-- use for each in the element that will be repeated -->
-    <div class="card" *ngFor="let project of projects" (click)="onSelect(project)" >
+    <div class="card" *ngFor="let project of projects" (click)="onSelect(project)">
         {{project.name}} for {{project.course}}
     </div>
 </div>
 
 <!-- add a form to display data about a project -->
-<section>
+<!-- use ngIf directives to hide/show sections of the page -->
+<!-- equivalent to if (selectedProject) -->
+<section *ngIf="selectedProject" >
     <h2>Project Details</h2>
     <fieldset>
         <label class="lbl">ID: </label>
-        <input />
+        <!-- use ngModel directive to bind fields to properties -->
+        <input [(ngModel)]="selectedProject.id" />
     </fieldset>
     <fieldset>
         <label class="lbl">Name: </label>
-        <input />
+        <input [(ngModel)]="selectedProject.name" />
     </fieldset>
     <fieldset>
         <label class="lbl">Course: </label>
-        <input />
+        <input [(ngModel)]="selectedProject.course" />
     </fieldset>
 </section>

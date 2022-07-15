@@ -1,8 +1,10 @@
 <div class="card highlight-card">Project Tracker</div>
 <!-- Displaying a single project -->
-<!-- <h4>{{project.name}}</h4>
-<p>Course: {{project.course}}</p> -->
-
+<!-- <div class="card-container">
+    <div class="card">
+        {{project.name}} for {{project.course}}
+    </div>
+</div> -->
 <!-- Use a loop to iterate through the list -->
 <div class="card-container">
     <div *ngFor="let project of projects" class="card" (click)="onSelect(project)">
@@ -25,5 +27,5 @@
         <label class="lbl">Course: </label>
         <input [(ngModel)]="selectedProject.course" />
     </fieldset>
-    <!-- <button (click)="onSelect()" >Hide/Reset</button> --> 
+    <!-- <button (click)="onSelect()" >Hide/Reset</button> -->
 </section>
