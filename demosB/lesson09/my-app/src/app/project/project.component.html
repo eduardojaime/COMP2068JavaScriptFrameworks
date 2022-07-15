@@ -2,3 +2,35 @@
 <div class="card highlight-card">
     {{title}}
 </div>
+
+<!-- Show projects -->
+<!-- <div class="card-container">
+    <div class="card">
+        {{project.name}} for {{project.course}}
+    </div>
+</div> -->
+
+<!-- I have a list and I want to show a card div for every element of the list -->
+<div class="card-container">
+    <!-- use for each in the element that will be repeated -->
+    <div class="card" *ngFor="let project of projects" (click)="onSelect(project)" >
+        {{project.name}} for {{project.course}}
+    </div>
+</div>
+
+<!-- add a form to display data about a project -->
+<section>
+    <h2>Project Details</h2>
+    <fieldset>
+        <label class="lbl">ID: </label>
+        <input />
+    </fieldset>
+    <fieldset>
+        <label class="lbl">Name: </label>
+        <input />
+    </fieldset>
+    <fieldset>
+        <label class="lbl">Course: </label>
+        <input />
+    </fieldset>
+</section>
