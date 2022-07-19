@@ -5,17 +5,21 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ProjectComponent } from './project/project.component';
+// import service and httpclientmodule
+import { ProjectService } from './services/project.service';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
     AppComponent,
     ProjectComponent
   ],
-  imports: [
+  imports: [ // any modules that the app uses for enhanced functionality
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule // allows you to make HTTP requests
   ],
-  providers: [],
+  providers: [ProjectService], // register all services here
   bootstrap: [ProjectComponent]
 })
 export class AppModule { }
