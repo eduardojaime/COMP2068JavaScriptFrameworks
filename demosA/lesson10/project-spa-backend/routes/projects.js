@@ -3,6 +3,15 @@ const router = express.Router();
 
 const Project = require('../models/project');
 
+// Handle CORS requests by adding required headers to the response object
+// this will handle any request to any endpoint in this router
+router.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', 'http://localhost:4200');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
+    next(); // make sure you always call next in these types of middleware functions
+});
+
 // configure get/post/delete/put handlers
 
 // API Design: CRUD operations are equivalent to HTTP Methods
