@@ -18,7 +18,7 @@ router.use((req,res,next) => {
 // GET handler for /projects
 router.get('/', (req, res, next)=>{
     // const projects = [{ id: 1, name: 'Project A'}];
-    // return res.json(projects).status(200);
+    // return res.status(200).json(projects);
     Project.find((err, projects) => {
         if (err) {
             return res.status(400).json(err); // bad request
