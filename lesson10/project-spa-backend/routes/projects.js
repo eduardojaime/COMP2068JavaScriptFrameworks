@@ -21,10 +21,10 @@ router.get('/', (req, res, next)=>{
     // return res.json(projects).status(200);
     Project.find((err, projects) => {
         if (err) {
-            return res.json(err).status(400); // bad request
+            return res.status(400).json(err); // bad request
         }
         else {
-            return res.json(projects).status(200); // OK success
+            return res.status(200).json(projects); // OK success
         }
     });
 });
