@@ -4,8 +4,8 @@
 
 - Open a command prompt and navigate to the folder where you have your projects OR Open Windows Explorer and go to the folder where you keep your projects, press and hold SHIFT and right click inside the folder at the same time, then select Command Prompt or PowerShell
 - Use the Express Generator tool to generate a new project:
-    - Run > express project-spa-server
-    - Navigate into the project folder > cd project-spa-server
+    - Run > express project-spa-backend
+    - Navigate into the project folder > cd project-spa-backend
     - Run > npm install
     - Open up the project in VS Code > code .
     - This project is using a different view engine called JADE but we won't modify it so we can ignore it
@@ -51,10 +51,10 @@
 - Go back to PowerShell or Command Prompt and navigate back to the folder where your projects are
     - > cd ..
 - Create the angular project template by running
-    - > ng new project-spa-client
+    - > ng new project-spa-frontend
         - Yes to routing
         - CSS as default
-    - Navigate into the project folder > cd project-spa-client
+    - Navigate into the project folder > cd project-spa-frontend
     - Run > npm install
     - Open up the project in VS Code > code .
 - In Visual Studio Code:
