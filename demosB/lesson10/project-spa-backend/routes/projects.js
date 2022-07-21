@@ -2,6 +2,16 @@
 const express = require('express');
 const router = express.Router();
 const Project = require('../models/project');
+
+// middleware function to handle CORS 
+// decorate all responses with a header which contains the Access-Control-Allow-* properties
+router.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', 'http://localhost:4200'); // my frontend app url is allowed to view my project data
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
+    next(); // call the next middleware in the pipeline so execution continues
+});
+
 // configure handlers
 // GET handler for '/Projects/'
 router.get('/', (req,res,next) => {

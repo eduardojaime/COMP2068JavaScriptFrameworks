@@ -7,6 +7,8 @@ import { AppComponent } from './app.component';
 import { ProjectComponent } from './project/project.component';
 // add httpclientmodule to enable the app to use httpclient class
 import { HttpClientModule } from '@angular/common/http';
+// register the service to the entire application
+import { ProjectService } from './services/project.service';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,7 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [ProjectService], // service is a provider of data
   bootstrap: [ProjectComponent] // set project as startup component
 })
 export class AppModule { }
