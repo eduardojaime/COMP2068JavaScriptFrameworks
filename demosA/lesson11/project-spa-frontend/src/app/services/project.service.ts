@@ -18,7 +18,17 @@ export class ProjectService {
   }
 
   // create a new project
-  addProject(newProject: any){
+  addProject(newProject: any) {
     return this.http.post('http://localhost:3000/projects', newProject);
+  }
+
+  // delete a project by id
+  deleteProject(_id: any) {
+    return this.http.delete('http://localhost:3000/projects/' + _id);
+  }
+
+  // update project
+  updateProject(selectedProject: any) {
+    return this.http.put('http://localhost:3000/projects', selectedProject);
   }
 }

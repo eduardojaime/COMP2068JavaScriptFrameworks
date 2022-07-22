@@ -45,5 +45,27 @@ router.post('/', (req, res, next) => {
     });
 });
 
+router.delete('/:_id', (req, res, next) => {
+    Project.remove({_id: req.params._id}, (err, project)=>{
+        if (err) {
+            return res.status(500).json(err);
+        }
+        else {
+            return res.status(204).json(project); // 204 Deleted Successfully
+        }
+    });
+});
+
+router.put('/', (req,res,next) => {
+    Project.findOneAndUpdate({_id: req.body._id}, req.body, (err, project)=>{
+        if (err) {
+            return res.status(500).json(err);
+        }
+        else {
+            return res.status(202).json(project); // 202 Updated Successfully
+        }
+    });
+});
+
 // make it available to the app
 module.exports = router;

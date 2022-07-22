@@ -5,12 +5,18 @@
         <th>Name</th>
         <th>Due Date</th>
         <th>Course</th>
+        <th></th>
     </thead>
     <tbody>
         <tr *ngFor="let project of projects">
             <td>{{project.name}}</td>
             <td>{{project.dueDate | date}}</td>
             <td>{{project.course}}</td>
+            <td>
+                <a class="btn btn-info" (click)="selectProject(project)">Edit</a>
+                &nbsp;
+                <a class="btn btn-danger" (click)="deleteProject(project._id)">Delete</a>
+            </td>
         </tr>
     </tbody>
 </table>
@@ -29,5 +35,6 @@
         <input name="course" id="course" [(ngModel)]="course" required />
     </fieldset>
     <!-- EVENT BINDING -->
-    <button class="btn btn-primary offset-3" (click)="addProject()">Save New</button>
+    <button class="btn btn-primary offset-3" (click)="addProject()" *ngIf="!this._id">Save New</button>
+    <button class="btn btn-primary offset-3" (click)="updateProject()" *ngIf="this._id">Update</button>
 </form>

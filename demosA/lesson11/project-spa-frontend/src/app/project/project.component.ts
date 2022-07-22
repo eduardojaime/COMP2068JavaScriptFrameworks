@@ -12,6 +12,8 @@ export class ProjectComponent implements OnInit {
   name!: any;
   dueDate!: any;
   course!: any;
+  // property to store id when editing
+  _id!: any;
 
   // use dependency injection to inject a service instance into my class
   constructor(private projectService: ProjectService) { }
@@ -38,16 +40,48 @@ export class ProjectComponent implements OnInit {
       course: this.course
     }
     // call the service and pass the new project object
-    this.projectService.addProject(newProject).subscribe(response=> {
+    this.projectService.addProject(newProject).subscribe(response => {
       this.getProjects();
     });
     // clear form
     this.clearForm();
   }
 
+  deleteProject(_id: any): void {
+    if (confirm('Are you sure you want to delete this project?')) {
+      this.projectService.deleteProject(_id).subscribe(response => {
+        this.getProjects();
+      })
+    }
+  }
+
+  // select project then update
+  selectProject(project: any) {
+    this._id = project._id;
+    this.name = project.name;
+    this.dueDate = project.dueDate;
+    this.course = project.course;
+  }
+
+  updateProject(){
+    let selectedProject = {
+      _id: this._id,
+      name: this.name,
+      dueDate: this.dueDate,
+      course: this.course
+    }
+    // pass on to service
+    this.projectService.updateProject(selectedProject).subscribe(response => {
+      this.getProjects();
+    })
+    // clear form
+    this.clearForm();
+  }
+
   clearForm(): void {
+    this._id = '';
     this.name = '';
     this.dueDate = '';
-    this.course ='';
+    this.course = '';
   }
 }
