@@ -33,5 +33,17 @@ router.get('/', (req, res, next) => {
     });
 });
 
+router.post('/', (req, res, next) => {
+    // how is the client sending the Project object
+    Project.create(req.body, (err, project)=>{
+        if (err) {
+            return res.status(500).json(err);
+        }
+        else {
+            return res.status(201).json(project); // 201 Created Successfully
+        }
+    });
+});
+
 // make it available to the app
 module.exports = router;

@@ -16,4 +16,9 @@ export class ProjectService {
     // return the result of a HTTP GET request to http://localhost:3000/projects
     return this.http.get('http://localhost:3000/projects');
   }
+
+  // create a new project
+  addProject(newProject: any){
+    return this.http.post('http://localhost:3000/projects', newProject);
+  }
 }

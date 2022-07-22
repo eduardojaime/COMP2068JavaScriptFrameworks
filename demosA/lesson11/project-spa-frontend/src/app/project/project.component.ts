@@ -8,6 +8,10 @@ import { ProjectService } from '../services/project.service';
 })
 export class ProjectComponent implements OnInit {
   projects: any;
+  // properties to store project info
+  name!: any;
+  dueDate!: any;
+  course!: any;
 
   // use dependency injection to inject a service instance into my class
   constructor(private projectService: ProjectService) { }
@@ -23,5 +27,27 @@ export class ProjectComponent implements OnInit {
     this.projectService.getProjects().subscribe(response => {
       this.projects = response;
     });
+  }
+
+  // Create new project
+  addProject(): void {
+    // create a new project object using the information in the form fields
+    let newProject = {
+      name: this.name,
+      dueDate: this.dueDate,
+      course: this.course
+    }
+    // call the service and pass the new project object
+    this.projectService.addProject(newProject).subscribe(response=> {
+      this.getProjects();
+    });
+    // clear form
+    this.clearForm();
+  }
+
+  clearForm(): void {
+    this.name = '';
+    this.dueDate = '';
+    this.course ='';
   }
 }
