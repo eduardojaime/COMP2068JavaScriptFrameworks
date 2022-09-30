@@ -1,0 +1,14 @@
+{
+  "name": "basicexpressapp",
+  "version": "1.0.0",
+  "description": "This is a basic express app built from scratch",
+  "main": "app1.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Eduardo Jaime",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.1"
+  }
+}
