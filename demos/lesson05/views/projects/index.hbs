@@ -1,2 +1,17 @@
 <h1>{{title}}</h1>
-<p>This is a list of projects in my DB</p>
+{{!-- add links to ADD --}}
+<a href="/projects/add">Add a new Project</a>
+{{!-- add table to show data --}}
+{{!-- each record will have an 'actions' column to edit/delete --}}
+<table>
+    <thead>
+        <th>Name</th>
+        <th>Due Date</th>
+        <th>Course</th>
+        <th>Status</th>
+        <th></th>
+    </thead>
+    <tbody>
+        {{!-- Show elements from database, use foreach loop--}}
+    </tbody>
+</table>
