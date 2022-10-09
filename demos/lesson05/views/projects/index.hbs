@@ -3,7 +3,7 @@
 <a href="/projects/add">Add a new Project</a>
 {{!-- add table to show data --}}
 {{!-- each record will have an 'actions' column to edit/delete --}}
-<table>
+<table class="table table-striped table-hover">
     <thead>
         <th>Name</th>
         <th>Due Date</th>
@@ -13,5 +13,14 @@
     </thead>
     <tbody>
         {{!-- Show elements from database, use foreach loop--}}
+        {{#each dataset}}
+            <tr>
+                <td>{{this.name}}</td>
+                <td>{{this.dueDate}}</td>
+                <td>{{this.course}}</td>
+                <td>{{this.status}}</td>
+                <td>TODO EDIT/REMOVE</td>
+            </tr>
+        {{/each}}
     </tbody>
 </table>
