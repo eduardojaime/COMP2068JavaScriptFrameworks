@@ -27,22 +27,16 @@ app.use('/', indexRouter);
 app.use('/projects', projectsRouter);
 app.use('/courses', coursesRouter);
 
-// Option 1) Hardcode connection string and connect
-let userName = 'admin';
-let password = 'password';
-let connectionString = `mongodb+srv://${userName}:${password}@cluster0.86msx.mongodb.net/comp2068`;
-// Option 2) Add connection string to Config file
-// const config = require('./config/globals');
-// let connectionString = config.db;
-
-// Use the connect method, and the two handlers to try to connect to the DB
-mongoose.connect(connectionString, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then((message) => {
+// configure mongoose
+mongoose
+  .connect(config.db, { useNewUrlParser: true, useUnifiedTopology: true}) // connect
+  .then((message)=>{
     console.log('Connected successfully!');
-  })
-  .catch((error) => {
-    console.log(`Error while connecting! ${error}`);
-  });
+  }) // do something after connecting
+  .catch((err) => {
+    console.log('Error while connecting! ' + err);
+  }); // catch any errors
+  
 
 // HBS Helper Method to select values from dropdown lists
 const hbs = require('hbs');
