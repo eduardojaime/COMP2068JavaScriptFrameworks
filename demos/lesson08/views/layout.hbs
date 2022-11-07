@@ -1,11 +1,36 @@
-<!DOCTYPE html>
 <html>
   <head>
     <title>{{title}}</title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="/stylesheets/style.css" />
     <script src="/javascript/script.js"></script>
+    {{! BOOTSTRAP CSS HERE }}
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+      integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N"
+      crossorigin="anonymous"
+    />
   </head>
   <body>
+    {{! JUMBOTRON GOES HERE }}
+    <div class="jumbotron">
+      <h1>Project Tracker WebApp</h1>
+      <p>This application helps you keep track of your school projects!</p>
+    </div>
+    {{! NAVIGATION BAR GOES HERE }}
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/Projects">Projects</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/Courses">Courses</a>
+        </li>
+      </ul>
+    </nav>
     {{{body}}}
   </body>
 </html>
