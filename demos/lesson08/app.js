@@ -42,6 +42,8 @@ app.use(passport.session());
 
 // Basic strategy needs a Mongoose Model representing a User in my DB
 passport.use(User.createStrategy());
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 // Register router objects
 app.use('/', indexRouter);
