@@ -5,7 +5,7 @@ const User = require("../models/user");
 
 /* GET home page. */
 router.get("/", function (req, res, next) {
-  res.render("index", { title: "Express" });
+  res.render("index", { title: "Express", user: req.user });
 });
 
 // GET handler for /login
@@ -50,5 +50,9 @@ router.post("/register", (req, res, next) => {
 });
 
 // GET handler for /logout
-
+router.get('/logout', (req, res, next)=>{
+  req.logout(function(err) {
+    res.redirect('/login');
+  });
+});
 module.exports = router;

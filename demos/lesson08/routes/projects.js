@@ -14,7 +14,7 @@ router.get('/', (req, res, next) => {
             console.log(err);
         }
         else {
-            res.render('projects/index', { title: 'Project Tracker', dataset: projects });
+            res.render('projects/index', { title: 'Project Tracker', dataset: projects, user: req.user });
         }
     })
 });
@@ -26,7 +26,7 @@ router.get('/add', (req, res, next) => {
             console.log(err);
         }
         else {
-            res.render('projects/add', { title: 'Add a New Project', courses: courses });
+            res.render('projects/add', { title: 'Add a New Project', courses: courses, user: req.user });
         }
     }).sort({ name: -1 });
 });
@@ -85,7 +85,8 @@ router.get('/edit/:_id', (req, res, next) => {
                     res.render('projects/edit', {
                         title: 'Edit a Project',
                         project: project,
-                        courses: courses
+                        courses: courses, 
+                        user: req.user
                     });
                 }
             }).sort({ name: 1 });
