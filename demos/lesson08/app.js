@@ -5,6 +5,8 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 // 1) Import Mongoose into the project after installing it
 const mongoose = require('mongoose');
+const config = require('./config/globals');
+let connectionString = config.db;
 
 // Create router objects
 var indexRouter = require('./routes/index');
@@ -16,6 +18,7 @@ const passport = require('passport');
 const session = require('express-session');
 const User = require('./models/user');
 // one for github strategy
+const githubStrategy = require('passport-github2').Strategy;
 
 var app = express();
 
@@ -45,6 +48,30 @@ passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+// OAuth Strategy
+passport.use(new githubStrategy({
+  clientID: config.github.clientId,
+  clientSecret: config.github.clientSecret,
+  callbackURL: config.github.callbackUrl
+}, 
+  async (accessToken, refreshToken, profile, done) => {
+    const user = await User.findOne({ oauthId: profile.id});
+    if (user) {
+      return done(null, user);
+    }
+    else {
+      const newUser = new User({
+        username: profile.username,
+        oauthId: profile.id,
+        oauthProvider: 'GitHub',
+        created: Date.now()
+      });
+      const savedUser = await newUser.save();
+      return done(null, savedUser);
+    }
+  }
+));
+
 // Register router objects
 app.use('/', indexRouter);
 app.use('/projects', projectsRouter);
@@ -55,8 +82,6 @@ app.use('/courses', coursesRouter);
 // let password = 'password';
 // let connectionString = `mongodb+srv://${userName}:${password}@cluster0.86msx.mongodb.net/comp2068`;
 // Option 2) Add connection string to Config file
-const config = require('./config/globals');
-let connectionString = config.db;
 
 // configure mongoose
 mongoose

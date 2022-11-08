@@ -33,26 +33,46 @@ router.get("/register", (req, res, next) => {
 
 // POST handler for /register
 router.post("/register", (req, res, next) => {
-  User.register(new User({
-    username: req.body.username
-  }), 
-  req.body.password, 
-  (err, newUser) => {
-    if (err) {
-      console.log(err);
-      return res.redirect("/register");
-    } else {
-      req.login(newUser, (err) => {
-        res.redirect("/Projects");
-      });
+  User.register(
+    new User({
+      username: req.body.username,
+    }),
+    req.body.password,
+    (err, newUser) => {
+      if (err) {
+        console.log(err);
+        return res.redirect("/register");
+      } else {
+        req.login(newUser, (err) => {
+          res.redirect("/Projects");
+        });
+      }
     }
-  });
+  );
 });
 
 // GET handler for /logout
-router.get('/logout', (req, res, next)=>{
-  req.logout(function(err) {
-    res.redirect('/login');
+router.get("/logout", (req, res, next) => {
+  req.logout(function (err) {
+    res.redirect("/login");
   });
 });
+
+// GET handler for /github
+// user choses to login with github credentials instead of username/password
+router.get(
+  "/github",
+  passport.authenticate("github", { scope: ["user.email"] })
+);
+
+// GET handler for /github/callback
+// user is coming back from entering their credentials on github
+router.get(
+  "/github/callback",
+  passport.authenticate("github", { failureRedirect: "/login" }),
+  (req, res, next) => {
+    res.redirect("/projects");
+  }
+);
+
 module.exports = router;
