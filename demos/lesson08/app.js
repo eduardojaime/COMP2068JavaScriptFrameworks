@@ -11,6 +11,12 @@ var indexRouter = require('./routes/index');
 var projectsRouter = require('./routes/projects');
 var coursesRouter = require('./routes/courses');
 
+// Import passport modules
+const passport = require('passport');
+const session = require('express-session');
+const User = require('./models/user');
+// one for github strategy
+
 var app = express();
 
 // view engine setup
@@ -22,6 +28,21 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+// configure passport before route definition so that it's available for the routes
+app.use(session({
+  secret: 'f2022projecttracker',
+  resave: false,
+  saveUninitialized: false
+}));
+
+// initialize passport
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Basic strategy needs a Mongoose Model representing a User in my DB
+passport.use(User.createStrategy());
+
 // Register router objects
 app.use('/', indexRouter);
 app.use('/projects', projectsRouter);
