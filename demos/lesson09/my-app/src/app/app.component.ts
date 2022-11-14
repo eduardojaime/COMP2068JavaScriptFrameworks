@@ -1,3 +1,4 @@
+// similar to /routers/index.js
 import { Component } from '@angular/core';
 
 @Component({
