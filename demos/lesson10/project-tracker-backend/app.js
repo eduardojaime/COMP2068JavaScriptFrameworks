@@ -3,9 +3,12 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+// 1) Import Mongoose into the project after installing it
+const mongoose = require('mongoose');
+const config = require('./config/globals');
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var projectsRouter = require('./routes/projects');
 
 var app = express();
 
@@ -20,7 +23,17 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/projects', projectsRouter);
+
+// configure mongoose
+mongoose
+  .connect(config.db, { useNewUrlParser: true, useUnifiedTopology: true}) // connect
+  .then((message)=>{
+    console.log('Connected successfully!');
+  }) // do something after connecting
+  .catch((err) => {
+    console.log('Error while connecting! ' + err);
+  }); // catch any errors
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
