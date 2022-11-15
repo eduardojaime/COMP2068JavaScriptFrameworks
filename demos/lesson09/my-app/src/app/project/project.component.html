@@ -1,2 +1,7 @@
 <div class="card highlight-card">Project Tracker</div>
 <!-- Show data -->
+<div class="card-container">
+    <div *ngFor="let project of projects" class="card">
+        {{project.name}}
+    </div>
+</div>
