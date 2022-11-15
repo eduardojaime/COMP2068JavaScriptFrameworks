@@ -5,6 +5,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ProjectComponent } from './project/project.component';
 
+// Import service and http client
+import { ProjectService } from './services/project.service';
+import { HttpClientModule } from '@angular/common/http';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -12,9 +16,10 @@ import { ProjectComponent } from './project/project.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [ProjectService],
   bootstrap: [ProjectComponent]
 })
 export class AppModule { }
