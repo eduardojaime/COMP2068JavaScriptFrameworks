@@ -1,7 +1,23 @@
 <div class="card highlight-card">Project Tracker</div>
 <!-- Show data -->
 <div class="card-container">
-    <div *ngFor="let project of projects" class="card">
+    <div *ngFor="let project of projects" class="card" (click)="onSelect(project)">
         {{project.name}}
     </div>
 </div>
+
+<section *ngIf="selectedProject">
+    <h2>Project Details</h2>
+    <fieldset>
+        <label>ID:</label>
+        <input [(ngModel)]="selectedProject.id">
+    </fieldset>
+    <fieldset>
+        <label>Name:</label>
+        <input [(ngModel)]="selectedProject.name">
+    </fieldset>
+    <fieldset>
+        <label>Course:</label>
+        <input [(ngModel)]="selectedProject.course">
+    </fieldset>
+</section>

@@ -27,4 +27,13 @@ export class ProjectComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  // 2-way data binding
+  // property to store selected project
+  selectedProject!: Project;
+  // method to handle selecting a project when clicking on a div
+  onSelect(project: Project) : void
+  {
+    this.selectedProject = project;
+  }
+
 }
