@@ -1,0 +1,20 @@
+{
+  "name": "taxcalculator",
+  "version": "1.0.0",
+  "description": "This is a demo tax calculator",
+  "main": "tax.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "tax",
+    "calculator",
+    "georgian",
+    "college"
+  ],
+  "author": "Eduardo Jaime",
+  "license": "ISC",
+  "dependencies": {
+    "accounting": "^0.4.1"
+  }
+}
