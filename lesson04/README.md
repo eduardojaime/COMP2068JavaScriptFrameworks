@@ -67,10 +67,11 @@
 - Create a new repository for your project (public preferably)
     - Remember to add a .gitignore file for Node
     - Upload your code to the repository
-- Navigate to Heroku.com
-- Sign up and create a Free Account
-    - Add a new project
-    - Connect GitHub Repo using your credentials
-    - Enable Automatic Deployments (CI/CD)
-    - Deploy
-    - Navigate to your app link, e.g.: https://project-tracker-comp2068.herokuapp.com/
+- Check instructions here https://geshan.com.np/blog/2021/01/free-nodejs-hosting/#render
+- Navigate to Render.com
+- Sign up and create a Free Account (using GitHub account to sign up is recommended)
+    - Add a new Web Service
+    - Connect to GitHub Repo using your credentials
+    - Modify build command to npm install
+    - Modify start command to npm start
+    - Navigate to your app link, e.g.: https://render-app-test-m9ki.onrender.com
