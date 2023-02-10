@@ -1,2 +1,23 @@
 <h1>{{title}}</h1>
-<p>Here you will see a list of projects.</p>
+{{!-- Add link to CREATE operation --}}
+<a href="/project/add">Add a new project</a>
+{{!-- show data in table --}}
+<table>
+    <thead>
+        <th>Name</th>
+        <th>Due Date</th>
+        <th>Course</th>
+        <th>Status</th>
+    </thead>
+    <tbody>
+        {{!-- use foreach loop --}}
+        {{#each dataset}}
+            <tr>
+                <td>{{this.name}}</td>
+                <td>{{this.dueDate}}</td>
+                <td>{{this.course}}</td>
+                <td>{{this.status}}</td>
+            </tr>
+        {{/each}}
+    </tbody>
+</table>

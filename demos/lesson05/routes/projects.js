@@ -7,7 +7,13 @@ const Project = require("../models/project"); // use .. to navigate one folder l
 // configure router object
 // GET /projects/
 router.get("/", (req, res, next) => {
-  res.render("projects/index", { title: "Project Tracker" });
+  // res.render("projects/index", { title: "Project Tracker" });
+  Project.find((err, projects)=>{
+    if (err) { console.log(err); }
+    else {
+        res.render("projects/index", { title: "Project Tracker", dataset: projects });
+    }
+  });
 });
 // GET /projects/add
 router.get("/add", (req, res, next) => {
