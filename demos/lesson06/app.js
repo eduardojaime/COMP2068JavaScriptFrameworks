@@ -3,11 +3,13 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-// 1) Import Mongoose into the project after installing it
-const mongoose = require('mongoose');
+// import mongoose
+var mongoose = require('mongoose');
+// import configs
+const configs = require('./config/global');
 
-// Create router objects
 var indexRouter = require('./routes/index');
+// var usersRouter = require('./routes/users');
 var projectsRouter = require('./routes/projects');
 var coursesRouter = require('./routes/courses');
 
@@ -22,27 +24,16 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-// Register router objects
+
 app.use('/', indexRouter);
+// app.use('/users', usersRouter);
 app.use('/projects', projectsRouter);
 app.use('/courses', coursesRouter);
 
-// Option 1) Hardcode connection string and connect
-let userName = 'admin';
-let password = 'password';
-let connectionString = `mongodb+srv://${userName}:${password}@cluster0.86msx.mongodb.net/comp2068`;
-// Option 2) Add connection string to Config file
-// const config = require('./config/globals');
-// let connectionString = config.db;
-
-// Use the connect method, and the two handlers to try to connect to the DB
-mongoose.connect(connectionString, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then((message) => {
-    console.log('Connected successfully!');
-  })
-  .catch((error) => {
-    console.log(`Error while connecting! ${error}`);
-  });
+// configure connection, after routers
+mongoose.connect(configs.db, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then((message)=>{ console.log('Connected successfully!'); }) // successful connection
+  .catch((error)=>{ console.log('Error while connecting: ' + error); }); // error
 
 // HBS Helper Method to select values from dropdown lists
 const hbs = require('hbs');
@@ -59,13 +50,17 @@ hbs.registerHelper('createOption', (currentValue, selectedValue) => {
   return new hbs.SafeString(`<option ${selectedProperty}>${currentValue}</option>`);
 });
 
+hbs.registerHelper('toShortDate', (longDateValue) => {
+  return new hbs.SafeString(longDateValue.toLocaleDateString('en-CA'));
+});
+
 // catch 404 and forward to error handler
-app.use(function (req, res, next) {
+app.use(function(req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function (err, req, res, next) {
+app.use(function(err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};

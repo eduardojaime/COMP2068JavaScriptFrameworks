@@ -19,6 +19,7 @@ router.get("/", (req, res, next) => {
 router.get("/add", (req, res, next) => {
   res.render("projects/add", { title: "Add a new Project" });
 });
+
 // POST /projects/add
 router.post("/add", (req, res, next) => {
   // need to use mongoose model
@@ -32,6 +33,7 @@ router.post("/add", (req, res, next) => {
     (err, newProject) => { // callback function to execute after processing is complete
         if (err) { console.log(err); }
         else {
+          // We can show a successful message by redirecting them to index
             res.redirect('/projects');
         }
     }

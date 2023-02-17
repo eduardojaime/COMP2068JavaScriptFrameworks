@@ -1,25 +1,26 @@
-// Import express and create a router
-const express = require('express');
+// import necessary modules
+const express = require("express");
+// create router object
 const router = express.Router();
-// Add reference to the models
-const Project = require('../models/projects');
+// import Project model
+const Project = require("../models/project"); // use .. to navigate one folder level up
 const Course = require('../models/course');
 
-// Add GET for index
-router.get('/', (req, res, next) => {
-    // res.render('projects/index', { title: 'Project Tracker' });
-
-    Project.find((err, projects) => {
-        if (err) {
-            console.log(err);
-        }
+// configure router object
+// GET /projects/
+router.get("/", (req, res, next) => {
+    // res.render("projects/index", { title: "Project Tracker" });
+    Project.find((err, projects)=>{
+        if (err) { console.log(err); }
         else {
             res.render('projects/index', { title: 'Project Tracker', dataset: projects });
         }
     })
 });
 
-router.get('/add', (req, res, next) => {
+// GET /projects/add
+router.get("/add", (req, res, next) => {
+    // res.render("projects/add", { title: "Add a new Project" });
     // Get list of courses
     Course.find((err, courses) => {
         if (err) {
@@ -31,20 +32,18 @@ router.get('/add', (req, res, next) => {
     }).sort({ name: -1 });
 });
 
-// Add POST handler
-router.post('/add', (req, res, next) => {
-    // use the project module to save data to DB
-    // call create method of the model 
-    // and map the fields with data from the request
-    // callback function will return an error if any or a newProject object
-    Project.create({
+// POST /projects/add
+router.post("/add", (req, res, next) => {
+    // need to use mongoose model
+    // data coming from request body (input fields)
+    Project.create(
+    { // new project data in JSON format
         name: req.body.name,
         dueDate: req.body.dueDate,
         course: req.body.course
-    }, (err, newProject) => {
-        if (err) {
-            console.log(err);
-        }
+    },     
+    (err, newProject) => { // callback function to execute after processing is complete
+        if (err) { console.log(err); }
         else {
             // We can show a successful message by redirecting them to index
             res.redirect('/projects');
