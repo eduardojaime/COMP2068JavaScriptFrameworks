@@ -38,6 +38,8 @@ app.use(session({
 // passport initialization
 app.use(passport.initialize()); // allows passport to be configured with strategies
 app.use(passport.session()); // handles session mechanism
+// create and use local strategy
+passport.use(User.createStrategy()); // User.createStrategy() comes from plm
 // configure user object serialization/deserialization
 passport.serializeUser(User.serializeUser()); // User.serializeUser() method comes from plm package
 passport.deserializeUser(User.deserializeUser());
