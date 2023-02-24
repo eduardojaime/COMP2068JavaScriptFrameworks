@@ -7,6 +7,11 @@ var logger = require('morgan');
 var mongoose = require('mongoose');
 // import configs
 const configs = require('./config/global');
+// import passport and express-session
+const passport = require('passport');
+const session = require('express-session');
+// import user model so we can use it to configure local strategy
+const User = require('./models/user');
 
 var indexRouter = require('./routes/index');
 // var usersRouter = require('./routes/users');
@@ -24,6 +29,18 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+// configure session https://www.npmjs.com/package/express-session
+app.use(session({
+  secret: 'projecttracker2023',
+  resave: false,
+  saveUninitialized: false
+}));
+// passport initialization
+app.use(passport.initialize()); // allows passport to be configured with strategies
+app.use(passport.session()); // handles session mechanism
+// configure user object serialization/deserialization
+passport.serializeUser(User.serializeUser()); // User.serializeUser() method comes from plm package
+passport.deserializeUser(User.deserializeUser());
 
 app.use('/', indexRouter);
 // app.use('/users', usersRouter);
