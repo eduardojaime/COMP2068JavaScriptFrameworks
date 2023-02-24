@@ -1,0 +1,26 @@
+<h1>{{title}}</h1>
+{{!-- Add link to CREATE operation --}}
+<a href="/projects/add">Add a new project</a>
+{{!-- show data in table --}}
+<table>
+    <thead>
+        <th>Name</th>
+        <th>Due Date</th>
+        <th>Course</th>
+        <th>Status</th>
+        <th></th>
+    </thead>
+    <tbody>
+        {{!-- use foreach loop --}}
+        {{#each dataset}}
+            <tr>
+                <td>{{this.name}}</td>
+                <td>{{toShortDate this.dueDate}}</td>
+                <td>{{this.course}}</td>
+                <td>{{this.status}}</td>
+    			<td><a href="/projects/edit/{{this._id}}" class="btn btn-primary">Edit</a>
+        			<a href="/projects/delete/{{this._id}}" class="btn btn-danger" onclick="return confirmDeletion();">Delete</a></td>
+            </tr>
+        {{/each}}
+    </tbody>
+</table>
