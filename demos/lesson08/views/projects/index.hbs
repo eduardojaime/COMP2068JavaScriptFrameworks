@@ -21,7 +21,8 @@
                 <td>{{this.course}}</td>
                 <td>{{this.status}}</td>
     			<td>
-                    {{#if user}}
+                    {{!-- needs to navigate outside the for loop to access user --}}
+                    {{#if ../user}}
                         <a href="/projects/edit/{{this._id}}" class="btn btn-primary">Edit</a>
         			    <a href="/projects/delete/{{this._id}}" class="btn btn-danger" onclick="return confirmDeletion();">Delete</a>
                     {{/if}}
