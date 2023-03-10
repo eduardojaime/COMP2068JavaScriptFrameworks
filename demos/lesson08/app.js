@@ -43,11 +43,11 @@ passport.use(User.createStrategy()); // User.createStrategy() comes from plm
 // configure user object serialization/deserialization
 passport.serializeUser(User.serializeUser()); // User.serializeUser() method comes from plm package
 passport.deserializeUser(User.deserializeUser());
-
-app.use('/', indexRouter);
+// routing rules
+app.use('/', indexRouter); // should be public
 // app.use('/users', usersRouter);
-app.use('/projects', projectsRouter);
-app.use('/courses', coursesRouter);
+app.use('/projects', projectsRouter); // has its own custom authorization
+app.use('/courses', IsLoggedIn, coursesRouter); // blocks access to anything under courses
 
 // configure connection, after routers
 mongoose.connect(configs.db, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -88,5 +88,13 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+// Option 2 associate to the routing rule
+function IsLoggedIn(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next(); // moves on to the next middleware in the pipeline
+  }
+  res.redirect('/login'); // public user, send them to login
+}
 
 module.exports = app;
