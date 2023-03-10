@@ -6,8 +6,17 @@ const router = express.Router();
 const Project = require("../models/project"); // use .. to navigate one folder level up
 const Course = require('../models/course');
 
+// add reusable middleware function to inject a check for our handlers
+function IsLoggedIn(req, res, next) {
+    if (req.isAuthenticated()) {
+        return next(); // moves on to the next middleware in the pipeline
+    }
+    res.redirect('/login'); // public user, send them to login
+}
+
 // configure router object
 // GET /projects/
+// Public page
 router.get("/", (req, res, next) => {
     // res.render("projects/index", { title: "Project Tracker" });
     Project.find((err, projects)=>{
@@ -23,7 +32,8 @@ router.get("/", (req, res, next) => {
 });
 
 // GET /projects/add
-router.get("/add", (req, res, next) => {
+// inject as many middleware functions as you need
+router.get("/add", IsLoggedIn, (req, res, next) => {
     // res.render("projects/add", { title: "Add a new Project" });
     // Get list of courses
     Course.find((err, courses) => {
@@ -41,7 +51,7 @@ router.get("/add", (req, res, next) => {
 });
 
 // POST /projects/add
-router.post("/add", (req, res, next) => {
+router.post("/add", IsLoggedIn, (req, res, next) => {
     // need to use mongoose model
     // data coming from request body (input fields)
     Project.create(
@@ -62,7 +72,7 @@ router.post("/add", (req, res, next) => {
 
 // GET handler for Delete operations
 // :_id is a placeholder for naming whatever is after the / in the path
-router.get('/delete/:_id', (req, res, next) => {
+router.get('/delete/:_id', IsLoggedIn, (req, res, next) => {
     // call remove method and pass id as a json object
     Project.remove({ _id: req.params._id }, (err) => {
         if (err) {
@@ -75,7 +85,7 @@ router.get('/delete/:_id', (req, res, next) => {
 });
 
 // GET handler for Edit operations
-router.get('/edit/:_id', (req, res, next) => {
+router.get('/edit/:_id', IsLoggedIn, (req, res, next) => {
     // Find the Project by ID
     // Find available courses
     // Pass them to the view
@@ -102,7 +112,7 @@ router.get('/edit/:_id', (req, res, next) => {
 });
 
 // POST handler for Edit operations
-router.post('/edit/:_id', (req,res,next) => {
+router.post('/edit/:_id', IsLoggedIn, (req,res,next) => {
     // find project based on ID
     // try updating with form values
     // redirect to /Projects
