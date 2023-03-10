@@ -10,6 +10,8 @@ const configs = require('./config/global');
 // import passport and express-session
 const passport = require('passport');
 const session = require('express-session');
+const githubStrategy = require('passport-github2').Strategy; // extract the strategy itself not the package
+
 // import user model so we can use it to configure local strategy
 const User = require('./models/user');
 
@@ -40,6 +42,32 @@ app.use(passport.initialize()); // allows passport to be configured with strateg
 app.use(passport.session()); // handles session mechanism
 // create and use local strategy
 passport.use(User.createStrategy()); // User.createStrategy() comes from plm
+// add github strategy
+passport.use(new githubStrategy(
+  {
+    clientID: configs.github.clientId,
+    clientSecret: configs.github.clientSecret,
+    callbackURL: configs.github.callbackUrl
+  }, 
+  async (accessToken, refreshToken, profile, done) => {
+    // search user in my database
+    const user = await User.findOne({ oauthId: profile.id });
+    // if found do nothing just continue
+    if (user) { return done(null, user); }
+    // if not then create new user in my database
+    else {
+      const newUser = new User({
+        username: profile.username,
+        oauthId: profile.id,
+        oauthProvider: 'GitHub',
+        created: Date.now()
+      });
+      const savedUser = await newUser.save();
+      return done(null, savedUser);
+    }
+  }
+));
+
 // configure user object serialization/deserialization
 passport.serializeUser(User.serializeUser()); // User.serializeUser() method comes from plm package
 passport.deserializeUser(User.deserializeUser());
@@ -56,6 +84,7 @@ mongoose.connect(configs.db, { useNewUrlParser: true, useUnifiedTopology: true }
 
 // HBS Helper Method to select values from dropdown lists
 const hbs = require('hbs');
+const { config } = require('process');
 // function name and helper function with parameters
 hbs.registerHelper('createOption', (currentValue, selectedValue) => {
   // initialize selected property

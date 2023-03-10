@@ -6,7 +6,10 @@ const plm = require('passport-local-mongoose');
 // Create a schema definition object using mapping notation
 const schemaDefinitionObj = {
    username: { type: String },
-   password: { type: String }
+   password: { type: String },
+   oauthId: { type: String }, // used for storing third party id
+   oauthProvider: { type: String }, // user to specify where they are coming from
+   created: { type: Date }
 }
 // Create a mongoose schema using the def object
 var mongooseSchema = new mongoose.Schema(schemaDefinitionObj);
