@@ -24,4 +24,11 @@ const PROJECTS: Project[] = [
 export class ProjectComponent {
   // add functionality and data here
   projects = PROJECTS; // attribute of my component
+  // 2-way data binding property to store the selected project
+  selectedProject!: Project;
+  // create a function to handle click events in divs
+  onSelect(project: Project) : void {
+    // project comes from the UI, it needs to be stored in an attribute/property
+    this.selectedProject = project;
+  }
 } 
