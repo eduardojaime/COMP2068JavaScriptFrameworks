@@ -1,2 +1,10 @@
 <!-- similar to a view -->
 <div class="card highlight-card">Project Tracker</div>
+<!-- use a for loop to iterate through the list and render projects -->
+<div class="card-container">
+    <!-- user for loop directive in element that I wish to repeat -->
+    <div *ngFor="let project of projects" class="card">
+        <!-- 1 - Interpolation Binding -->
+        {{project.name}}
+    </div>
+</div>
