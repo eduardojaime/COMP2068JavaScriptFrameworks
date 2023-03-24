@@ -6,12 +6,17 @@ var logger = require('morgan');
 // import config file and mongoose
 var config = require('./config/global');
 var mongoose = require('mongoose');
+// easy cors install to allow all origins
+var cors = require('cors');
 
 var indexRouter = require('./routes/index');
 // var usersRouter = require('./routes/users');
 var projectsRouter = require('./routes/api/projects');
 
 var app = express();
+
+// use cors to allow all origins
+app.use(cors());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
