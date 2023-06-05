@@ -5,9 +5,10 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+// var usersRouter = require('./routes/users'); << won't use
 // import new router objects
 var aboutRouter = require('./routes/about');
+var projectsRouter = require('./routes/projects');
 
 var app = express();
 
@@ -22,10 +23,11 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 // ROUTING MECHANISM
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+// app.use('/users', usersRouter); << won't use
 // associate new paths and router objects
 // anything under /about is handled by this router
 app.use('/about', aboutRouter);
+app.use('/projects', projectsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
