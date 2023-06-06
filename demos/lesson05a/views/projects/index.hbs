@@ -1,5 +1,23 @@
 <h1>{{ title }}</h1>
 
-{{!-- TODO: Add button to INSERT new project --}}
+<a href="/projects/add">Add a new Project</a>
 
-{{!-- TODO: Add table to show all projects in the DB --}}
+{{!-- To Show data --}}
+<table class="table table-striped table-hover">
+  <thead>
+    <th>Name</th>
+    <th>Due Date</th>
+    <th>Course</th>
+    <th>Status</th>
+  </thead>
+  <tbody>
+  {{#each dataset}}
+    <tr>
+      <td>{{this.name}}</Td>
+      <td>{{this.dueDate}}</Td>
+      <td>{{this.course}}</Td>
+      <td>{{this.status}}</Td>
+    </tr>
+  {{/each}}
+  </tbody>
+</table>
