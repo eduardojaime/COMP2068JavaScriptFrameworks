@@ -34,13 +34,13 @@ app.use('/projects', projectsRouter);
 
 // connect to the db after registering router objects
 mongoose
-.connect(configs.db, { useNewUrlParser: true, useUnifiedTopology: true })
-.then((message) => {
-  console.log('Connected successfully!');
-})
-.catch((error) => {
-  console.log(`Error while connecting! ${error}`);
-});
+  .connect(configs.db, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then((message) => {
+    console.log('Connected successfully!');
+  })
+  .catch((error) => {
+    console.log(`Error while connecting! ${error}`);
+  });
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
