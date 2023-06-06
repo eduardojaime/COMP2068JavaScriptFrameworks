@@ -3,6 +3,9 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+// import config obj and mongoose package
+var configs = require('./configs/globals');
+var mongoose = require('mongoose'); // install via npm, this allows our app to connect to MongoDB
 
 var indexRouter = require('./routes/index');
 // var usersRouter = require('./routes/users'); << won't use
@@ -28,6 +31,16 @@ app.use('/', indexRouter);
 // anything under /about is handled by this router
 app.use('/about', aboutRouter);
 app.use('/projects', projectsRouter);
+
+// connect to the db after registering router objects
+mongoose
+.connect(configs.db, { useNewUrlParser: true, useUnifiedTopology: true })
+.then((message) => {
+  console.log('Connected successfully!');
+})
+.catch((error) => {
+  console.log(`Error while connecting! ${error}`);
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
