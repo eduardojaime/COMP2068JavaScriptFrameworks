@@ -46,8 +46,10 @@
 
 ### Part 3 Connecting our Application to MongoDB 
 - Search for mongoose on https://npmjs.com
-- Install mongoose package
-    - npm i mongoose
+- Install mongoose package (either version 5.x or 6.x, since version 7.x would cause conflict with the code shown in class)
+    - npm i mongoose@6.11.2
+    - OR npm i mongoose @5.13.17
+    - NOTE: version 6.11.2 is preferred for this demo
 - On app.js
     - Import mongoose into the project and create an object
     - After the .use() calls to register controllers
