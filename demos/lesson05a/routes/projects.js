@@ -9,14 +9,26 @@ router.get("/", (req, res, next) => {
   // TODO: Retrieve all projects from DB
   // res.render("projects/index", { title: "Project Tracker" });
   // find all projects and show
+  // Project
+  //   .find()
+  //   .then((err, projects) => {
+  //     res.render("projects/index", {
+  //       title: "Project Tracker",
+  //       dataset: projects,
+  //     });
+  //   })
+  //   .catch(function (err) {
+  //     console.log(err);
+  //   });
   Project.find((err, projects) => {
     if (err) {
       console.log(err);
-    } else {
+    }
+    else {
       res.render("projects/index", {
-        title: "Project Tracker",
-        dataset: projects,
-      });
+            title: "Project Tracker",
+            dataset: projects,
+          });
     }
   });
 });
