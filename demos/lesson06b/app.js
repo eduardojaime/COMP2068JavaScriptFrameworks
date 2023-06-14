@@ -3,11 +3,14 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-// 1) Import Mongoose into the project after installing it
-const mongoose = require('mongoose');
+// import config obj and mongoose package
+var configs = require('./configs/globals');
+var mongoose = require('mongoose'); // install via npm, this allows our app to connect to MongoDB
 
-// Create router objects
 var indexRouter = require('./routes/index');
+// var usersRouter = require('./routes/users'); << won't use
+// import new router objects
+var aboutRouter = require('./routes/about');
 var projectsRouter = require('./routes/projects');
 
 var app = express();
@@ -21,20 +24,17 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-// Register router objects
+// ROUTING MECHANISM
 app.use('/', indexRouter);
+// app.use('/users', usersRouter); << won't use
+// associate new paths and router objects
+// anything under /about is handled by this router
+app.use('/about', aboutRouter);
 app.use('/projects', projectsRouter);
 
-// Option 1) Hardcode connection string and connect
-let userName = 'admin';
-let password = '<password>';
-let connectionString = `mongodb+srv://${userName}:${password}@cluster0.86msx.mongodb.net/comp2068`;
-// Option 2) Add connection string to Config file
-// const config = require('./config/globals');
-// let connectionString = config.db;
-
-// Use the connect method, and the two handlers to try to connect to the DB
-mongoose.connect(connectionString, { useNewUrlParser: true, useUnifiedTopology: true })
+// connect to the db after registering router objects
+mongoose
+  .connect(configs.db, { useNewUrlParser: true, useUnifiedTopology: true })
   .then((message) => {
     console.log('Connected successfully!');
   })
@@ -43,12 +43,12 @@ mongoose.connect(connectionString, { useNewUrlParser: true, useUnifiedTopology: 
   });
 
 // catch 404 and forward to error handler
-app.use(function (req, res, next) {
+app.use(function(req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function (err, req, res, next) {
+app.use(function(err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};

@@ -1,19 +1,19 @@
-// Controllers = routers
+// Router objects are modules that can be associated to paths
+// these contains middleware function associations
 var express = require('express');
 var router = express.Router();
 
 /* GET home page. */
-// GET handler for // < root of the site
+// relative to app.use() > /
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  // view name is relative to the /views folder
+  res.render('index', { title: 'Project Tracker App' });
 });
 
-// GET handler for //about
-// Considering About is a page part of Landing Section
+// Option 1) Extend this router to handle another path
+// GET handler for /about
 // router.get('/about', (req, res, next) => {
-//   // first param is view name
-//   // second is json object with data for the view
-//   res.render('about', { title: 'About Us'});
+//   res.render('about', {title: 'About Us'});
 // });
 
 module.exports = router;
