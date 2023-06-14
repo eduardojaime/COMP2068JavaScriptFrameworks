@@ -20,7 +20,14 @@
     <label for="course" class="col-2">
       Course:
     </label>
-    <input name="course" id="course" required />
+    <select name="course" id="course">
+      {{!-- TODO: FIGURE OUT HOW TO PRINT SEVERAL <OPTION></OPTION> ELEMENTS --}}
+      {{!-- <option>JS FRAMEWORKS</option>
+      <option>ASP.NET</option> --}}
+      {{#each courseList}}
+        <option>{{this.name}}</option>
+      {{/each}}
+    </select>
   </fieldset>
   {{! No need to specify Status since it has a default value }}
   {{! Button needs to be inside <form> element to trigger POST }}
