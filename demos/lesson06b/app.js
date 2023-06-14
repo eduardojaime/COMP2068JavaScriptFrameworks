@@ -12,6 +12,7 @@ var indexRouter = require('./routes/index');
 // import new router objects
 var aboutRouter = require('./routes/about');
 var projectsRouter = require('./routes/projects');
+var coursesRouter = require('./routes/courses');
 
 var app = express();
 
@@ -31,7 +32,7 @@ app.use('/', indexRouter);
 // anything under /about is handled by this router
 app.use('/about', aboutRouter);
 app.use('/projects', projectsRouter);
-
+app.use('/courses', coursesRouter);
 // connect to the db after registering router objects
 mongoose
   .connect(configs.db, { useNewUrlParser: true, useUnifiedTopology: true })
