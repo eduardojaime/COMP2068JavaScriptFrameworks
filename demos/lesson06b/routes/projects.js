@@ -85,5 +85,54 @@ router.get("/delete/:_id", (req, res, next) => {
     }
   );
 });
+
+
+// GET handler for Edit operations
+router.get("/edit/:_id", (req, res, next) => {
+  // Find the Project by ID
+  // Find available courses
+  // Pass them to the view
+  Project.findById(req.params._id, (err, project) => {
+    if (err) {
+      console.log(err);
+    } else {
+      Course.find((err, courses) => {
+        if (err) {
+          console.log(err);
+        } else {
+          res.render("projects/edit", {
+            title: "Edit a Project",
+            project: project,
+            courses: courses,
+          });
+        }
+      }).sort({ name: 1 });
+    }
+  });
+});
+
+// POST handler for Edit operations
+router.post("/edit/:_id", (req, res, next) => {
+  // find project based on ID
+  // try updating with form values
+  // redirect to /Projects
+  Project.findOneAndUpdate(
+    { _id: req.params._id },
+    {
+      name: req.body.name,
+      dueDate: req.body.dueDate,
+      course: req.body.course,
+      status: req.body.status,
+    },
+    (err, updatedProject) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.redirect("/projects");
+      }
+    }
+  );
+});
+
 // Export router object
 module.exports = router;

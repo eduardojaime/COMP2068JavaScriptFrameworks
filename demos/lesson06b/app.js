@@ -43,6 +43,21 @@ mongoose
     console.log(`Error while connecting! ${error}`);
   });
 
+// HBS Helper Method to select values from dropdown lists
+const hbs = require('hbs');
+// function name and helper function with parameters
+hbs.registerHelper('createOption', (currentValue, selectedValue) => {
+  // initialize selected property
+  var selectedProperty = '';
+  // if values are equal set selectedProperty accordingly
+  if (currentValue == selectedValue) {
+    selectedProperty = 'selected';
+  }
+  // return html code for this option element
+  // return new hbs.SafeString('<option '+ selectedProperty +'>' + currentValue + '</option>');
+  return new hbs.SafeString(`<option ${selectedProperty}>${currentValue}</option>`);
+});
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
