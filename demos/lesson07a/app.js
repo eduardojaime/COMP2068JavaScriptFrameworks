@@ -6,6 +6,11 @@ var logger = require('morgan');
 // import config obj and mongoose package
 var configs = require('./configs/globals');
 var mongoose = require('mongoose'); // install via npm, this allows our app to connect to MongoDB
+// import passport and session modules
+var passport = require('passport');
+var session = require('express-session');
+// import User model
+var User = require('./models/user');
 
 var indexRouter = require('./routes/index');
 // var usersRouter = require('./routes/users'); << won't use
@@ -25,6 +30,24 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+// configure session module, specify: secret value for hashing, two options
+// https://www.npmjs.com/package/express-session
+app.use(session({
+  secret: 's2023projecttracker',
+  resave: false,
+  saveUninitialized: false
+}));
+// configure passport initialization
+app.use(passport.initialize());
+app.use(passport.session()); 
+// what strategy would you want to implement??? 
+// implement local strategy (username/password)
+passport.use(User.createStrategy()); // createStrategy() comes from plm module
+// tell passport how to serialize/deserialize user data
+passport.serializeUser(User.serializeUser()); // method comes from plm
+passport.deserializeUser(User.deserializeUser());
+// TODO: implement oauth strategy
+
 // ROUTING MECHANISM
 app.use('/', indexRouter);
 // app.use('/users', usersRouter); << won't use
