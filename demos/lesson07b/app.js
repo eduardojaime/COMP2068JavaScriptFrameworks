@@ -57,6 +57,11 @@ hbs.registerHelper('createOption', (currentValue, selectedValue) => {
   // return new hbs.SafeString('<option '+ selectedProperty +'>' + currentValue + '</option>');
   return new hbs.SafeString(`<option ${selectedProperty}>${currentValue}</option>`);
 });
+// date formatter 
+// long date > Tue Jun 13 2023 20:00:00 GMT-0400 (Eastern Daylight Time)
+hbs.registerHelper('toShortDate', (longDateValue) =>{
+  return new hbs.SafeString(longDateValue.toLocaleDateString('en-CA'));
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
