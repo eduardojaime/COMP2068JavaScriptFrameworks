@@ -4,17 +4,25 @@ const Course = require("../models/course");
 
 // GET handler for /courses/
 router.get("/", (req, res, next) => {
-    Course.find((err, courses) => {
-        if (err) {console.log(err);}
-        else {
-            res.render("courses/index", { title: "Courses", dataset: courses });
-        }
-    });
+  Course.find((err, courses) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.render("courses/index", {
+        title: "Courses",
+        dataset: courses,
+        user: req.user,
+      });
+    }
+  });
 });
 
 // GET handler for /courses/add
 router.get("/add", (req, res, next) => {
-  res.render("courses/add", { title: "Add a new Course" });
+  res.render("courses/add", {
+    title: "Add a new Course",
+    user: req.user,
+  });
 });
 
 // POST handler for /courses/add

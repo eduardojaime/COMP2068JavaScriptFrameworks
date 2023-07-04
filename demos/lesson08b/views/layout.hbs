@@ -10,7 +10,7 @@
       integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
       crossorigin="anonymous"
     />
-    {{!-- no need to include /public in the src url --}}
+    {{! no need to include /public in the src url }}
     <script src="/javascripts/scripts.js"></script>
   </head>
   <body>
@@ -36,14 +36,24 @@
             <a class="nav-link" href="/courses">Courses</a>
           </li>
         </ul>
-        {{!-- ml-auto means margin left --}}
+        {{! ml-auto means margin left }}
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="/Register">Register</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/Login">Login</a>
-          </li>          
+          {{#if user}}
+            {{! if there's an authenticated user in my session }}
+            <li class="nav-item">
+              <a class="nav-link" href="#">{{user.username}}</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/Logout">Logout</a>
+            </li>
+          {{else}}
+            <li class="nav-item">
+              <a class="nav-link" href="/Register">Register</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/Login">Login</a>
+            </li>
+          {{/if}}
         </ul>
       </div>
     </nav>
