@@ -7,9 +7,10 @@ var logger = require("morgan");
 var configs = require("./configs/globals");
 var mongoose = require("mongoose"); // install via npm, this allows our app to connect to MongoDB
 // import passport and session modules
-var passport = require('passport');
-var session = require('express-session');
-var User = require('./models/user');
+var passport = require("passport");
+var session = require("express-session");
+var User = require("./models/user");
+var githubStrategy = require("passport-github2").Strategy;
 
 var indexRouter = require("./routes/index");
 // var usersRouter = require('./routes/users'); << won't use
@@ -31,16 +32,44 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 // AUTHENTICATION MECHANISM
 // configure session
-app.use(session({
-  secret: 'summer2023projecttracker', // used for encryption/protecting cookie
-  resave: false, // forces the session to be saved back to the store even when not modified
-  saveUninitialized: false 
-}));
+app.use(
+  session({
+    secret: "summer2023projecttracker", // used for encryption/protecting cookie
+    resave: false, // forces the session to be saved back to the store even when not modified
+    saveUninitialized: false,
+  })
+);
 // configure passport
 app.use(passport.initialize());
 app.use(passport.session());
 // configure passport strategy
 passport.use(User.createStrategy()); // User.createStrategy() comes from plm
+// configure github oauth strategy
+passport.use(
+  new githubStrategy(
+    {
+      clientID: configs.github.clientId,
+      clientSecret: configs.github.clientSecret,
+      callbackURL: configs.github.callbackUrl,
+    },
+    async (accessToken, refreshToken, profile, done) => {
+      const user = await User.findOne({ oauthId: profile.id });
+      if (user) {
+        return done(null, user);
+      }
+      else {
+        const newUser = new User({
+          username: profile.username,
+          oauthId: profile.id,
+          oauthProvider: "GitHub",
+          created: Date.now()
+        });
+        const savedUser = await newUser.save();
+        return done(null, savedUser);
+      }
+    }
+  )
+);
 // set passport to write/read user data to/from session object
 passport.serializeUser(User.serializeUser()); // User.serializeUser() comes from plm
 passport.deserializeUser(User.deserializeUser());
@@ -64,6 +93,7 @@ mongoose
 
 // HBS Helper Method to select values from dropdown lists
 const hbs = require("hbs");
+const { config } = require("process");
 // function name and helper function with parameters
 hbs.registerHelper("createOption", (currentValue, selectedValue) => {
   // initialize selected property

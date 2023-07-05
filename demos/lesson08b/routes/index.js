@@ -72,4 +72,21 @@ router.get("/logout", (req, res, next) => {
   });
 });
 
+// GET handler for /github
+// user gets sent to GitHub.com to enter their credentials
+router.get(
+  "/github",
+  passport.authenticate("github", { scope: ["user.email"] })
+);
+
+// GET handler for /github/callback
+// user is sent back from github.com after authenticating
+router.get(
+  "/github/callback",
+  passport.authenticate("github", { failureRedirect: "/login" }),
+  (req, res, next) => {
+    res.redirect("/projects");
+  }
+);
+
 module.exports = router;
