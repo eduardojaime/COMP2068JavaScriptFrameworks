@@ -10,6 +10,8 @@
       integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
       crossorigin="anonymous"
     />
+    {{! no need to include /public in the src url }}
+    <script src="/javascripts/scripts.js"></script>
   </head>
   <body>
     {{! Add Jumbotron element here, remove rounded corners and use -dark theme }}
@@ -28,7 +30,7 @@
             <a class="nav-link" href="/about">About</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/projects">Project</a>
+            <a class="nav-link" href="/projects">Projects</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/courses">Courses</a>
@@ -36,13 +38,22 @@
         </ul>
         {{! ml > margin left }}
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="/Register">Register</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/Login">Login</a>
-          </li>
-          {{! TODO: Logout button, show username when logged in  }}
+		{{#if user}}
+            {{! if there's an authenticated user in my session }}
+            <li class="nav-item">
+              <a class="nav-link" href="#">{{user.username}}</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/Logout">Logout</a>
+            </li>
+          {{else}}
+            <li class="nav-item">
+              <a class="nav-link" href="/Register">Register</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/Login">Login</a>
+            </li>
+          {{/if}}        
         </ul>
       </div>
     </nav>

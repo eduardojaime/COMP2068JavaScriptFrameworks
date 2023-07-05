@@ -6,9 +6,9 @@ const router = express.Router();
 // All paths here are relative to /About
 // GET handler for /About/
 // root of about section
-router.get('/', (req, res, next) =>{
-    res.render('about', { title: 'About Us'});
-} );
+router.get("/", (req, res, next) => {
+  res.render("about", { title: "About Us", user: req.user });
+});
 
 // Export it
 module.exports = router;

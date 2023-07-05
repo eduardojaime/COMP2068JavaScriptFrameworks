@@ -93,7 +93,7 @@ mongoose
 
 // HBS Helper Method to select values from dropdown lists
 const hbs = require("hbs");
-const { config } = require("process");
+
 // function name and helper function with parameters
 hbs.registerHelper("createOption", (currentValue, selectedValue) => {
   // initialize selected property

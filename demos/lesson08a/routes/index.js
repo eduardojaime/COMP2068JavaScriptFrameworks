@@ -3,13 +3,13 @@
 var express = require("express");
 var router = express.Router();
 var User = require("../models/user");
-var passport = require('passport');
+var passport = require("passport");
 
 /* GET home page. */
 // relative to app.use() > /
 router.get("/", function (req, res, next) {
   // view name is relative to the /views folder
-  res.render("index", { title: "Project Tracker App" });
+  res.render("index", { title: "Project Tracker App", user: req.user });
 });
 
 // Option 1) Extend this router to handle another path
@@ -18,22 +18,27 @@ router.get("/", function (req, res, next) {
 //   res.render('about', {title: 'About Us'});
 // });
 
-// Login and Register functionality
 // GET handler for /login
 router.get("/login", (req, res, next) => {
-  // read messages from session if any
+  // retrieve the messages
   let messages = req.session.messages || [];
-  // clear messages
+  // clear messages from session
   req.session.messages = [];
-  // pass messages to the view
+  // send messages to view
   res.render("login", { title: "Login to your Account", messages: messages });
 });
 // POST handler for /login
-router.post("/login", passport.authenticate("local", {
-  successRedirect:"/projects",
-  failureRedirect: "/login",
-  failureMessage: "Invalid Credentials" // don't be too specific with login error messages
-}));
+router.post(
+  "/login",
+  passport.authenticate(
+    "local", // name of strategy
+    {
+      successRedirect: "/projects",
+      failureRedirect: "/login",
+      failureMessage: "Invalid Credentials", // avoid being too specific with this error
+    }
+  )
+);
 
 // GET handler for /register
 router.get("/register", (req, res, next) => {
@@ -41,24 +46,47 @@ router.get("/register", (req, res, next) => {
 });
 
 // POST handler for /register
-router.post("/register", (req, res, next)=>{
-  // creates a new user in the DB
-  // takes three parameters: new user object, password, callback function
+router.post("/register", (req, res, next) => {
   User.register(
-    new User({ username: req.body.username }),
-    req.body.password, // it will be encrypted
-    (err, newUser) =>{
+    {
+      username: req.body.username,
+    },
+    req.body.password,
+    (err, newUser) => {
       if (err) {
         console.log(err);
         return res.redirect("/register");
-      }
-      else {
+      } else {
         req.login(newUser, (err) => {
-          res.redirect("/projects"); // login successful, initialize session for user and redirect to projects
+          res.redirect("/projects");
         });
       }
     }
   );
 });
+
+// GET handler for /logout
+router.get("/logout", (req, res, next) => {
+  req.logout((err) => {
+    res.redirect("/login");
+  });
+});
+
+// GET handler for /github
+// user gets sent to GitHub.com to enter their credentials
+router.get(
+  "/github",
+  passport.authenticate("github", { scope: ["user.email"] })
+);
+
+// GET handler for /github/callback
+// user is sent back from github.com after authenticating
+router.get(
+  "/github/callback",
+  passport.authenticate("github", { failureRedirect: "/login" }),
+  (req, res, next) => {
+    res.redirect("/projects");
+  }
+);
 
 module.exports = router;
