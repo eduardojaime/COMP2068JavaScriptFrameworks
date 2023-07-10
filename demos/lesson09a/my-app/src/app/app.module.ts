@@ -6,16 +6,19 @@ import { BrowserModule } from '@angular/platform-browser';
 // These extend the capabilities of my app
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+// similar to importing the router object in app.js
+import { ProjectsComponent } from './projects/projects.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ProjectsComponent // similar to app.use() to register a router object in app.js
   ],
   imports: [
     BrowserModule,
     AppRoutingModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [ProjectsComponent] // Indicates which one is the starting component
 })
 export class AppModule { }

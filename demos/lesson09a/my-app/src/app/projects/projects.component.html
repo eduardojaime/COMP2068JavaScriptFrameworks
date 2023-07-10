@@ -1,0 +1,17 @@
+<div class="card highlight-card">
+    Project Tracker 2023
+</div>
+<!-- Display a single project using interpolation binding {{ }} -->
+<!-- <div class="card-container">
+    <div class="card">
+        {{project.name}} for {{project.course}}
+    </div>
+</div> -->
+
+<!-- Displaying multiple elements from a list -->
+<div class="card-container">
+    <!-- For loop to render card divs -->
+    <div class="card" *ngFor="let p of projects">
+        {{p.name}} for {{p.course}}
+    </div>
+</div>
