@@ -1,4 +1,10 @@
-<div class="card highlight-card">
-    Project Tracker 2023
-</div>
+<div class="card highlight-card">Project Tracker 2023</div>
 <!-- Display single project from component -->
+<!-- <div class="card-container">
+  <div class="card">{{ project.name }} of {{ project.course }}</div>
+</div> -->
+<div class="card-container">
+    <div class="card" *ngFor="let p of projects">
+        {{ p.name }} of {{ p.course }}
+    </div>
+</div>
