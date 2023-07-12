@@ -7,6 +7,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 // similar to importing the router object
 import { ProjectsComponent } from './projects/projects.component';
+// import FormsModule to enable two-way data binding
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -15,7 +17,8 @@ import { ProjectsComponent } from './projects/projects.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule // needs to be registered globally in the app
   ],
   providers: [],
   bootstrap: [ProjectsComponent]

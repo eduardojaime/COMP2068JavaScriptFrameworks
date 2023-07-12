@@ -24,5 +24,9 @@ export class ProjectsComponent {
   // ideally this would be a call to the service to return data
   // project: Project = { id: 1, name: 'Lab 1', course: 'JS Frameworks' };
   projects = PROJECTS; // this would be a call to a function that calls the Back End
+  selectedProject!: Project;
   // define methods
+  onSelect(project: Project) : void {
+    this.selectedProject = project;
+  }
 }
