@@ -4,7 +4,7 @@ const router = express.Router();
 const Project = require("../models/project");
 const config = require("../config/globals");
 
-// Allow cross-origin requests
+// Allow cross-origin requests (can also be set from cors package)
 // Middleware executes before any other method in my router
 router.use((req, res, next) => {
   // hardcoded for now but must be made configurable

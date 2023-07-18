@@ -7,7 +7,8 @@ import { AppComponent } from './app.component';
 import { ProjectsComponent } from './projects/projects.component';
 // import http client to enable REST requests
 import { HttpClientModule } from '@angular/common/http';
-
+// import project service globally
+import { ProjectService } from './services/project.service';
 @NgModule({
   declarations: [AppComponent, ProjectsComponent],
   imports: [
@@ -15,7 +16,9 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     HttpClientModule, // register as a global module
   ],
-  providers: [],
+  providers: [
+    ProjectService, // register as provider (of data)
+  ],
   bootstrap: [ProjectsComponent], // starting component
 })
 export class AppModule {}

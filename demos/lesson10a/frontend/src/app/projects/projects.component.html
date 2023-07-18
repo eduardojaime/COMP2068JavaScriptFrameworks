@@ -1,1 +1,17 @@
-<p>projects works!</p>
+<h1>Project Tracker</h1>
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Due Date</th>
+            <th>Course</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let project of projects">
+            <td>{{project.name}}</td>
+            <td>{{project.dueDate}}</td>
+            <td>{{project.course}}</td>
+        </tr>
+    </tbody>
+</table>
