@@ -5,7 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors_policy = require('cors');
 // Initialize cors policy options
-var corsOptions = { // whitelist > only one allowed origin can access my data
+var cors_options = { // whitelist > only one allowed origin can access my data
   origin: 'http://localhost:4200', // frontend URL
   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 }
@@ -27,7 +27,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(cors_policy(corsOptions)); // enables data to be read from an allowed origin
+app.use(cors_policy(cors_options)); // enables data to be read from an allowed origin
 
 app.use('/', indexRouter);
 app.use('/projects', projectsRouter);

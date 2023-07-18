@@ -6,17 +6,17 @@ const config = require("../config/globals");
 
 // Allow cross-origin requests (can also be set from cors package)
 // Middleware executes before any other method in my router
-router.use((req, res, next) => {
-  // hardcoded for now but must be made configurable
-  console.log("Request from " + req);
-  res.header("Access-Control-Allow-Origin", config.clientServer); // 'http://localhost:4200');
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
-  next();
-});
+// router.use((req, res, next) => {
+//   // hardcoded for now but must be made configurable
+//   console.log("Request from " + req);
+//   res.header("Access-Control-Allow-Origin", config.clientServer); // 'http://localhost:4200');
+//   res.header(
+//     "Access-Control-Allow-Headers",
+//     "Origin, X-Requested-With, Content-Type, Accept"
+//   );
+//   res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
+//   next();
+// });
 
 // GET handler for /projects
 router.get("/", (req, res, next) => {
