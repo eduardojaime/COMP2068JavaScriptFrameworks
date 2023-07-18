@@ -3,9 +3,13 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+// import mongoose and configs
+var mongoose = require('mongoose');
+var configs = require('./configs/globals');
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+// var usersRouter = require('./routes/users');
+var projectsRouter = require('./routes/projects');
 
 var app = express();
 
@@ -18,10 +22,19 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
+// routing table
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
-
+app.use('/projects', projectsRouter);
+// app.use('/users', usersRouter);
+// connect to the db after registering router objects
+mongoose
+  .connect(configs.db, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then((message) => {
+    console.log("Connected successfully!");
+  })
+  .catch((error) => {
+    console.log(`Error while connecting! ${error}`);
+  });
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
