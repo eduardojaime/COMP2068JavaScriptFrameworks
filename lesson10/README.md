@@ -98,7 +98,8 @@
     - Our applications are running on two different web servers (even if they run on the same computer) so access to/from each other is blocked by default
 - Go back to project-spa-server and to routes/projects.js
     - Add a general middleware to allow cross-origin requests by adding headers to the request
-
+	- OR install https://www.npmjs.com/package/cors
+        - Configure in app.js with an options object to allow the known frontend origin
 ### Part 5 Cleaning up and adding global configurations
 
 - Go to the project-spa-server app in Visual Studio
