@@ -10,6 +10,12 @@ var configs = require('./configs/globals');
 var indexRouter = require('./routes/index');
 // var usersRouter = require('./routes/users');
 var projectsRouter = require('./routes/projects');
+// import cors and configure an options object
+var cors_policy = require('cors');
+var cors_options = { // whitelist of allowed origins
+  origin: 'http://localhost:4200', // frontend url
+  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+}
 
 var app = express();
 
@@ -22,6 +28,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(cors_policy(cors_options));
 // routing table
 app.use('/', indexRouter);
 app.use('/projects', projectsRouter);

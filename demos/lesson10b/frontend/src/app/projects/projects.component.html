@@ -1,1 +1,18 @@
-<p>projects works!</p>
+<h1>Project Tracker</h1>
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Due Date</th>
+            <th>Course</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- for loop is attached to the html element I want to repeat -->
+        <tr *ngFor="let p of projects">
+            <td>{{ p.name }}</td>
+            <td>{{ p.dueDate }}</td>
+            <td>{{ p.course }}</td>
+        </tr>
+    </tbody>
+</table>
