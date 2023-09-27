@@ -1,9 +1,10 @@
+// Similar to Program.cs or Startup.cs in ASP.NET projects
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-
+// Router objects = Controllers
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
@@ -19,6 +20,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Routing configuration
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
