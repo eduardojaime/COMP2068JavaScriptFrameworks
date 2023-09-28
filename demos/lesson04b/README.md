@@ -62,7 +62,7 @@
         - https://startbootstrap.com/themes?showVue=false&showPro=false
         - https://themes.getbootstrap.com/
 
-### Part 3 Deploying the app to Render.com
+### Part 3 Deploying the app to Heroku.com
 
 - Create a new repository for your project (public preferably)
     - Remember to add a .gitignore file for Node
