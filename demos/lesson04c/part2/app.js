@@ -1,9 +1,11 @@
+// Represents your web app and all its configurations
+// Similar to Program.cs or Startup.cs
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-
+// importing router objects
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
@@ -18,8 +20,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
-app.use('/', indexRouter);
+// Routing configuration
+app.use('/', indexRouter); // associate router object to a path
 app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
