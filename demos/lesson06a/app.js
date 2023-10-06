@@ -9,6 +9,7 @@ const mongoose = require('mongoose');
 // Create router objects
 var indexRouter = require('./routes/index');
 var projectsRouter = require('./routes/projects');
+var coursesRouter = require('./routes/courses');
 
 var app = express();
 
@@ -24,6 +25,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Register router objects
 app.use('/', indexRouter);
 app.use('/projects', projectsRouter);
+app.use('/courses', coursesRouter);
 
 // Option 1) Hardcode connection string and connect
 // let userName = 'admin';
@@ -42,6 +44,21 @@ mongoose.connect(connectionString, { useNewUrlParser: true, useUnifiedTopology: 
   .catch((error) => {
     console.log(`Error while connecting! ${error}`);
   });
+
+// HBS Helper Method to select values from dropdown lists
+const hbs = require('hbs');
+// function name and helper function with parameters
+hbs.registerHelper('createOption', (currentValue, selectedValue) => {
+  // initialize selected property
+  var selectedProperty = '';
+  // if values are equal set selectedProperty accordingly
+  if (currentValue == selectedValue) {
+    selectedProperty = 'selected';
+  }
+  // return html code for this option element
+  // return new hbs.SafeString('<option '+ selectedProperty +'>' + currentValue + '</option>');
+  return new hbs.SafeString(`<option ${selectedProperty}>${currentValue}</option>`);
+});
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

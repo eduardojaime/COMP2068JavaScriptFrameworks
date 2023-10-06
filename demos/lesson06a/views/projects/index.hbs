@@ -11,15 +11,21 @@
     <th>Due Date</th>
     <th>Course</th>
     <th>Status</th>
+    <th></th>
   </thead>
   <tbody>
   {{#each dataset}}
-    <tr>
-      <td>{{this.name}}</Td>
-      <td>{{this.dueDate}}</Td>
-      <td>{{this.course}}</Td>
-      <td>{{this.status}}</Td>
-    </tr>
+  <tr>
+    <td>{{this.name}}</td>
+    <td>{{this.dueDate}}</td>
+    <td>{{this.course}}</td>
+    <td>{{this.status}}</td>
+    <td><a href="/projects/edit/{{this._id}}" 
+      class="btn btn-primary">Edit</a>
+        <a href="/projects/delete/{{this._id}}" 
+      class="btn btn-danger"
+        onclick="return confirmDeletion();">Delete</a></td>
+  </tr>
   {{/each}}
   </tbody>
 </table>
