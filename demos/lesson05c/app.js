@@ -8,6 +8,7 @@ var logger = require("morgan");
 // importing router objects
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
+var projectsRouter = require("./routes/projects");
 // import mongoose and configs file
 var mongoose = require("mongoose");
 var configs = require("./config/globals");
@@ -26,6 +27,7 @@ app.use(express.static(path.join(__dirname, "public")));
 // Routing configuration
 app.use("/", indexRouter); // associate router object to a path
 app.use("/users", usersRouter);
+app.use("/projects", projectsRouter);
 // Connect App to DB
 mongoose
   .connect(configs.db, {

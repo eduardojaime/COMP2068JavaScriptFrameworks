@@ -12,7 +12,7 @@ router.get("/", (req, res, next) => {
         if (err) console.log(err);
         else {
             // render view
-            res.render("index", { 
+            res.render("projects/index", { 
                 title: "Project Tracker",
                 dataset: projects
             })
