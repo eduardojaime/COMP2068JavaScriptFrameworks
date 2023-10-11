@@ -20,7 +20,13 @@
     <label for="course" class="col-2">
       Course:
     </label>
-    <input name="course" id="course" required />
+    {{! <input name="course" id="course" required /> }}
+    <select name="course" id="course">
+      {{! for loop to render options }}
+      {{#each courses}}
+        <option>{{ this.name }}</option>
+      {{/each}}
+    </select>
   </fieldset>
   {{! No need to specify Status since it has a default value }}
   {{! Button needs to be inside <form> element to trigger POST }}
