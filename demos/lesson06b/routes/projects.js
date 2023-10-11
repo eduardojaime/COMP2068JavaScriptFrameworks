@@ -56,5 +56,19 @@ router.post("/add", (req, res, next) => {
   );
 });
 
+// TODO GET /delete/_id
+// access parameters via req.params object
+router.get("/delete/:_id", (req, res, next) =>{
+    let projectId = req.params._id;
+    Project.remove({ _id: projectId }, (err) => {
+        if (err) { console.log(err); }
+        else { res.redirect("/projects"); }
+     })
+ })
+
+// TODO GET /edit/_id
+
+// TODO POST /edit/_id
+
 // Export this router module
 module.exports = router;
