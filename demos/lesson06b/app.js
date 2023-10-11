@@ -5,6 +5,8 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 // 1) Import Mongoose into the project after installing it
 const mongoose = require('mongoose');
+// import hbs to write custom helper functions
+const hbs = require("hbs");
 
 // Create router objects
 var indexRouter = require('./routes/index');
@@ -44,6 +46,17 @@ mongoose.connect(connectionString, { useNewUrlParser: true, useUnifiedTopology: 
   .catch((error) => {
     console.log(`Error while connecting! ${error}`);
   });
+
+// HBS Helper Functions
+hbs.registerHelper('createOptionElement', (currentVal, selectedVal)=>{
+  // currentVal comes from list of courses
+  // selectedVal comes from project.course
+  console.log(selectedVal);
+  let selectedProperty = '';
+  if (currentVal == selectedVal) { selectedProperty = 'selected'; }
+  return new hbs.SafeString('<option ' + selectedProperty + '>' + currentVal + '</option>');
+  // return new hbs.SafeString(`<option ${selectedProperty}>${selectedVal}</option>`);
+});
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
