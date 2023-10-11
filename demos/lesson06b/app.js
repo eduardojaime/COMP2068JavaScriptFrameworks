@@ -9,6 +9,7 @@ const mongoose = require('mongoose');
 // Create router objects
 var indexRouter = require('./routes/index');
 var projectsRouter = require('./routes/projects');
+var coursesRouter = require("./routes/courses");
 
 var app = express();
 
@@ -24,6 +25,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Register router objects
 app.use('/', indexRouter);
 app.use('/projects', projectsRouter);
+app.use('/courses', coursesRouter);
 
 // Option 1) Hardcode connection string and connect
 // let userName = 'admin';
