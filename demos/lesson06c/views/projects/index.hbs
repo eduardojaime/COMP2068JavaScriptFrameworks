@@ -1,23 +1,23 @@
 <h1>{{title}}</h1>
-{{!-- CRUD Functionality --}}
-{{!-- TODO: ADD button --}}
-{{!-- Table to view all projects in db --}}
+{{! CRUD Functionality }}
+<a href="/projects/add" class="btn btn-info">Add a new Project</a>
+{{! Table to view all projects in db }}
 <table>
-    <thead>
-        <th>Name</th>
-        <th>Due Date</th>
-        <th>Course</th>
-        <th>Status</th>
-    </thead>
-    <tbody>
-        {{!-- Retrieve all projects and loop --}}
-        {{#each dataset}}
-        <tr>
-            <td>{{this.name}}</td>
-            <td>{{this.dueDate}}</td>
-            <td>{{this.course}}</td>
-            <td>{{this.status}}</td>
-        </tr>
-        {{/each}}
-    </tbody>
+  <thead>
+    <th>Name</th>
+    <th>Due Date</th>
+    <th>Course</th>
+    <th>Status</th>
+  </thead>
+  <tbody>
+    {{! Retrieve all projects and loop }}
+    {{#each dataset}}
+      <tr>
+        <td>{{this.name}}</td>
+        <td>{{this.dueDate}}</td>
+        <td>{{this.course}}</td>
+        <td>{{this.status}}</td>
+      </tr>
+    {{/each}}
+  </tbody>
 </table>
