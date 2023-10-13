@@ -13,6 +13,8 @@ var coursesRouter = require("./routes/courses");
 // import mongoose and configs file
 var mongoose = require("mongoose");
 var configs = require("./config/globals");
+// import hbs templating engine to expand it with custom helper functions
+var hbs = require("hbs");
 
 var app = express();
 
@@ -42,6 +44,14 @@ mongoose
   .catch((error) => {
     console.log("ERROR while connecting: " + error);
   });
+
+// HBS Helper Functions https://handlebarsjs.com/guide/block-helpers.html#basic-block-variation
+hbs.registerHelper('createOptionElement', (listValue, selectedValue) => {
+  let selectedProperty = ''; // empty by default
+  if (listValue == selectedValue) { selectedProperty = 'selected'; }
+  let optionElement = `<option ${selectedProperty}>${listValue}</option>`;
+  return new hbs.SafeString(optionElement);
+});
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

@@ -46,7 +46,34 @@ router.post("/add", (req, res, next) => {
   );
 });
 
-// TODO U > Update a given project in DB by ID
+// U > Update a given project in DB by ID
+// GET /projects/edit/ID
+router.get("/edit/:_id", (req, res, next) => {
+  Project.findById(req.params._id, (err, projectObj) => {
+    Course.find((err, courseList) => {
+      res.render("projects/edit", 
+      {
+        title: "Edit a Project",
+        project: projectObj,
+        courses: courseList
+      });
+    });
+  });
+});
+// POST /projects/edit/ID
+router.post("/edit/:_id", (req, res, next) => {
+  Project.findOneAndUpdate(
+    { _id: req.params._id }, // filter to find the project
+    {
+      name: req.body.name,
+      dueDate: req.body.dueDate,
+      course: req.body.course,
+      status: req.body.status
+    }, // updated project info
+    (err, updatedProject) => { res.redirect("/projects"); } // callback function
+  );
+});
+
 // D > Delete a project in the DB by ID
 // GET /projects/delete/6525f5c28c49905d3e5450e1
 router.get("/delete/:_id", (req, res, next) => {
