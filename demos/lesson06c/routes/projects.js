@@ -4,6 +4,7 @@ const express = require("express");
 const router = express.Router();
 // Import mongoose model to be used
 const Project = require("../models/project");
+const Course = require("../models/course");
 // Configure GET/POST handlers
 // Path relative to the one configured in app.js > /projects
 // R > Retrieve/Read usually shows a list (filtered/unfiltered)
@@ -23,7 +24,10 @@ router.get("/", (req, res, next) => {
 // C > Create new project in DB
 // GET handler for /projects/add (loads form)
 router.get("/add", (req, res, next) => {
-  res.render("projects/add", { title: "Add a new Project" });
+  // res.render("projects/add", { title: "Add a new Project" });
+  Course.find((err, courseList)=>{
+    res.render("projects/add", { title: "Add a new Project", courses: courseList });
+  });
 });
 // POST handler for /projects/add (receives input data)
 router.post("/add",(req, res, next) => {

@@ -13,7 +13,14 @@
     </fieldset>
     <fieldset>
         <label for="course" class="col-2">Course: </label>
-        <input name="course" id="course" required/>
+        {{!-- <input name="course" id="course" required/> --}}
+        <select name="course" id="course">
+            {{!-- <option>JS FRAMEWORKS</option>
+            <option>ASP.NET</option> --}}
+            {{#each courses}}
+                <option>{{this.name}}</option>
+            {{/each}}
+        </select>
     </fieldset>
     {{!-- Add a button inside the form to trigger a post back call --}}
     <button class="offset-3 btn btn-primary">Save</button>
