@@ -25,26 +25,38 @@ router.get("/", (req, res, next) => {
 // GET handler for /projects/add (loads form)
 router.get("/add", (req, res, next) => {
   // res.render("projects/add", { title: "Add a new Project" });
-  Course.find((err, courseList)=>{
-    res.render("projects/add", { title: "Add a new Project", courses: courseList });
+  Course.find((err, courseList) => {
+    res.render("projects/add", {
+      title: "Add a new Project",
+      courses: courseList,
+    });
   });
 });
 // POST handler for /projects/add (receives input data)
-router.post("/add",(req, res, next) => {
-    Project.create(
-        {
-            name: req.body.name,
-            dueDate: req.body.dueDate,
-            course: req.body.course
-        }, // new project to add
-        (err, newProject) => {
-            res.redirect("/projects");
-        } // callback function, what happens when the CREATE operation is complete?
-    );
-} );
+router.post("/add", (req, res, next) => {
+  Project.create(
+    {
+      name: req.body.name,
+      dueDate: req.body.dueDate,
+      course: req.body.course,
+    }, // new project to add
+    (err, newProject) => {
+      res.redirect("/projects");
+    } // callback function, what happens when the CREATE operation is complete?
+  );
+});
 
 // TODO U > Update a given project in DB by ID
-// TODO D > Delete a project in the DB by ID
-
+// D > Delete a project in the DB by ID
+// GET /projects/delete/6525f5c28c49905d3e5450e1
+router.get("/delete/:_id", (req, res, next) => {
+  let projectId = req.params._id;
+  Project.remove(
+    { _id: projectId }, // filter to identify project
+    (err) => {
+      res.redirect("/projects");
+    } // callback function
+  );
+});
 // Export router object
 module.exports = router;
