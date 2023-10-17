@@ -5,7 +5,10 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 // 1) Import Mongoose into the project after installing it
 const mongoose = require('mongoose');
-
+// Import authentication related modules
+var passport = require("passport");
+var session = require("express-session");
+var User = require("./models/user");
 // Create router objects
 var indexRouter = require('./routes/index');
 var projectsRouter = require('./routes/projects');
@@ -22,6 +25,22 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+// Configure session
+app.use(session(
+  {
+    secret: 's2023projectracker',
+    resave: false,
+    saveUninitialized: false
+  }
+));
+// Initialize passport
+app.use(passport.initialize());
+app.use(passport.session());
+// configure local strategy (first import model)
+passport.use(User.createStrategy()); // .createStrategy() comes from plm plugin
+// Set passport to write/read user data to/from session object
+passport.serializeUser(User.serializeUser()); // .serializeUser() comes from plm plugin
+passport.deserializeUser(User.deserializeUser()); // .deserializeUser() comes from plm plugin
 // Register router objects
 app.use('/', indexRouter);
 app.use('/projects', projectsRouter);
