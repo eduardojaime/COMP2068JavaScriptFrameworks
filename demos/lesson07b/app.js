@@ -5,8 +5,12 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 // 1) Import Mongoose into the project after installing it
 const mongoose = require('mongoose');
-// import hbs to write custom helper functions
+// Import hbs to write custom helper functions
 const hbs = require("hbs");
+// Import authentication related modules
+const passport = require("passport");
+const session = require("express-session");
+const User = require("./models/user");
 
 // Create router objects
 var indexRouter = require('./routes/index');
@@ -24,6 +28,27 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+// Configure session module https://www.npmjs.com/package/express-session
+// secret is a salt value used for hashing
+// save forces the session to be saved back to the session store 
+// even if it's never modified during the request
+app.use(session(
+  {
+    secret: "fall2023jsframeworks",
+    resave: false,
+    saveUninitialized: false
+  }
+));
+// Initialize passport and session middleware
+app.use(passport.initialize());
+app.use(passport.session());
+// Configure local strategy
+// ALL these methods in USER come from PLM
+passport.use(User.createStrategy());
+// set passport to write/read user data to/from session object
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
 // Register router objects
 app.use('/', indexRouter);
 app.use('/projects', projectsRouter);
