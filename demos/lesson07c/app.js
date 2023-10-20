@@ -15,6 +15,10 @@ var mongoose = require("mongoose");
 var configs = require("./config/globals");
 // import hbs templating engine to expand it with custom helper functions
 var hbs = require("hbs");
+// import Authentication related packages
+var passport = require("passport");
+var session = require("express-session");
+var User = require("./models/user"); // model already contains functionality from plm
 
 var app = express();
 
@@ -27,6 +31,22 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
+// Configure Authentication modules
+// Configure session handling
+app.use(session({
+  secret: "jsframeworksfall2023",
+  resave: false,
+  saveUninitialized: false
+}));
+// Configure passport module
+app.use(passport.initialize());
+app.use(passport.session());
+// Configure local strategy using the model
+passport.use(Use.createStrategy()); // createStrategy comes from PLM
+// Set passport to write/read user data to/from session object
+passport.serializeUser(Use.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
 // Routing configuration
 app.use("/", indexRouter); // associate router object to a path
 app.use("/users", usersRouter);
@@ -46,9 +66,11 @@ mongoose
   });
 
 // HBS Helper Functions https://handlebarsjs.com/guide/block-helpers.html#basic-block-variation
-hbs.registerHelper('createOptionElement', (listValue, selectedValue) => {
-  let selectedProperty = ''; // empty by default
-  if (listValue == selectedValue) { selectedProperty = 'selected'; }
+hbs.registerHelper("createOptionElement", (listValue, selectedValue) => {
+  let selectedProperty = ""; // empty by default
+  if (listValue == selectedValue) {
+    selectedProperty = "selected";
+  }
   let optionElement = `<option ${selectedProperty}>${listValue}</option>`;
   return new hbs.SafeString(optionElement);
 });
