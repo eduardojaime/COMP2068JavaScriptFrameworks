@@ -44,7 +44,7 @@ app.use(passport.session());
 // Configure local strategy using the model
 passport.use(Use.createStrategy()); // createStrategy comes from PLM
 // Set passport to write/read user data to/from session object
-passport.serializeUser(Use.serializeUser());
+passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 // Routing configuration
