@@ -1,6 +1,8 @@
 <h1>{{title}}</h1>
 {{! CRUD Functionality }}
-<a href="/projects/add" class="btn btn-info">Add a new Project</a>
+{{#if user}}
+<a href="/projects/add">Add a new project</a>
+{{/if}}
 {{! Table to view all projects in db }}
 <table>
   <thead>
@@ -18,10 +20,14 @@
         <td>{{this.dueDate}}</td>
         <td>{{this.course}}</td>
         <td>{{this.status}}</td>
-        <td>
-          <a href="/projects/edit/{{this._id}}" class="btn btn-primary">Edit</a>
-          <a href="/projects/delete/{{this._id}}" class="btn btn-danger" onclick="return confirmDeletion()">Delete</a>          
-        </td>
+        {{!-- When inside of a loop, you need to navigate out of it using '../' --}}
+        {{#if ../user}}
+            <td><a href="/projects/edit/{{this._id}}" 
+              class="btn btn-primary">Edit</a>
+                <a href="/projects/delete/{{this._id}}" 
+              class="btn btn-danger"
+                onclick="return confirmDeletion();">Delete</a></td>
+        {{/if}}
       </tr>
     {{/each}}
   </tbody>

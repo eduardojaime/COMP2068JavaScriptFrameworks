@@ -22,7 +22,8 @@ router.get("/", (req, res, next) => {
     } else {
       res.render("projects/index", {
         title: "Project Tracker",
-        dataset: projects,
+        dataset: projects, 
+        user: req.user 
       });
     }
   });
@@ -36,7 +37,8 @@ router.get("/add", IsLoggedIn, (req, res, next) => {
     } else {
       res.render("projects/add", {
         title: "Add a New Project",
-        courses: data,
+        courses: data, 
+        user: req.user 
       });
     }
   });
@@ -85,7 +87,8 @@ router.get("/edit/:_id", IsLoggedIn, (req, res, next) => {
       res.render("projects/edit", {
         title: "Edit Project Info",
         project: projectData,
-        courses: courseData,
+        courses: courseData, 
+        user: req.user 
       });
     });
   });

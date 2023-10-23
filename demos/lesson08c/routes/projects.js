@@ -25,7 +25,8 @@ router.get("/", (req, res, next) => {
       // render view
       res.render("projects/index", {
         title: "Project Tracker",
-        dataset: projects,
+        dataset: projects, 
+        user: req.user 
       });
     }
   });
@@ -38,6 +39,7 @@ router.get("/add", IsLoggedIn, (req, res, next) => {
     res.render("projects/add", {
       title: "Add a new Project",
       courses: courseList,
+      user: req.user 
     });
   });
 });
@@ -64,7 +66,8 @@ router.get("/edit/:_id", IsLoggedIn, (req, res, next) => {
       {
         title: "Edit a Project",
         project: projectObj,
-        courses: courseList
+        courses: courseList, 
+        user: req.user 
       });
     });
   });

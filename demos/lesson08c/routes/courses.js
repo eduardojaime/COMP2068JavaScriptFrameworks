@@ -2,33 +2,38 @@ const express = require("express");
 const router = express.Router();
 const Course = require("../models/course");
 
-function IsLoggedIn(req,res,next) {
+function IsLoggedIn(req, res, next) {
   if (req.isAuthenticated()) {
-      return next();
+    return next();
   }
-  res.redirect('/login');
+  res.redirect("/login");
 }
 
 // GET /courses/
 router.get("/", (req, res, next) => {
   Course.find((err, courses) => {
-    res.render("courses/index", { title: "Course List", dataset: courses });
+    res.render("courses/index", {
+      title: "Course List",
+      dataset: courses,
+      user: req.user,
+    });
   });
 });
 // GET /courses/add
 router.get("/add", IsLoggedIn, (req, res, next) => {
-    res.render("courses/add", {title: "Add a new Course"});
+  res.render("courses/add", { title: "Add a new Course", user: req.user });
 });
 // POST /courses/add
 router.post("/add", IsLoggedIn, (req, res, next) => {
-    Course.create({
-        name: req.body.name,
-        code: req.body.code
+  Course.create(
+    {
+      name: req.body.name,
+      code: req.body.code,
     }, // new course info to add
     (err, newCourse) => {
-        res.redirect("/courses");
+      res.redirect("/courses");
     } // callback function
-    )
+  );
 });
 
 module.exports = router;
