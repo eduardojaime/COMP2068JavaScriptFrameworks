@@ -47,9 +47,9 @@ passport.use(User.createStrategy()); // createStrategy comes from PLM
 // Configure passport-github2 with the API keys and user model
 // We need to handle two scenarios: new user, or returning user
 passport.use(new githubStrategy({
-  clientID: config.github.clientId,
-  clientSecret: config.github.clientSecret,
-  callbackURL: config.github.callbackUrl
+  clientID: configs.github.clientId,
+  clientSecret: configs.github.clientSecret,
+  callbackURL: configs.github.callbackUrl
 },
   // create async callback function
   // profile is github profile

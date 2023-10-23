@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const config = require('./config/globals'); // move this to the top of this file
 // 1) Import Mongoose into the project after installing it
 const mongoose = require('mongoose');
 // Import hbs to write custom helper functions
@@ -93,7 +94,6 @@ app.use('/courses', coursesRouter);
 // let connectionString = `mongodb+srv://${userName}:${password}@cluster0.86msx.mongodb.net/comp2068`;
 
 // Option 2) Add connection string to Config file
-const config = require('./config/globals'); // move this to the top of this file
 let connectionString = config.db;
 
 // Use the connect method, and the two handlers to try to connect to the DB
