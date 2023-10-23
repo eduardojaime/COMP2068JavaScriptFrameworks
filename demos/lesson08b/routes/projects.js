@@ -4,7 +4,15 @@ const router = express.Router();
 // Add reference to the projects model
 const Project = require("../models/project");
 const Course = require("../models/course");
-const project = require("../models/project");
+
+// add reusable middleware function to inject it in our handlers below that need authorization
+function IsLoggedIn(req,res,next) {
+  if (req.isAuthenticated()) {
+      return next();
+  }
+  res.redirect('/login');
+}
+
 // Add GET for index
 router.get("/", (req, res, next) => {
   // res.render('projects/index', { title: 'Project Tracker' });
@@ -20,7 +28,7 @@ router.get("/", (req, res, next) => {
   });
 });
 
-router.get("/add", (req, res, next) => {
+router.get("/add", IsLoggedIn, (req, res, next) => {
   // res.render('projects/add', { title: 'Add a New Project' });
   Course.find((err, data) => {
     if (err) {
@@ -34,7 +42,7 @@ router.get("/add", (req, res, next) => {
   });
 });
 
-router.post("/add", (req, res, next) => {
+router.post("/add", IsLoggedIn, (req, res, next) => {
   // use the project module to save data to DB
   // call create method of the model
   // and map the fields with data from the request
@@ -58,7 +66,7 @@ router.post("/add", (req, res, next) => {
 
 // GET /delete/_id
 // access parameters via req.params object
-router.get("/delete/:_id", (req, res, next) => {
+router.get("/delete/:_id", IsLoggedIn, (req, res, next) => {
   let projectId = req.params._id;
   Project.remove({ _id: projectId }, (err) => {
     if (err) {
@@ -70,7 +78,7 @@ router.get("/delete/:_id", (req, res, next) => {
 });
 
 // GET /edit/_id
-router.get("/edit/:_id", (req, res, next) => {
+router.get("/edit/:_id", IsLoggedIn, (req, res, next) => {
   let projectId = req.params._id;
   Project.findById(projectId, (err, projectData) => {
     Course.find((err, courseData) => {
@@ -84,7 +92,7 @@ router.get("/edit/:_id", (req, res, next) => {
 });
 
 // POST /edit/_id
-router.post("/edit/:_id", (req, res, next) => {
+router.post("/edit/:_id", IsLoggedIn, (req, res, next) => {
   let projectId = req.params._id;
   Project.findOneAndUpdate(
     { _id: projectId }, // filter to find the project to update

@@ -5,6 +5,15 @@ const router = express.Router();
 // Import mongoose model to be used
 const Project = require("../models/project");
 const Course = require("../models/course");
+
+// add reusable middleware function to inject it in our handlers below that need authorization
+function IsLoggedIn(req,res,next) {
+  if (req.isAuthenticated()) {
+      return next();
+  }
+  res.redirect('/login');
+}
+
 // Configure GET/POST handlers
 // Path relative to the one configured in app.js > /projects
 // R > Retrieve/Read usually shows a list (filtered/unfiltered)
@@ -23,7 +32,7 @@ router.get("/", (req, res, next) => {
 });
 // C > Create new project in DB
 // GET handler for /projects/add (loads form)
-router.get("/add", (req, res, next) => {
+router.get("/add", IsLoggedIn, (req, res, next) => {
   // res.render("projects/add", { title: "Add a new Project" });
   Course.find((err, courseList) => {
     res.render("projects/add", {
@@ -33,7 +42,7 @@ router.get("/add", (req, res, next) => {
   });
 });
 // POST handler for /projects/add (receives input data)
-router.post("/add", (req, res, next) => {
+router.post("/add", IsLoggedIn, (req, res, next) => {
   Project.create(
     {
       name: req.body.name,
@@ -48,7 +57,7 @@ router.post("/add", (req, res, next) => {
 
 // U > Update a given project in DB by ID
 // GET /projects/edit/ID
-router.get("/edit/:_id", (req, res, next) => {
+router.get("/edit/:_id", IsLoggedIn, (req, res, next) => {
   Project.findById(req.params._id, (err, projectObj) => {
     Course.find((err, courseList) => {
       res.render("projects/edit", 
@@ -61,7 +70,7 @@ router.get("/edit/:_id", (req, res, next) => {
   });
 });
 // POST /projects/edit/ID
-router.post("/edit/:_id", (req, res, next) => {
+router.post("/edit/:_id", IsLoggedIn, (req, res, next) => {
   Project.findOneAndUpdate(
     { _id: req.params._id }, // filter to find the project
     {
@@ -76,7 +85,7 @@ router.post("/edit/:_id", (req, res, next) => {
 
 // D > Delete a project in the DB by ID
 // GET /projects/delete/6525f5c28c49905d3e5450e1
-router.get("/delete/:_id", (req, res, next) => {
+router.get("/delete/:_id", IsLoggedIn, (req, res, next) => {
   let projectId = req.params._id;
   Project.remove(
     { _id: projectId }, // filter to identify project
