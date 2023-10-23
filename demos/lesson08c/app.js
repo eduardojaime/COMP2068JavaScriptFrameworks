@@ -18,6 +18,7 @@ var hbs = require("hbs");
 // import Authentication related packages
 var passport = require("passport");
 var session = require("express-session");
+var githubStrategy = require('passport-github2').Strategy;
 var User = require("./models/user"); // model already contains functionality from plm
 
 var app = express();
@@ -43,6 +44,38 @@ app.use(passport.initialize());
 app.use(passport.session());
 // Configure local strategy using the model
 passport.use(User.createStrategy()); // createStrategy comes from PLM
+// Configure passport-github2 with the API keys and user model
+// We need to handle two scenarios: new user, or returning user
+passport.use(new githubStrategy({
+  clientID: config.github.clientId,
+  clientSecret: config.github.clientSecret,
+  callbackURL: config.github.callbackUrl
+},
+  // create async callback function
+  // profile is github profile
+  async (accessToken, refreshToken, profile, done) => {
+    // search user by ID
+    const user = await User.findOne({ oauthId: profile.id });
+    // user exists (returning user)
+    if (user) {
+      // no need to do anything else
+      return done(null, user);
+    }
+    else {
+      // new user so register them in the db
+      const newUser = new User({
+        username: profile.username,
+        oauthId: profile.id,
+        oauthProvider: 'Github',
+        created: Date.now()
+      });
+      // add to DB
+      const savedUser = await newUser.save();
+      // return
+      return done(null, savedUser);
+    }
+  }
+));
 // Set passport to write/read user data to/from session object
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
