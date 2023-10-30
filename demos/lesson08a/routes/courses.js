@@ -9,13 +9,13 @@ router.get('/', (req, res, next) => {
             console.log(err);
         }
         else {
-            res.render('courses/index', { title: 'Course List', dataset: courses });
+            res.render('courses/index', { title: 'Course List', dataset: courses, user: req.user });
         }
     });
 });
 
 router.get('/add', (req, res, next) => {
-    res.render('courses/add', { title: 'Add a new Course' });
+    res.render('courses/add', { title: 'Add a new Course', user: req.user });
 });
 
 router.post('/add', (req, res, next) => {

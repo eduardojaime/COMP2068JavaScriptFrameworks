@@ -5,7 +5,8 @@ var passport = require("passport");
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  // req.user contains information about the current session
+  res.render('index', { title: 'Express', user: req.user });
 });
 
 // Login and Register Functionality
@@ -13,7 +14,7 @@ router.get('/', function(req, res, next) {
 router.get("/login", (req, res, next) => {
   let sessionMsgs = req.session.messages || []; // retrieve messages, if nothing then return empty list
   req.session.messages = []; // clear session messages
-  res.render("login", { title: "Login", messages: sessionMsgs });
+  res.render("login", { title: "Login", messages: sessionMsgs, user: req.user });
 });
 // POST /login
 router.post("/login", passport.authenticate(
@@ -26,7 +27,7 @@ router.post("/login", passport.authenticate(
 ));
 // GET /register
 router.get("/register", (req, res, next) => {
-  res.render("register", {title: "Create a new User Account" });
+  res.render("register", {title: "Create a new User Account", user: req.user });
 });
 // POST /register
 router.post("/register", (req, res, next) => {
@@ -45,5 +46,12 @@ router.post("/register", (req, res, next) => {
     }
   )
 });
+
+// GET /logout
+router.get("/logout", (req, res , next) => {
+  req.logout((err) => {
+    res.redirect("/login");
+  });
+})
 
 module.exports = router;
