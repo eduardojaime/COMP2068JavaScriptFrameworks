@@ -4,6 +4,19 @@ const router = express.Router();
 // Add reference to the models
 const Project = require("../models/projects");
 const Course = require("../models/course");
+const AuthenticationMiddleware = require("../extensions/authentication");
+
+// Moved to extensions/authentication.js
+// Custom Middleware function to check for an authenticated user
+// function AuthenticationMiddleware(req, res, next) {
+//     if (req.isAuthenticated()) { // returns true if the session was started
+//         return next(); // calls the next middleware in the stack
+//     }
+//     else {
+//         // user not authenticated
+//         res.redirect("/login");
+//     }
+// }
 
 // Add GET for index
 router.get("/", (req, res, next) => {
@@ -22,7 +35,7 @@ router.get("/", (req, res, next) => {
   });
 });
 
-router.get("/add", (req, res, next) => {
+router.get("/add", AuthenticationMiddleware, (req, res, next) => {
   // Get list of courses
   Course.find((err, courses) => {
     if (err) {
@@ -38,7 +51,7 @@ router.get("/add", (req, res, next) => {
 });
 
 // Add POST handler
-router.post("/add", (req, res, next) => {
+router.post("/add", AuthenticationMiddleware, (req, res, next) => {
   // use the project module to save data to DB
   // call create method of the model
   // and map the fields with data from the request
@@ -62,7 +75,7 @@ router.post("/add", (req, res, next) => {
 
 // GET handler for Delete operations
 // :_id is a placeholder for naming whatever is after the / in the path
-router.get("/delete/:_id", (req, res, next) => {
+router.get("/delete/:_id", AuthenticationMiddleware, (req, res, next) => {
   // call remove method and pass id as a json object
   Project.remove({ _id: req.params._id }, (err) => {
     if (err) {
@@ -74,7 +87,7 @@ router.get("/delete/:_id", (req, res, next) => {
 });
 
 // GET handler for Edit operations
-router.get("/edit/:_id", (req, res, next) => {
+router.get("/edit/:_id", AuthenticationMiddleware, (req, res, next) => {
   // Find the Project by ID
   // Find available courses
   // Pass them to the view
@@ -99,7 +112,7 @@ router.get("/edit/:_id", (req, res, next) => {
 });
 
 // POST handler for Edit operations
-router.post("/edit/:_id", (req, res, next) => {
+router.post("/edit/:_id", AuthenticationMiddleware, (req, res, next) => {
   // find project based on ID
   // try updating with form values
   // redirect to /Projects

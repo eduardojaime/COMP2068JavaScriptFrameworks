@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const Course = require('../models/course');
+const AuthenticationMiddleware = require("../extensions/authentication");
 
 router.get('/', (req, res, next) => {
     Course.find((err, courses) => {
@@ -14,11 +15,11 @@ router.get('/', (req, res, next) => {
     });
 });
 
-router.get('/add', (req, res, next) => {
+router.get('/add', AuthenticationMiddleware, (req, res, next) => {
     res.render('courses/add', { title: 'Add a new Course', user: req.user });
 });
 
-router.post('/add', (req, res, next) => {
+router.post('/add', AuthenticationMiddleware, (req, res, next) => {
     Course.create({
         name: req.body.name
     }, (err, newCourse) => {
