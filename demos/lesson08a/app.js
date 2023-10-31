@@ -9,10 +9,14 @@ const mongoose = require('mongoose');
 var passport = require("passport");
 var session = require("express-session");
 var User = require("./models/user");
+// Import GitHub Strategy
+var githubStrategy = require("passport-github2").Strategy;
 // Create router objects
 var indexRouter = require('./routes/index');
 var projectsRouter = require('./routes/projects');
 var coursesRouter = require('./routes/courses');
+// Import configuration file
+const config = require('./config/globals'); // move this to the top of this file
 
 var app = express();
 
@@ -38,6 +42,39 @@ app.use(passport.initialize());
 app.use(passport.session());
 // configure local strategy (first import model)
 passport.use(User.createStrategy()); // .createStrategy() comes from plm plugin
+// configure github strategy
+passport.use(new githubStrategy(
+  // options object
+  {
+    clientID: config.github.clientId,
+    clientSecret: config.github.clientSecret,
+    callbackURL: config.github.callbackUrl
+  },
+  // callback function
+  // profile is github profile
+  async (accessToken, refreshToken, profile, done) => {
+    // search user by ID
+    const user = await User.findOne({ oauthId: profile.id });
+    // user exists (returning user)
+    if (user) {
+      // no need to do anything else
+      return done(null, user);
+    }
+    else {
+      // new user so register them in the db
+      const newUser = new User({
+        username: profile.username,
+        oauthId: profile.id,
+        oauthProvider: 'Github',
+        created: Date.now()
+      });
+      // add to DB
+      const savedUser = await newUser.save();
+      // return
+      return done(null, savedUser);
+    }
+  }
+));
 // Set passport to write/read user data to/from session object
 passport.serializeUser(User.serializeUser()); // .serializeUser() comes from plm plugin
 passport.deserializeUser(User.deserializeUser()); // .deserializeUser() comes from plm plugin
@@ -51,8 +88,6 @@ app.use('/courses', coursesRouter);
 // let password = '<password>';
 // let connectionString = `mongodb+srv://${userName}:${password}@cluster0.86msx.mongodb.net/comp2068`;
 
-// Option 2) Add connection string to Config file
-const config = require('./config/globals'); // move this to the top of this file
 let connectionString = config.db;
 
 // Use the connect method, and the two handlers to try to connect to the DB
