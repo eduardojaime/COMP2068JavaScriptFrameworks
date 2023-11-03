@@ -28,7 +28,7 @@
 ### Part 2 Building a demo Angular app
 
 - Open index.html
-    - Examine the <app-root> element. What does it do?
+    - Examine the \<app-root> element. What does it do?
 - In the src/app folder
     - Open app.module.ts
         - This is similar to app.js file in Express
@@ -56,17 +56,17 @@
         - Notice how the new component was registered in the app
         - Modify line 18 (bootstrap) and specify ProjectComponent
     - In index.html
-        - Modify the <app-root> element and make it <app-project>
+        - Modify the \<app-root> element and make it \<app-project>
 - For adding custom CSS styles we have two options:
     - Add them in styles.css in the root of our project
     - Component.css file
-    - Copy all the style sheets inside app.component.html and copy them in Styles.css (without the <style> element)
+    - Copy all the style sheets inside app.component.html and copy them in Styles.css (without the \<style> element)
     - Add a link to styles.css in index.html
     - Create a custom rule to modify the font
         - body {}
 - In project.component.html
     - Change the text to read Project Tracker
-    - Modify the <p> element to a <div class="card highlight-card">
+    - Modify the \<p> element to a \<div class="card highlight-card">
         
 ### Part 3 Displaying mock data on the application
 
@@ -76,8 +76,8 @@
         - Create a new instance of the project class with some mock values
         - How to show this on the view?
 - In project.component.html
-    - Add an <h4> element and use handlebars syntax to access project.name
-    - Add a <p> element and use handlebars syntax to access project.course
+    - Add an \<h4> element and use handlebars syntax to access project.name
+    - Add a \<p> element and use handlebars syntax to access project.course
     - Notice that properties are case sensitive and null ones will be ignored
     - Any value coming from the component should be wrapped in handlebars
 - In project.component.ts
