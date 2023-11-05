@@ -14,7 +14,7 @@
     - Delete the public folder
     - Delete users.js inside routes folder
     - Create new folder called models
-        - Copy over files from ProjectTracker project  ()(lesson 8) or recreate them
+        - Copy over files from original ProjectTracker project or recreate them
     - Install mongoose npm package
         - Run > npm i mongoose
     - Create a new folder called config
@@ -62,7 +62,7 @@
     - Create a new component to render our project list by calling > ng generate component project
 - How to modify the project to point to a different component on startup?
 - In index.html
-    - Modify <app-root> to <app-project>
+    - Modify \<app-root> to \<app-project>
 - In app.module.ts
     - Modify bootstrap to use AppComponent
     
@@ -100,6 +100,7 @@
     - Add a general middleware to allow cross-origin requests by adding headers to the request
 	- OR install https://www.npmjs.com/package/cors
         - Configure in app.js with an options object to allow the known frontend origin
+
 ### Part 5 Cleaning up and adding global configurations
 
 - Go to the project-spa-server app in Visual Studio

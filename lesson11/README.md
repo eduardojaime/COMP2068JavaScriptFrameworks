@@ -7,7 +7,7 @@
     - Run nodemon on both terminals to run your application
 - In project-spa-client
     - Open src/app/component/project.component.html
-        - Add missing <tbody> to table in order for table-striped and table-hover classes to apply
+        - Add missing \<tbody> to table in order for table-striped and table-hover classes to apply
         - Add format to dueDate by adding pipe symbol | and keyword date
     - Create an environment variable in src/environment/environment.ts
         - Add "ServerAPI" with value http://localhost:3000/
