@@ -1,0 +1,9 @@
+<div class="card highlight-card">Project Tracker in Angular</div>
+
+<!-- show a list of projects -->
+<!-- Use a loop to iterate through the list -->
+<div class="card-container">
+    <div class="card" *ngFor="let project of projects">
+        {{project.name}} for {{project.course}}
+    </div>
+</div>
