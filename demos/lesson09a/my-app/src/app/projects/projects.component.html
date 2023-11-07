@@ -3,7 +3,27 @@
 <!-- show a list of projects -->
 <!-- Use a loop to iterate through the list -->
 <div class="card-container">
-    <div class="card" *ngFor="let project of projects">
+    <!-- event binding, click event calls onSelect and passes project as parameter -->
+    <div class="card" *ngFor="let project of projects" (click)="onSelect(project)">
         {{project.name}} for {{project.course}}
     </div>
 </div>
+
+<!-- Implement 2-way data binding with forms -->
+<!-- [(ngModel)] directive requires forms module enabled in app.module.ts -->
+<!-- if selectedProject not null then show the section -->
+<section *ngIf="selectedProject">
+    <h2>Project Details</h2>
+    <fieldset>
+        <label>ID: </label>
+        <input [(ngModel)]="selectedProject.id" />
+    </fieldset>
+    <fieldset>
+        <label>Name: </label>
+        <input [(ngModel)]="selectedProject.name" />
+    </fieldset>
+    <fieldset>
+        <label>Course: </label>
+        <input [(ngModel)]="selectedProject.course" />
+    </fieldset>
+</section>

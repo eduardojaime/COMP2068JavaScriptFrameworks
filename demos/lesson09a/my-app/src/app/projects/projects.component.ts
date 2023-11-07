@@ -20,4 +20,11 @@ const PROJECTS: Project[] = [
 export class ProjectsComponent {
   // any data coming from the component must be contained in a variable
   projects = PROJECTS; // associate mock data to component variable
+  // variable that holds the selected project temporarily for 2-way data binding
+  selectedProject!: Project;
+  // method to handle click event from the cards
+  onSelect(project: Project) : void 
+  {
+    this.selectedProject = project;
+  }
 }
