@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
-
+// spec.ts files are for unit testing
 describe('AppComponent', () => {
   beforeEach(() => TestBed.configureTestingModule({
     imports: [RouterTestingModule],
