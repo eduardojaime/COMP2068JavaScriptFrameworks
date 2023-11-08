@@ -19,38 +19,61 @@
     - Open a browser and navigate to http://localhost:4200
 - Open the my-app folder using Visual Studio Code
     - Src is where most of the work will be done
-        - App
-        - Assets > .gitkeep prevents an empty folder to be excluded by git
-        - Environments
-    - Index.html is the main layout of our site
-    - Main.ts is similar to how server.js works
+        - At the root level
+            - We have several metadata and configuration files (JSON)
+            - Assets folder
+                - .gitkeep prevents an empty folder to be excluded by git
+                - Similar to public folder in Express, contains static assets
+            - Main.ts
+                - Similar to bin/www file in Express
+            - Index.html is the main layout of our site
+                - Similar to views/layout.hbs in Express 
+        - In the src/app folder
+            - Open app.module.ts
+                - This is similar to app.js file in Express
+                - The main component is registered here
+            - Open app.component.spec.ts
+                - This is a file that contains unit tests
+                - We'll ignore it for now
+            - Open app.component.html
+                - This is the view corresponding to the model
+            - Open app.component.css
+                - Any styling that applies ONLY to the model goes here
+            - Open app.component.ts
+                - Angular is component based, here's how it is defined:
+                    - Selector specifies what element to target on the page
+                        - Examine the \<app-root> element in index.html. What does it do?
+                    - TemplateUrl contains all the html code that will be rendered here
+                    - StyleUrls contains the css file that will be applied to this component
 
-### Part 2 Building a demo Angular app
+### Part 2 Examining Data Binding
 
-- Open index.html
-    - Examine the \<app-root> element. What does it do?
 - In the src/app folder
-    - Open app.module.ts
-        - This is similar to app.js file in Express
-        - The main component is registered here
-    - Open app.component.ts
-        - Angular is component based, here's how it is defined:
-            □ Selector specifies what element to target on the page
-            □ templateUrl contains all the html code that will be rendered here
-            □ styleUrls contains the css file that will be applied to this component
     - Open app.component.html
         - Scroll down and find the Welcome span element
-            □ Modify it to read Welcome to our first Angular App!!
-            □ Notice how the changes will be sent to the browser automatically
-        - Scroll down and find the span element with {{ title }}
-            □ This is similar to handlebars
-            □ Go back to app.component.ts and modify the title value
+            - Modify it to read Welcome to our first Angular App!!
+            - Notice how the changes will be sent to the browser automatically
+    - Data Binding Examples:
+        - Property Binding
+            - line 308 modify img element [src]="logoImg"
+            - Declare a property named logoImg in the component file and set its value to the base64 string with the logo in the \<img> element specified above
+        - Interpolation Binding
+            - Scroll down and find the span element with {{ title }}
+                - This is similar to handlebars
+                - Go back to app.component.ts and modify the title value to My Angular App
+        - Event Binding
+            - Find cards, and see code around (click) and [ngSwitch] statements
+            - How do they work?
+        
+### Part 3 Displaying mock data on the application
+
 - Back to the Terminal, create a component by running:
     - ng generate component project
     - Explore the new 'project' folder that's created inside the app folder
-        - component.ts
+        - Component.ts
         - CSS
         - HTML template
+        - Spec file for unit tests
 - What files do we need to change to modify this new project component?
     - In app.module.ts
         - Notice how the new component was registered in the app
@@ -58,18 +81,13 @@
     - In index.html
         - Modify the \<app-root> element and make it \<app-project>
 - For adding custom CSS styles we have two options:
-    - Add them in styles.css in the root of our project
-    - Component.css file
+    - Add them in styles.css in the root of our project or Component.css file
     - Copy all the style sheets inside app.component.html and copy them in Styles.css (without the \<style> element)
-    - Add a link to styles.css in index.html
     - Create a custom rule to modify the font
         - body {}
 - In project.component.html
     - Change the text to read Project Tracker
-    - Modify the \<p> element to a \<div class="card highlight-card">
-        
-### Part 3 Displaying mock data on the application
-
+    - Modify the \<p> element to a \<div class="card  highlight-card">
 - In project.component.ts
     - Replicate the mongo schema by creating a new Project class
     - Scroll down to inside ProjectComponent class declaration
@@ -89,7 +107,7 @@
     - Comment out divs showing single project
     - Add another div and use ngFor attribute to iterate through the list
 
-### Part 4 Testing 2-way databinding
+### Part 4 Testing 2-way data binding
 
 - In Styles.css
     - Add a new rule for a class named lbl which will be used to line up our form labels
@@ -114,4 +132,4 @@
     - Set data binding on each input by using [(ngModel)]
     - Add ngIf to hide/show the section depending on the selectedProject property
         - This has to be hidden when page loads
-        - Try selecting a card and modifying name
+    - Try selecting a card and modifying name
