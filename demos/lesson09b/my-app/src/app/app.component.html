@@ -426,6 +426,7 @@
   </div>
 
   <!-- Terminal -->
+  <!-- [ngSwitch] is an angular directive -->
   <div class="terminal" [ngSwitch]="selection.value">
       <pre *ngSwitchDefault>ng generate component xyz</pre>
       <pre *ngSwitchCase="'material'">ng add angular/material</pre>
