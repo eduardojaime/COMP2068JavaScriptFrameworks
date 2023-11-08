@@ -4,6 +4,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ProjectsComponent } from './projects/projects.component';
+// import Forms Module to enable 2 way data binding
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -12,7 +14,8 @@ import { ProjectsComponent } from './projects/projects.component';
   ], // components that belong to the app
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule // Adds forms module to my app
   ], // modules that the application uses
   providers: [], // data or service provides
   bootstrap: [ProjectsComponent] // initial component
