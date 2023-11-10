@@ -6,7 +6,7 @@
     - Knowledge of Typescript (we'll cover this)
     - NodeJs
     - npm
-    - Angular CLI (install globally via npm) by running npm install -g @angular/cli
+    - Angular CLI (install globally via npm) by running npm install -g @angular/cli@16.2.10
 - On a Console or PowerShell window, navigate to a folder where you wish to create your Angular project
     - E.g. cd source
 - This next step is similar to using the Express Generator
