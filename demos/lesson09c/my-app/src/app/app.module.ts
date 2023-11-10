@@ -4,17 +4,19 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ProjectsComponent } from './projects/projects.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
     ProjectsComponent
-  ],
+  ], // components that belong to the app
   imports: [
     BrowserModule,
-    AppRoutingModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+    AppRoutingModule,
+    FormsModule
+  ], // modules to enable globally
+  providers: [], // for accessing data
+  bootstrap: [ProjectsComponent] // startup component
 })
 export class AppModule { }
