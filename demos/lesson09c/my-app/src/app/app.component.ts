@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-
+// similar to index.js router object in Express
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
