@@ -10,13 +10,20 @@ var projectsRouter = require("./routes/projects")
 // Connecting to the DB
 var mongoose = require("mongoose");
 var configs = require("./config/globals");
+// Configure CORS and trusted origin (angular localhost:4200)
+var cors = require("cors");
+// initialize policy options object
+var cors_options = { // whitelist of trusted origins
+  origin: "http://localhost:4200", // frontend url
+  optionsSuccessStatus: 200 // some legacy browsers break on 204 responses
+}
 
 var app = express();
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "hbs");
-
+app.use(cors(cors_options)); // enable cors in the app globally
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
