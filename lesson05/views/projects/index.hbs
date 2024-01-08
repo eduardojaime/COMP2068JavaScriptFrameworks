@@ -1,0 +1,25 @@
+<h1>{{title}}</h1>
+{{!-- CRUD Functionality --}}
+{{!-- CREATE button --}}
+<a href="/projects/add">Add a new project</a>
+{{!-- READ Show Table to view all projects in db --}}
+<table>
+    <thead>
+        <th>Name</th>
+        <th>Due Date</th>
+        <th>Course</th>
+        <th>Status</th>
+    </thead>
+    <tbody>
+        {{!-- Retrieve all projects and loop --}}
+        {{#each dataset}}
+        <tr>
+            <td>{{this.name}}</td>
+            <td>{{this.dueDate}}</td>
+            <td>{{this.course}}</td>
+            <td>{{this.status}}</td>
+            {{!-- TODO: UPDATE and DELETE buttons --}}
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
