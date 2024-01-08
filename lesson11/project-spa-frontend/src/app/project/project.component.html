@@ -1,0 +1,43 @@
+<h1>Project Tracker</h1>
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Due Date</th>
+            <th>Course</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Syntax uses 'of' instead of 'in' let elem of list -->
+        <tr *ngFor="let project of projects">
+            <td>
+                    {{project.name}}
+            </td>
+            <td>{{project.dueDate | date}}</td>
+            <td>{{project.course}}</td>
+            <td>
+                <a class="btn btn-info" (click)="selectProject(project)">Edit</a>
+                &nbsp;
+                <a class="btn btn-danger" (click)="deleteProject(project._id)">Delete</a>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<form>
+    <fieldset class="form-group">
+        <label for="name" class="col-3">Name:</label>
+        <input name="name" id="name" required [(ngModel)]="name" />
+    </fieldset>
+    <fieldset class="form-group">
+        <label for="dueDate" class="col-3">Due Date:</label>
+        <input name="dueDate" id="dueDate" required [(ngModel)]="dueDate" />
+    </fieldset>
+    <fieldset class="form-group">
+        <label for="course" class="col-3">Course:</label>
+        <input name="course" id="course" required [(ngModel)]="course" />
+    </fieldset>
+    <button class="btn btn-primary offset-3" (click)="addProject()" *ngIf="!this._id">Save</button>
+    <button class="btn btn-success offset-3" (click)="updateProject()" *ngIf="this._id">Update</button>
+</form>

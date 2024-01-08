@@ -1,0 +1,31 @@
+<div class="card highlight-card">Project Tracker</div>
+<!-- Displaying a single project -->
+<!-- <div class="card-container">
+    <div class="card">
+        {{project.name}} for {{project.course}}
+    </div>
+</div> -->
+<!-- Use a loop to iterate through the list -->
+<div class="card-container">
+    <div *ngFor="let project of projects" class="card" (click)="onSelect(project)">
+        {{project.name}}
+    </div>
+</div>
+
+<!-- Create a form to write a new project to the list -->
+<section *ngIf="selectedProject">
+    <h2>Project Details</h2>
+    <fieldset>
+        <label class="lbl">ID: </label>
+        <input [(ngModel)]="selectedProject.id" />
+    </fieldset>
+    <fieldset>
+        <label class="lbl">Name: </label>
+        <input [(ngModel)]="selectedProject.name" />
+    </fieldset>
+    <fieldset>
+        <label class="lbl">Course: </label>
+        <input [(ngModel)]="selectedProject.course" />
+    </fieldset>
+    <!-- <button (click)="onSelect()" >Hide/Reset</button> -->
+</section>
