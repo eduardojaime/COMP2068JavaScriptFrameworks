@@ -1,0 +1,42 @@
+<h1>{{title}}</h1>
+{{!-- CRUD Functionality --}}
+{{!-- CREATE button --}}
+{{! Only show CRUD buttons if there's a session (authenticated user) }}
+{{#if user}}
+  <a href="/projects/add">Add a new project</a>
+{{/if}}
+{{!-- READ Show Table to view all projects in db --}}
+<table>
+    <thead>
+        <th>Name</th>
+        <th>Due Date</th>
+        <th>Course</th>
+        <th>Status</th>
+        <th></th>
+    </thead>
+    <tbody>
+        {{!-- Retrieve all projects and loop --}}
+        {{#each dataset}}
+        <tr>
+            <td>{{this.name}}</td>
+            {{!-- Use the hbs helper function to format the date accordingly --}}
+            <td>{{toShortDate this.dueDate}}</td>
+            <td>{{this.course}}</td>
+            <td>{{this.status}}</td>
+            {{!-- UPDATE and DELETE buttons --}}
+            <td>
+                {{! Only show CRUD buttons if there's a session (authenticated user) }}
+                {{!-- use ../ to navigate out of the for loop into the global scope --}}
+                {{#if ../user}}
+                <a href="/projects/edit/{{this._id}}" class="btn btn-primary">Edit</a>
+                <a
+                    href="/projects/delete/{{this._id}}"
+                    onclick="return confirmDeletion()"
+                    class="btn btn-danger"
+                >Delete</a>
+                {{/if}}
+            </td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>

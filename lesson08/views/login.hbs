@@ -1,0 +1,38 @@
+<h1>
+  Login
+</h1>
+{{!-- Show error message if credentials are incorrect --}}
+{{#if messages}}
+    <div class="alert alert-danger">
+        Invalid credentials
+    </div>
+{{else}}
+    <div class="alert alert-info">
+        Please enter your credentials
+    </div>
+{{/if}}
+<form method="post">
+  <fieldset class="form-group">
+    <label for="username" class="col-2 control-label">
+      Username: *
+    </label>
+    <input name="username" id="username" required />
+  </fieldset>
+  <fieldset class="form-group">
+    <label for="password" class="col-2 control-label">
+      Password: *
+    </label>
+    <input name="password" id="password" type="password" required />
+  </fieldset>
+  <fieldset class="form-group">
+    <button class="btn btn-info offset-3">
+      Login
+    </button>
+    <a class="btn btn-info" href="/github">Login with Github</a>
+    <hr />
+    Need an account?
+    <a href="/register" title="Register">
+      Register
+    </a>
+  </fieldset>
+</form>
