@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "accounting": "^0.4.1"
+  }
+}
