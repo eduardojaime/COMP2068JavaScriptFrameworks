@@ -13,10 +13,7 @@ http.createServer((req, res) => {
     res.writeHead(200, {'Content-Type': 'text-plain'});
 
     // write some text
-    res.write('Hello world!');
-
-    // update line and restart
-    // res.write('Hello World - My first node page!');
+    res.write('Hello World - My first node web application!');
 
     // end request
     res.end();

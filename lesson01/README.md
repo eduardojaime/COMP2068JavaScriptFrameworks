@@ -22,7 +22,7 @@
 - Print Hello World to the console using JavaScript console.log() call
 - Save your changes
 - Open a Terminal
-- Run the code by typing in the node command
+- Run the code by typing the following command in the terminal:
     - node helloworld
 
 ### Part 3 Creating a simple Web Server application
@@ -31,7 +31,7 @@
 - Import the http module
 - Call the createServer() method in the http module to create a listener to HTTP events
     - Use the Response object to write the text that users will see
-- Chain the listen() method to specify which port the app will listen to
+- Use method chaining to call the listen() method and specify which port the app will listen to
 - Print a success message to the console
 - Save your changes
 - Run the code by typing in the node command
