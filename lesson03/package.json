@@ -1,0 +1,14 @@
+{
+  "name": "connectdemo",
+  "version": "1.0.0",
+  "description": "This is a demo app that implements the Connect package",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Eduardo Jaime",
+  "license": "ISC",
+  "dependencies": {
+    "connect": "^3.7.0"
+  }
+}
