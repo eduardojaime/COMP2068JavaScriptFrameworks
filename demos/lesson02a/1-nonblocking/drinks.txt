@@ -1,5 +1,0 @@
-coffee
-tea
-water
-soda
-orange juice
