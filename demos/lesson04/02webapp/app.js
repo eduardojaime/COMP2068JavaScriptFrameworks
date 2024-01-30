@@ -1,3 +1,6 @@
+// this file is used for creating and configuring the Express app object
+// modify this file when you want to enable features globally in your app:
+//   connecting to db, authentication, services, etc.
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -10,15 +13,15 @@ var usersRouter = require('./routes/users');
 var app = express();
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'hbs');
+app.set('views', path.join(__dirname, 'views')); // location of view templates
+app.set('view engine', 'hbs'); // specifies view engine: hbs > handlebars
 
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
-
+app.use(express.static(path.join(__dirname, 'public'))); // static files folder
+// routing configuration
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
@@ -37,5 +40,5 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-
-module.exports = app;
+// this line makes the app object into a module that can be imported in other files
+module.exports = app; // see /bin/www line 7 > var app = require('../app');

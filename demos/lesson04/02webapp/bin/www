@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-
+// this file is used for configuring the main web server on which the express app object runs
 /**
  * Module dependencies.
  */
