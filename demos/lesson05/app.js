@@ -8,6 +8,10 @@ var indexRouter = require("./routes/index");
 // var usersRouter = require('./routes/users');
 var projectsRouter = require("./routes/projects");
 
+// Import Mongoose and Configuration modules
+var mongoose = require("mongoose");
+var configs = require("./configs/globals");
+
 var app = express();
 
 // view engine setup
@@ -19,11 +23,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
-
+// Routing Configuration
 app.use("/", indexRouter);
 // app.use('/users', usersRouter);
 app.use("/Projects", projectsRouter);
-
+// Connect to the DB
+mongoose
+  .connect(configs.ConnectionStrings.MongoDB)
+  .then(() => console.log("Connected successfully!"));
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
