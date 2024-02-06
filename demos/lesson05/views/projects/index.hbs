@@ -3,4 +3,23 @@
 {{!-- CREATE button --}}
 <a href="/Projects/Add" class="btn btn-info">Add a new Project</a>
 {{!-- READ table to view all projects in db --}}
-TODO
+<table>
+    <thead>
+        <th>Name</th>
+        <th>Due Date</th>
+        <th>Course</th>
+        <th>Status</th>
+    </thead>
+    <tbody>
+        {{!-- Retrieve all projects and loop --}}
+        {{#each dataset}}
+        <tr>
+            <td>{{this.name}}</td>
+            <td>{{this.dueDate}}</td>
+            <td>{{this.course}}</td>
+            <td>{{this.status}}</td>
+            {{!-- TODO: UPDATE and DELETE buttons --}}
+        </tr>
+        {{/each}}
+    </tbody>
+</table>

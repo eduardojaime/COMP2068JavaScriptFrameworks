@@ -6,9 +6,10 @@ const router = express.Router();
 const Project = require("../models/project"); // use .. to navigate one folder up
 // Configure GET/POST handlers
 // GET /Projects/
-router.get("/", (req, res, next) => {
+router.get("/", async (req, res, next) => {
+    let projects = await Project.find().sort([["dueDate", "descending"]]);
     // relative to the views folder
-    res.render("projects/index", { title: "Projects" });
+    res.render("projects/index", { title: "Projects", dataset: projects });
 });
 
 // CREATE Functionality
