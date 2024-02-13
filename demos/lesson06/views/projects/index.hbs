@@ -9,6 +9,7 @@
         <th>Due Date</th>
         <th>Course</th>
         <th>Status</th>
+        <th>Actions</th>
     </thead>
     <tbody>
         {{!-- Retrieve all projects and loop --}}
@@ -18,7 +19,13 @@
             <td>{{this.dueDate}}</td>
             <td>{{this.course}}</td>
             <td>{{this.status}}</td>
-            {{!-- TODO: UPDATE and DELETE buttons --}}
+            {{!-- UPDATE and DELETE buttons --}}
+            <td>
+                <a href="/Projects/Edit/{{this._id}}" class="btn btn-primary">Edit</a>
+                <a href="/Projects/Delete/{{this._id}}" 
+                    class="btn btn-danger" 
+                    onclick="return confirmDeletion()">Delete</a>
+            </td>
         </tr>
         {{/each}}
     </tbody>

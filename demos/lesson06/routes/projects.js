@@ -31,5 +31,14 @@ router.post("/add", async (req, res, next) => {
     res.redirect("/projects");
 });
 
+// GET /Projects/Delete/IDVALUE
+router.get("/delete/:_id", async (req, res, next) => {
+    let projectId = req.params._id;
+    let project = await Project.findOne({ _id: projectId });
+    let q = project.deleteOne();
+    await q;
+    res.redirect("/projects");
+})
+
 // Export router module
 module.exports = router;
