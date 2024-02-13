@@ -4,6 +4,7 @@ const express = require("express");
 const router = express.Router();
 // Import Model for performing DB Operations
 const Project = require("../models/project"); // use .. to navigate one folder up
+const Course = require("../models/course");
 // Configure GET/POST handlers
 // GET /Projects/
 router.get("/", async (req, res, next) => {
@@ -14,8 +15,9 @@ router.get("/", async (req, res, next) => {
 
 // CREATE Functionality
 // GET /Projects/Add > Loading the page with the form
-router.get("/add", (req, res, next) => {
-    res.render("projects/add", { title: "Add a new Project" });
+router.get("/add", async (req, res, next) => {
+    let courseList = await Course.find().sort([["name", "ascending"]]);
+    res.render("projects/add", { title: "Add a new Project", courses: courseList });
 });
 // POST /Projects/Add > When user fills in the form and clicks Save button
 router.post("/add", async (req, res, next) => {
