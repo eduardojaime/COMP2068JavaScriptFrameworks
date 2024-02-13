@@ -34,11 +34,36 @@ router.post("/add", async (req, res, next) => {
 // GET /Projects/Delete/IDVALUE
 router.get("/delete/:_id", async (req, res, next) => {
     let projectId = req.params._id;
-    let project = await Project.findOne({ _id: projectId });
-    let q = project.deleteOne();
-    await q;
+    await Project.findOneAndDelete({ _id: projectId });
     res.redirect("/projects");
-})
+});
+
+// GET /Projects/Edit/IDVALUE
+router.get("/edit/:_id", async (req, res, next) => {
+    let projectId = req.params._id;
+    let projectData = await Project.findOne({ _id: projectId });
+    let courseList = await Course.find().sort([["name", "ascending"]]);
+    res.render("projects/edit", {
+        title: "Edit Project Info",
+        project: projectData,
+        courses: courseList
+    });
+});
+
+// POST /Projects/Edit/IDVALUE
+router.post("/edit/:_id", async (req,res,next) => {
+    let projectId = req.params._id;
+    await Project.findOneAndUpdate(
+        { _id: projectId },
+        {
+            name: req.body.name,
+            dueDate: req.body.dueDate,
+            course: req.body.course,
+            status: req.body.status
+        }
+    );
+    res.redirect("/projects");
+});
 
 // Export router module
 module.exports = router;
