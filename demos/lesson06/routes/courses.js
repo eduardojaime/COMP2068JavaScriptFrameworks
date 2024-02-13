@@ -5,7 +5,7 @@ const Course = require("../models/course");
 // GET /Courses/ (list) 
 router.get("/", async (req, res, next) => {
     let courses = await Course.find().sort([["name", "ascending"]]);
-    res.render("course/index", { title: "Course List", dataset: courses });
+    res.render("courses/index", { title: "Course List", dataset: courses });
 });
 
 // GET /Courses/Add (load form)
