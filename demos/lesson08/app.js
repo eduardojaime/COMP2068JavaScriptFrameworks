@@ -13,7 +13,11 @@ var coursesRouter = require("./routes/courses");
 // Import Mongoose and Configuration modules
 var mongoose = require("mongoose");
 var configs = require("./configs/globals");
-const { createSecureServer } = require("http2");
+
+// Import Passport related modules
+var passport = require("passport"); // base authentication module
+var session = require("express-session"); // module for session handling (cookie)
+var User = require("./models/user"); // our User model
 
 var app = express();
 
@@ -26,6 +30,21 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
+// Session Configuration https://www.npmjs.com/package/express-session
+app.use(
+  session({
+    secret: "w2024projecttracker",
+    saveUninitialized: false,
+    resave: false,
+  })
+);
+// Passport Configuration
+app.use(passport.initialize());
+app.use(passport.session());
+// Passport Local Configuration
+passport.use(User.createStrategy());
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 // Routing Configuration
 app.use("/", indexRouter);
 // app.use('/users', usersRouter);
