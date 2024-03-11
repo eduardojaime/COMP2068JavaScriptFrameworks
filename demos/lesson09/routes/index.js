@@ -1,12 +1,12 @@
-var express = require('express');
+var express = require("express");
 var router = express.Router();
 // Import passport and user
 var passport = require("passport");
 var User = require("../models/user");
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+router.get("/", function (req, res, next) {
+  res.render("index", { title: "Express", user: req.user });
 });
 
 // GET /login
@@ -15,16 +15,21 @@ router.get("/login", function (req, res, next) {
   // for example those that come from a failureMessage option in the passport.authenticate method
   let messages = req.session.messages || [];
   req.session.messages = [];
-  res.render("login", { title: "Login to Project Tracker", messages: messages});
+  res.render("login", {
+    title: "Login to Project Tracker",
+    messages: messages,
+  });
 });
 
 // POST /login
-router.post("/login", passport.authenticate("local", 
-{
-  successRedirect: "/projects",
-  failureRedirect: "/login",
-  failureMessage: "Invalid Credentials"
-}));
+router.post(
+  "/login",
+  passport.authenticate("local", {
+    successRedirect: "/projects",
+    failureRedirect: "/login",
+    failureMessage: "Invalid Credentials",
+  })
+);
 
 // GET /register
 router.get("/register", function (req, res, next) {
@@ -36,10 +41,14 @@ router.post("/register", function (req, res, next) {
   User.register(
     new User({ username: req.body.username }), // Create a new user object
     req.body.password, // Pass password separately to handle encryption
-    function (err, newUser) { // Callback function to handle the result
-      if (err) { // If there is an error, render the error page
+    function (err, newUser) {
+      // Callback function to handle the result
+      if (err) {
+        // If there is an error, render the error page
         console.log(err);
-        res.render("error", { message: "Your registration information is not valid" });
+        res.render("error", {
+          message: "Your registration information is not valid",
+        });
       } else {
         // Authenticate the user and redirect to the projects list
         req.login(newUser, function (err) {
@@ -48,6 +57,11 @@ router.post("/register", function (req, res, next) {
       }
     }
   );
+});
+
+// GET /logout
+router.get("/logout", (req, res, next) => {
+  req.logout((err) => { res.redirect("/login") });
 });
 
 module.exports = router;
