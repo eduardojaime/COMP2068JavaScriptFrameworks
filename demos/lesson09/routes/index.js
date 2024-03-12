@@ -64,4 +64,20 @@ router.get("/logout", (req, res, next) => {
   req.logout((err) => { res.redirect("/login") });
 });
 
+// GET /github
+// When user clicks on "Login With Github" on the login page
+// they'll be sent to github.com to enter their credentials
+router.get("/github", passport.authenticate("github", { scope: ["user:email"]}));
+
+// GET /github/callback
+// When user successfully logs in with Github, they'll be redirected to this route
+// they'll be redirected to the projects page
+router.get(
+  "/github/callback", 
+  passport.authenticate("github", { failureRedirect: "/login" }), // github middleware
+  (req, res, next) => { // custom middleware to handle successful authentication
+    res.redirect("/projects");
+  }
+);
+
 module.exports = router;
