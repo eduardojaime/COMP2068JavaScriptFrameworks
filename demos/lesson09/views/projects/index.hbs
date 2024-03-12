@@ -1,7 +1,9 @@
 <h1>{{title}}</h1>
 {{!-- CRUD Functionality --}}
 {{!-- CREATE button --}}
-<a href="/Projects/Add" class="btn btn-info">Add a new Project</a>
+{{#if user}}
+    <a href="/Projects/Add" class="btn btn-info">Add a new Project</a>
+{{/if}}
 {{!-- READ table to view all projects in db --}}
 <table class="table table-striped table-hover">
     <thead>
@@ -9,7 +11,9 @@
         <th>Due Date</th>
         <th>Course</th>
         <th>Status</th>
+        {{#if user}}
         <th>Actions</th>
+        {{/if}}
     </thead>
     <tbody>
         {{!-- Retrieve all projects and loop --}}
@@ -20,12 +24,14 @@
             <td>{{this.course}}</td>
             <td>{{this.status}}</td>
             {{!-- UPDATE and DELETE buttons --}}
+            {{#if ../user}}
             <td>
                 <a href="/Projects/Edit/{{this._id}}" class="btn btn-primary">Edit</a>
                 <a href="/Projects/Delete/{{this._id}}" 
                     class="btn btn-danger" 
                     onclick="return confirmDeletion()">Delete</a>
             </td>
+            {{/if}}
         </tr>
         {{/each}}
     </tbody>

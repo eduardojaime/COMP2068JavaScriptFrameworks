@@ -19,6 +19,9 @@ var passport = require("passport"); // base authentication module
 var session = require("express-session"); // module for session handling (cookie)
 var User = require("./models/user"); // our User model
 
+// Import Authorization module
+var authorization = require("./extensions/authorization");
+
 var app = express();
 
 // view engine setup
@@ -49,7 +52,9 @@ passport.deserializeUser(User.deserializeUser());
 app.use("/", indexRouter);
 // app.use('/users', usersRouter);
 app.use("/Projects", projectsRouter);
-app.use("/Courses", coursesRouter);
+// App.Use needs a path and a list of middleware functions
+// in this case, authorization is executed first, and then coursesRouter
+app.use("/Courses", authorization, coursesRouter);
 // Connect to the DB
 mongoose
   .connect(configs.ConnectionStrings.MongoDB)

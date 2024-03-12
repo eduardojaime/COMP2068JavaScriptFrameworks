@@ -5,6 +5,8 @@ const router = express.Router();
 // Import Model for performing DB Operations
 const Project = require("../models/project"); // use .. to navigate one folder up
 const Course = require("../models/course");
+// Import Authorization module
+const authorization = require("../extensions/authorization");
 // Configure GET/POST handlers
 // GET /Projects/
 router.get("/", async (req, res, next) => {
@@ -19,7 +21,10 @@ router.get("/", async (req, res, next) => {
 
 // CREATE Functionality
 // GET /Projects/Add > Loading the page with the form
-router.get("/add", async (req, res, next) => {
+// Use the authorization middleware to check if user is logged in
+// and execute the next middleware if they are
+// path, middleware, middleware
+router.get("/add", authorization, async (req, res, next) => {
   let courseList = await Course.find().sort([["name", "ascending"]]);
   res.render("projects/add", {
     title: "Add a new Project",
@@ -28,7 +33,7 @@ router.get("/add", async (req, res, next) => {
   });
 });
 // POST /Projects/Add > When user fills in the form and clicks Save button
-router.post("/add", async (req, res, next) => {
+router.post("/add", authorization, async (req, res, next) => {
   // Use the model to create a new Project and save it in the DB
   let newProject = new Project({
     name: req.body.name, // req.body = form input fields
@@ -40,14 +45,14 @@ router.post("/add", async (req, res, next) => {
 });
 
 // GET /Projects/Delete/IDVALUE
-router.get("/delete/:_id", async (req, res, next) => {
+router.get("/delete/:_id", authorization, async (req, res, next) => {
   let projectId = req.params._id;
   await Project.findOneAndDelete({ _id: projectId });
   res.redirect("/projects");
 });
 
 // GET /Projects/Edit/IDVALUE
-router.get("/edit/:_id", async (req, res, next) => {
+router.get("/edit/:_id", authorization, async (req, res, next) => {
   let projectId = req.params._id;
   let projectData = await Project.findOne({ _id: projectId });
   let courseList = await Course.find().sort([["name", "ascending"]]);
@@ -60,7 +65,7 @@ router.get("/edit/:_id", async (req, res, next) => {
 });
 
 // POST /Projects/Edit/IDVALUE
-router.post("/edit/:_id", async (req, res, next) => {
+router.post("/edit/:_id", authorization, async (req, res, next) => {
   let projectId = req.params._id;
   await Project.findOneAndUpdate(
     { _id: projectId },
