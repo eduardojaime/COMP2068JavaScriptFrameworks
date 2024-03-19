@@ -1,10 +1,13 @@
+// Similar to Router Objects in Express
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-root',
+  selector: 'app-root', // becomes <app-root></app-root>
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'my-app';
+  // Data Attributes
+  title = 'Project Tracker';
+  // Behaviour (functions)
 }
