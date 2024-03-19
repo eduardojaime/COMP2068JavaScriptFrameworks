@@ -1,18 +1,21 @@
+// Similar to app.js in Express
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { ProjectsComponent } from './projects/projects.component';
 
 @NgModule({
-  declarations: [
-    AppComponent
+  declarations: [ // Enables components in my app
+    AppComponent,
+    ProjectsComponent
   ],
-  imports: [
+  imports: [ // Modules to use in my app
     BrowserModule,
     AppRoutingModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [], // Services (DI)
+  bootstrap: [ProjectsComponent] // Initial component
 })
 export class AppModule { }

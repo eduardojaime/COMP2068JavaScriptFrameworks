@@ -1,0 +1,10 @@
+<div class="card highlight-card">
+    Project Tracker
+</div>
+
+<div class="card-container">
+    <!-- Use for loop directive in element you want to repeat -->
+    <div class="card" *ngFor="let project of projects">
+        {{ project.name }} for {{ project.course}}
+    </div>
+</div>
