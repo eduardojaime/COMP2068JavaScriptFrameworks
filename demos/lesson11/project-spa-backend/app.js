@@ -10,8 +10,16 @@ var projectsRouter = require("./routes/projects");
 // Database Connectivity
 var mongoose = require("mongoose");
 var configs = require("./configs/globals");
+// Configure cors package to enable cross-origin requests from localhost:4200
+var cors = require("cors");
+var corsOptions = {
+  origin: 'http://localhost:4200',
+  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+}
 
 var app = express();
+// add cors to the app
+app.use(cors(corsOptions));
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
