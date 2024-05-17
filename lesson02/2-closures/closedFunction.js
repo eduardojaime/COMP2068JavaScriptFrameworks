@@ -2,13 +2,13 @@
 function closedFunction() {
     let counter = 1; 
     // declare a variable and set it to an anonymous function
-    let increment = () => {
+    function increment() {
         counter++;
         console.log(counter);
     }
     // in the same way that a class has multiple methods
     // we can return an object with multiple methods
-    let decrement = () => {
+    function decrement() {
         counter--;
         console.log(counter);
     }
