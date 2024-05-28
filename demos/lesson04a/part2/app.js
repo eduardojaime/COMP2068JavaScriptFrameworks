@@ -1,9 +1,12 @@
+// this file contains code to configure the application object
+// you will use this file to configure global features like 
+// db connectivity, logging, middleware, and routing
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-
+// import router objects
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
@@ -18,7 +21,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
+// Routing Configuration
+// you will register a router object to handle requests to a path here
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 

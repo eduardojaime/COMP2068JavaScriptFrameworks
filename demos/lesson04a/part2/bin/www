@@ -1,4 +1,6 @@
 #!/usr/bin/env node
+// this is the entry point of the application
+// it creates the web server and listens on the port
 
 /**
  * Module dependencies.
@@ -18,7 +20,9 @@ app.set('port', port);
 /**
  * Create HTTP server.
  */
-
+// HTTP server is created
+// it will use the app object created and configured
+// to handle requests
 var server = http.createServer(app);
 
 /**
