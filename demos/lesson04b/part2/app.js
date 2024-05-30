@@ -1,3 +1,4 @@
+// This file is where you will initialize and setup your application object
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -12,13 +13,13 @@ var app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
-
+// Middleware Functions
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
+// Route Definitions
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
@@ -37,5 +38,5 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-
+// Export the app object to make it available to bin/www
 module.exports = app;

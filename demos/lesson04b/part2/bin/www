@@ -1,5 +1,6 @@
 #!/usr/bin/env node
-
+// Actual entry point of your application
+// This file is where you configure and start your web server
 /**
  * Module dependencies.
  */
@@ -18,7 +19,7 @@ app.set('port', port);
 /**
  * Create HTTP server.
  */
-
+// Tell the server to use the Express app object to handle HTTP requests
 var server = http.createServer(app);
 
 /**
