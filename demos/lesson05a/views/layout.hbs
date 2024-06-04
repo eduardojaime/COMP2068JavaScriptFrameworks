@@ -7,6 +7,25 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
   </head>
   <body>
+    {{! Jumbotron Header }}
+    <div class="mt-4 p-5 bg-primary text-white rounded">
+      <h1>Project Tracker</h1>
+      <p>Track all your projects!</p>
+    </div>
+    {{! Navbar }}
+    <!-- Grey with black text -->
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark rounded">
+      <div class="container-fluid">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active" href="/">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/Projects">Projects</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
     {{{body}}}
     {{!-- Bootstrap JS --}}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
