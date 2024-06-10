@@ -1,0 +1,20 @@
+{{!-- This page contains a form to add new projects to the DB --}}
+<h1>{{ title }}</h1>
+<form method="post">
+    {{!-- Input fields that match fields in my data model --}}
+    {{!-- Name and ID correspond to field name in project data model --}}
+    <fieldset>
+        <label for="name">Name: </label>
+        <input type="text" name="name" id="name" required>
+    </fieldset>
+    <fieldset>
+        <label for="dueDate">Due Date:</label>
+        <input type="date" name="dueDate" id="dueDate">
+    </fieldset>
+    <fieldset>
+        <label for="course">Course: </label>
+        <input type="text" name="course" id="course" required>
+    </fieldset>
+    {{!-- Add a button to trigger POST action --}}
+    <button class="btn btn-primary">Save</button>
+</form>
