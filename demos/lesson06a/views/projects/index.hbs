@@ -7,6 +7,7 @@
         <th>Due Date</th>
         <th>Course</th>
         <th>Status</th>
+        <th></th>
     </thead>
     <tbody>
         {{!-- Retrieve all projects and loop --}}
@@ -16,7 +17,15 @@
             <td>{{this.dueDate}}</td>
             <td>{{this.course}}</td>
             <td>{{this.status}}</td>
-            {{!-- TODO: UPDATE and DELETE buttons --}}
+            {{!-- UPDATE and DELETE buttons --}}
+            <td>
+                {{!-- Best Practice: use different colours to indicate different outcomes --}}
+                {{!-- Use this._id to reference the automatically generated MongoDB document ID --}}
+                <a href="/projects/edit/{{this._id}}" class="btn btn-primary btn-sm">Update</a>
+                <a href="/projects/delete/{{this._id}}" 
+                    class="btn btn-danger btn-sm"
+                    onclick="return confirmDeletion()">Delete</a>
+            </td>
         </tr>
         {{/each}}
     </tbody>

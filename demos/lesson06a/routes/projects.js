@@ -32,5 +32,20 @@ router.post("/add", async (req, res ,next) => {
     // Redirect to the list of projects page
     res.redirect("/projects");
 });
+// GET /projects/edit/:_id - Load form to edit a project
+// todo
+
+// POST /projects/edit/:_id - Save an edited project
+// todo
+
+// GET /projects/delete/:_id - Delete a project
+// : indicates a route parameter named _id is expected
+router.get("/delete/:_id", async (req, res ,next) => {
+    let projectId = req.params._id;
+    // as per https://mongoosejs.com/docs/documents.html
+    await Project.deleteOne({ _id: projectId });
+    res.redirect("/projects");
+});
+
 // Export the router object
 module.exports = router;
