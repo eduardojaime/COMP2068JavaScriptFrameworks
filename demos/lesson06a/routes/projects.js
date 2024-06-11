@@ -5,6 +5,7 @@
 const express = require('express');
 const router = express.Router();
 const Project = require("../models/project"); // ../ means go up one level to the root folder
+const Course = require("../models/course");
 // Configure handlers for each route
 // Note that paths are relative to path set in app.js > /projects
 // GET /projects/ - List all projects 
@@ -14,8 +15,9 @@ router.get("/", async (req, res ,next) => {
     res.render("projects/index", { title: "All Projects", dataset: projects });
 });
 // GET /projects/add - Load form to add a new project
-router.get("/add", (req, res ,next) => {
-    res.render("projects/add", { title: "Add a New Project" });
+router.get("/add", async (req, res ,next) => {
+    let courseList = await Course.find().sort([[ "name", "ascending" ]]);
+    res.render("projects/add", { title: "Add a New Project", courses: courseList });
 });
 // POST /projects/add - Save a new project
 router.post("/add", async (req, res ,next) => {
