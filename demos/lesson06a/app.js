@@ -11,6 +11,8 @@ var coursesRouter = require("./routes/courses");
 // Database Connectivity
 var mongoose = require("mongoose");
 var globals = require("./configs/globals"); // global variables
+// Import HBS package to add helper functions
+var hbs = require("hbs");
 // Create and configure app object
 var app = express();
 
@@ -37,6 +39,27 @@ mongoose
   .catch((err) => {
     console.log(err);
   });
+
+// Register custom helpers function for HBS
+// Convert long date to short date
+hbs.registerHelper("toShortDate", (longDateValue) => {
+  return new hbs.SafeString(longDateValue.toLocaleDateString("en-CA"));
+});
+// Compares two values and if they are equal, returns a selected option element
+hbs.registerHelper("createOptionElement", (currentValue, selectedValue) => {
+  console.log(currentValue + " " + selectedValue);
+  // initialize selected property
+  var selectedProperty = "";
+  // if values are equal set selectedProperty accordingly
+  if (currentValue == selectedValue.toString()) {
+    selectedProperty = "selected";
+  }
+  // return html code for this option element
+  return new hbs.SafeString(
+    `<option ${selectedProperty}>${currentValue}</option>`
+  );
+});
+
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
