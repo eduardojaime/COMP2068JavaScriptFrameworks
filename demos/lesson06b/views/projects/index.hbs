@@ -1,0 +1,23 @@
+<h1>{{ title }}</h1>
+<a href="/projects/add" class="btn btn-info">Add a project</a>
+{{!-- TABLE TO SHOW ALL PROJECTS --}}
+<table class="table table-hover">
+    <thead>
+        <th>Name</th>
+        <th>Due Date</th>
+        <th>Course</th>
+        <th>Status</th>
+    </thead>
+    <tbody>
+        {{!-- Retrieve all projects and loop --}}
+        {{#each dataset}}
+        <tr>
+            <td>{{this.name}}</td>
+            <td>{{this.dueDate}}</td>
+            <td>{{this.course}}</td>
+            <td>{{this.status}}</td>
+            {{!-- TODO: UPDATE and DELETE buttons --}}
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
