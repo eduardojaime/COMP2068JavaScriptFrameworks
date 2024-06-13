@@ -32,5 +32,13 @@ router.post("/add", async (req, res ,next) => {
     // Redirect to the list of projects page
     res.redirect("/projects");
 });
+
+// GET /projects/delete/66679cc47bc4944c7bec213e - Delete a project
+// colon ':' is used to define a route parameter, in this case with name '_id'
+router.get("/delete/:_id", async (req, res ,next) => {
+    let projectId = req.params._id; 
+    await Project.deleteOne({ _id: projectId });
+    res.redirect("/projects");
+});
 // Export the router object
 module.exports = router;
