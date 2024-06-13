@@ -40,5 +40,30 @@ router.get("/delete/:_id", async (req, res ,next) => {
     await Project.deleteOne({ _id: projectId });
     res.redirect("/projects");
 });
+
+// GET /projects/edit/666a431826b78e7c47b58734 - Load form to edit a project
+router.get("/edit/:_id", async (req, res ,next) => {
+    // Retrieve courses AND project data
+    let projectId = req.params._id;
+    let courseList = await Course.find().sort([[ "name", "ascending" ]]);
+    let projectData = await Project.findById(projectId);
+    // Send data back to view
+    // Best Practice: use different names for controller and view variables
+    res.render("projects/edit", { title:"Edit Project", project: projectData, courses: courseList });
+});
+// POST /projects/edit/666a431826b78e7c47b58734 - Save changes to a project
+router.post("/edit/:_id", async (req, res ,next) => {
+    let projectId = req.params._id;
+    await Project.findByIdAndUpdate(
+        { _id: projectId }, // _id of the document to find
+        {
+            name: req.body.name,
+            dueDate: req.body.dueDate,
+            course: req.body.course,
+            status: req.body.status // include status field
+        } // object containing new values
+    );
+});
+
 // Export the router object
 module.exports = router;
