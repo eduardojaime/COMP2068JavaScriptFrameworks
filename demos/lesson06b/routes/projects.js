@@ -63,6 +63,7 @@ router.post("/edit/:_id", async (req, res ,next) => {
             status: req.body.status // include status field
         } // object containing new values
     );
+    res.redirect("/projects");
 });
 
 // Export the router object
