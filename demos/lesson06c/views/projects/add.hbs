@@ -13,7 +13,12 @@
     </fieldset>
     <fieldset>
         <label for="course">Course: </label>
-        <input type="text" name="course" id="course" required>
+        {{!-- <input type="text" name="course" id="course" required> --}}
+        <select name="course" id="course">
+            {{#each courses}}
+                <option>{{ this.name }}</option>
+            {{/each}}
+        </select>
     </fieldset>
     {{!-- Add a button to trigger POST action --}}
     <button class="btn btn-primary">Save</button>
