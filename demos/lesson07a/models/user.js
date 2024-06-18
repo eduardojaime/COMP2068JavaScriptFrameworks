@@ -9,7 +9,7 @@ const dataSchemaObject = {
     },
     password: { // Never store passwords as plain text
         type: String,
-        required: true,
+        required: false, // to avoid issues when creating a new user
     },
 };
 const mongooseSchema = mongoose.Schema(dataSchemaObject);
