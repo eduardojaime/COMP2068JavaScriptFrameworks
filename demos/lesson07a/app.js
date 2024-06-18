@@ -13,6 +13,10 @@ var mongoose = require("mongoose");
 var globals = require("./configs/globals"); // global variables
 // Import HBS package to add helper functions
 var hbs = require("hbs");
+// Import Passport and Session modules
+var passport = require("passport");
+var session = require("express-session");
+var User = require("./models/user");
 // Create and configure app object
 var app = express();
 
@@ -25,6 +29,20 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
+// Configure Session object https://www.npmjs.com/package/express-session
+app.use(session({
+  secret: "projecttracker2024", // value used to sign the session ID cookie
+  resave: false, // flag: save session even if not modified
+  saveUninitialized: false // flag: save session even if not used
+}));
+// Initialize Passport
+app.use(passport.initialize());
+app.use(passport.session());
+// Initialize Passport Strategy
+passport.use(User.createStrategy()); // createStrategy() comes from plm package
+// Configure Passport to serialize and deserialize user data
+passport.serializeUser(User.serializeUser()); // serializeUser() comes from plm package
+passport.deserializeUser(User.deserializeUser()); // deserializeUser() comes from plm package
 // Route Definitions
 app.use("/", indexRouter);
 // app.use('/users', usersRouter);

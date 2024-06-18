@@ -6,4 +6,6 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
+// TODO: Handle signup and login routes
+
 module.exports = router;
