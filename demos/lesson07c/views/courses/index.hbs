@@ -1,0 +1,20 @@
+{{! Show a list of courses }}
+<h1>{{title}}</h1>
+<a href="/courses/add" class="btn btn-primary">Add Course</a>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Code</th>
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each dataset}}
+      {{! 'this' refers to the current element in the iteration }}
+      <tr>
+        <td>{{this.code}}</td>
+        <td>{{this.name}}</td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>
