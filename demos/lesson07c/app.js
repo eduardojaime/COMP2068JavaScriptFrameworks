@@ -13,6 +13,10 @@ var mongoose = require("mongoose");
 var globals = require("./configs/globals"); // global variables
 // Import Handlebars module
 var hbs = require("hbs");
+// Import Authentication and Session modules
+var passport = require("passport");
+var session = require("express-session");
+var User = require("./models/user");
 // Create and configure app object
 var app = express();
 
@@ -25,6 +29,18 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
+// Configure Passport and Sessions
+app.use(session({
+  secret: "ProjectTracker2024",
+  resave: false, // don't save session if unmodified
+  saveUninitialized: false, // don't create session until something stored
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+// Configure Strategy and Serialization/Deserialization
+passport.use(User.createStrategy()); // use the local strategy from PLM
+passport.serializeUser(User.serializeUser()); // store user in session
+passport.deserializeUser(User.deserializeUser()); // get user from session
 // Route Definitions
 app.use("/", indexRouter);
 // app.use('/users', usersRouter);
