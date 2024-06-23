@@ -11,6 +11,10 @@ const dataSchemaObject = {
         type: String,
         required: false, // to avoid issues when creating a new user
     },
+    // add fields to handle oauth authenticated users
+    oauthId: { type: String }, // id value to identify this user in the third-party system
+    oauthProvider: { type: String }, // what auth provider was used? Github, google, etc.
+    created: { type: Date }, // keeps track of when user was created
 };
 const mongooseSchema = mongoose.Schema(dataSchemaObject);
 // Add Passport Local Mongoose plugin to User Schema

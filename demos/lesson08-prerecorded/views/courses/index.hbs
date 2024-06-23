@@ -2,7 +2,9 @@
   {{title}}
 </h1>
 {{!-- Add links to CRUD operations --}}
-<a class="btn btn-info" href="/courses/add">Add a new Course</a>
+{{#if user}}
+  <a href="/courses/add">Add a new Course</a>
+{{/if}}
 
 {{!-- To Show data --}}
 <table class="table table-striped table-hover">

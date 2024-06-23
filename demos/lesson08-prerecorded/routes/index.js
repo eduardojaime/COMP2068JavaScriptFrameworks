@@ -52,4 +52,28 @@ router.post("/register", (req, res, next) => {
   );
 });
 
+// GET /logout
+router.get("/logout", (req, res, next) => {
+  req.logout((err) => {
+    res.redirect("/login");
+  });
+});
+
+// GET /github
+// triggers when user clicks on the "Login with Github" button on the login page
+// user is sent to github.com in order to provide credentials
+router.get(
+  "/github",
+  passport.authenticate("github", { scope: ["user.email"] })
+);
+
+// GET /github/callback
+router.get(
+  "/github/callback", // path
+  passport.authenticate("github", { failureRedirect: "/login" }), // github middleware
+  (req, res, next) => {
+    res.redirect("/projects");
+  } // custom middleware (success)
+);
+
 module.exports = router;

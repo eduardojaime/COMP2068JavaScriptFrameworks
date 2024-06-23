@@ -1,5 +1,7 @@
 <h1>{{ title }}</h1>
-<a href="/projects/add" class="btn btn-info">Add a project</a>
+{{#if user}}
+  <a href="/projects/add">Add a new project</a>
+{{/if}}
 {{!-- TABLE TO SHOW ALL PROJECTS --}}
 <table class="table table-hover">
     <thead>
@@ -21,10 +23,16 @@
             <td>
                 {{!-- Best Practice: use different colours to indicate different outcomes --}}
                 {{!-- Use this._id to reference the automatically generated MongoDB document ID --}}
-                <a href="/projects/edit/{{this._id}}" class="btn btn-primary btn-sm">Update</a>
-                <a href="/projects/delete/{{this._id}}" 
-                    class="btn btn-danger btn-sm"
-                    onclick="return confirmDeletion()">Delete</a>
+                {{! Only show CRUD buttons if there's a session (authenticated user) }}
+                {{!-- use ../ to navigate out of the for loop into the global scope --}}
+                {{#if ../user}}
+                <a href="/projects/edit/{{this._id}}" class="btn btn-primary">Edit</a>
+                <a
+                    href="/projects/delete/{{this._id}}"
+                    onclick="return confirmDeletion()"
+                    class="btn btn-danger"
+                >Delete</a>
+                {{/if}}
             </td>
         </tr>
         {{/each}}

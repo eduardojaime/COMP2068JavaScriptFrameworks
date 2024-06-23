@@ -13,7 +13,7 @@
 - In Routes/Courses.js
     - Modify every method that renders a view and add user object
         - Every GET handler
--  Try out to verify the navbar changes accordingly
+- Try out to verify the navbar changes accordingly
 - In Routes/Index.js
     - Modify every method that renders a view and add user object
     - Add GET handler for logout
