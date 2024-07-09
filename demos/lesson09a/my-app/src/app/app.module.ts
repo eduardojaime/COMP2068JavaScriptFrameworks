@@ -1,3 +1,5 @@
+// Similar to app.js
+// Configure any global feature or service here
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
