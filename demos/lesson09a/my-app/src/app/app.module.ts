@@ -5,16 +5,21 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { ProjectsComponent } from './projects/projects.component';
+// import FormsModule to use ngModel
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [
-    AppComponent
+  declarations: [ // list of components that the app utilizes
+    AppComponent,
+    ProjectsComponent
   ],
-  imports: [
+  imports: [ // list of modules that the app utilizes
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [], // list of data services that the app utilizes
+  bootstrap: [ProjectsComponent] // indicates which component to load on startup
 })
 export class AppModule { }
