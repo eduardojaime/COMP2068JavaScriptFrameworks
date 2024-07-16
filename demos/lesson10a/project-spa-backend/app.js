@@ -6,6 +6,11 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var projectsRouter = require('./routes/projects');
+
+// Import mongoose
+var mongoose = require("mongoose");
+var configs = require("./config/globals");
 
 var app = express();
 
@@ -21,6 +26,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/projects', projectsRouter); // assign to path
+
+// Connect to the DB
+mongoose
+  .connect(configs.ConnectionString.MongoDB)
+  .then(() => { console.log("Connected to the database"); })
+  .catch((error) => { console.log("Error connecting to the database", error); });
+    
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
