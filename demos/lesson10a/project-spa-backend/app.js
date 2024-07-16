@@ -11,6 +11,12 @@ var projectsRouter = require('./routes/projects');
 // Import mongoose
 var mongoose = require("mongoose");
 var configs = require("./config/globals");
+// Import and configure CORS policy
+var cors = require("cors");
+var cors_options = {
+  origin: "http://localhost:4200", // my Angular server
+  optionsSuccessStatus: 200
+};
 
 var app = express();
 
@@ -23,6 +29,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+// Enable CORS policy
+app.use(cors(cors_options)); // only allow requests from my Angular server
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
