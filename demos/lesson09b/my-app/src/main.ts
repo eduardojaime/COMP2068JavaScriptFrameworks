@@ -1,4 +1,4 @@
-
+// Equivalent of /bin/www in Express.js
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 import { AppModule } from './app/app.module';
