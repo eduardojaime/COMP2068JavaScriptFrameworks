@@ -15,9 +15,9 @@
             <td>{{ project.dueDate | date }}</td>
             <td>{{ project.course }}</td>
             <td>
-                <a class="btn btn-info" >Edit</a>
+                <a class="btn btn-info" (click)="selectProject(project)">Edit</a>
                 &nbsp;
-                <a class="btn btn-danger" >Delete</a>
+                <a class="btn btn-danger" (click)="deleteProject(project._id)">Delete</a>
             </td>
         </tr>
     </tbody>
@@ -37,6 +37,6 @@
         <input name="course" id="course" required [(ngModel)]="course" />
     </fieldset>
     <!-- Hide/Show buttons depending on whether there's a project selected -->
-    <button class="btn btn-primary" (click)="this.addProject()">Save</button>
-    <button class="btn btn-success">Update</button>
+    <button class="btn btn-primary" (click)="this.addProject()" *ngIf="!this._id">Save</button>
+    <button class="btn btn-success" (click)="this.updateProject()" *ngIf="this._id">Update</button>
  </form>

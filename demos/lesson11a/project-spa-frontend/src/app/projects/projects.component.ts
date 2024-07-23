@@ -52,6 +52,36 @@ export class ProjectsComponent {
     // clear form
     this.clearFormFields();
   }
+  // Method to delete a project, confirm deletion
+  deleteProject(_id: string) : void {
+    if (confirm("Are you sure?")) {
+      this.projectsService.deleteProject(_id).subscribe((data) => {
+        // what happens when I delete a project?
+        this.getProjects(); // refresh the list of projects
+      });
+    }
+  }
+  // Method to update a project
+  updateProject() : void {
+    // create an object with information from form fields
+    let selectedProject = {
+      _id: this._id,
+      name: this.name,
+      course: this.course,
+      dueDate: this.dueDate
+    }
+    this.projectsService.updateProject(selectedProject).subscribe((data) => {
+      this.getProjects(); // refresh the list of projects
+    });
+    this.clearFormFields();
+  }
+  // Method to select a project (edit button click event)
+  selectProject(project: any) : void {
+    this._id = project._id;
+    this.name = project.name;
+    this.course = project.course;
+    this.dueDate = project.dueDate;
+  }
   // Call the getProjects() method when the component is initialized
   // ngOnInit fires when the component loads
   ngOnInit() : void {
