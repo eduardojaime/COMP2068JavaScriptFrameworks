@@ -8,6 +8,8 @@ import { ProjectsComponent } from './projects/projects.component';
 import { HttpClientModule } from '@angular/common/http';
 // ./ refers to /src/app  (the current directory)
 import { ProjectsService } from './services/projects.service';
+// Import FormsModule to use ngModel directive for two-way data binding
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,8 @@ import { ProjectsService } from './services/projects.service';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule // Add HttpClientModule to the imports array (for DI)
+    HttpClientModule, // Add HttpClientModule to the imports array (for DI)
+    FormsModule // Add FormsModule to the imports array (for two-way data binding)
   ],
   providers: [ProjectsService], // Add ProjectsService to the providers array (it provides data)
   bootstrap: [ProjectsComponent] // make projects the starting component
