@@ -10,6 +10,11 @@ var projectsRouter = require("./routes/projects");
 
 var configs = require("./configs/globals");
 var mongoose = require("mongoose");
+var cors = require("cors");
+var corsOptions = {
+  origin: "http://localhost:4200", // Angular frontend URL
+  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+}
 
 var app = express();
 
@@ -22,6 +27,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(cors(corsOptions));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
