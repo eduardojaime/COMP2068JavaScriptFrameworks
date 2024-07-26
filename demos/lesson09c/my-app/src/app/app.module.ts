@@ -1,3 +1,4 @@
+// Similar to app.js in Express
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
