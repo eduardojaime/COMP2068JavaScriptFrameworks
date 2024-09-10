@@ -1,0 +1,15 @@
+pizza
+burger
+crepes
+burrito
+pasta
+guacamole
+totopos
+croissant
+bagels
+donuts
+apple
+banana
+pineapple
+waffles
+chips
