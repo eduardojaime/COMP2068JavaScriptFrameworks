@@ -1,16 +1,16 @@
 // 1) Create function without closures
-function closedFunction() {
-    let counter = 1; 
+function counter() {
+    let count = 1; 
     // declare a variable and set it to an anonymous function
     function increment() {
-        counter++;
-        console.log(counter);
+        count++;
+        console.log(count);
     }
     // in the same way that a class has multiple methods
     // we can return an object with multiple methods
     function decrement() {
-        counter--;
-        console.log(counter);
+        count--;
+        console.log(count);
     }
     return { increment, decrement } ;
 } 
