@@ -1,9 +1,10 @@
 #!/usr/bin/env node
-
+// This is the startup file of the app
+// No need to modify this file
 /**
  * Module dependencies.
  */
-
+// Imports app object
 var app = require('../app');
 var debug = require('debug')('part2:server');
 var http = require('http');
@@ -16,7 +17,7 @@ var port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
 /**
- * Create HTTP server.
+ * Create HTTP server. And uses app object to handle requests.
  */
 
 var server = http.createServer(app);

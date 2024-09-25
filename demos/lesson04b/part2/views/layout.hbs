@@ -1,10 +1,19 @@
+{{!-- 
+  Similar to layout.cshtml in C# 
+  This is the overall look and feel of our app
+  Any visual element that is common to all pages should be placed here
+--}}
 <!DOCTYPE html>
 <html>
   <head>
     <title>{{title}}</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    {{!-- No need to add /public to the path, the app already knows --}}
+    <script src="/javascripts/bootstrap.js"></script>
+    {{!-- Add your bootstrap links here --}}
   </head>
   <body>
+    {{!-- This is where partial views are rendered --}}
     {{{body}}}
   </body>
 </html>

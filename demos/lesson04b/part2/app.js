@@ -1,12 +1,15 @@
+// this is our App configuration file, similar to Program.cs in C#
+// any global configuration should be done here
+// such as connecting to a db, authentication middleware, etc.
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-
+// Import router objects (controllers)
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-
+// Create and configure app object
 var app = express();
 
 // view engine setup
@@ -18,7 +21,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
+// Define routes
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 

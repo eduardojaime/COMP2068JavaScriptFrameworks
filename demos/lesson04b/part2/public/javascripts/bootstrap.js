@@ -1,0 +1,1 @@
+// Example for a bootstrap file
