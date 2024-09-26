@@ -1,0 +1,19 @@
+{
+  "name": "express-demo",
+  "version": "1.0.0",
+  "description": "This is an express web app written from scratch",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "express",
+    "demo",
+    "app"
+  ],
+  "author": "Eduardo Jaime",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.0"
+  }
+}
