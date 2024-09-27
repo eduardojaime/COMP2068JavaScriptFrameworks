@@ -1,3 +1,6 @@
+// This is a router object (controller)
+// It is for handling requests to a specific path
+// Path is configured in app.js
 var express = require('express');
 var router = express.Router();
 

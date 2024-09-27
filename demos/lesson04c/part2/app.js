@@ -1,3 +1,6 @@
+// This is the main file in my application
+// It is for configuring global settings and middleware functions
+// Import modules to be used in the application
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -6,19 +9,20 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-
+// This app object is an instance of express, it represents our application configuration
 var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
-
+// set the app to use the logger middleware function and other modules
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
+// Routing configuration
+// Associating routes (paths) with a router object (controllers)
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
@@ -37,5 +41,5 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-
+// Export app object so we can load it in the http server (www file)
 module.exports = app;

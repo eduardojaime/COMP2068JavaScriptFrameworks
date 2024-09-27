@@ -1,5 +1,6 @@
 #!/usr/bin/env node
-
+// This is the entry point of the app
+// Here we configure the http server, set the express app as a global handler and start the server
 /**
  * Module dependencies.
  */

@@ -1,10 +1,14 @@
+{{!-- This is the global UI template for my app --}}
 <!DOCTYPE html>
 <html>
   <head>
     <title>{{title}}</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    {{!-- Bootstrap references --}}
   </head>
   <body>
-    {{{body}}}
+    {{!-- global header and navigation bar go here --}}
+    {{{body}}} {{!-- this is where the content for each view will be injected --}}
+    {{!-- global footer --}}
   </body>
 </html>
