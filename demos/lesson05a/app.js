@@ -25,6 +25,17 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 
+// connect to MongoDB after the routes and middleware configurations
+// use method chaining > connect().then().catch()
+mongoose
+  .connect(configs.ConnectionStrings.MongoDB)
+  .then(() => {
+    console.log("Connected to MongoDB");
+  })
+  .catch((err) => {
+    console.log("Error connecting to MongoDB", err);
+  });
+
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
