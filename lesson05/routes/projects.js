@@ -9,7 +9,7 @@ const Project = require("../models/project");
 // GET /projects/
 router.get("/", async (req, res, next) => {
     // retrieve ALL data, and sort by dueDate
-    let projects = await Project.find().sort([["dueDate", "descending"]]);
+    let projects = await Project.find().sort({ dueDate: 1 });
     // render view
     res.render("projects/index", { 
         title: "Project Tracker",

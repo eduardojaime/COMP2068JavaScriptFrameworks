@@ -1,0 +1,18 @@
+<h1>{{title}}</h1>
+<form method="POST">
+  <fieldset>
+    {{! input name and id must match field name in model class }}
+    <label for="name">Name</label>
+    <input type="text" name="name" id="name" required />
+  </fieldset>
+  <fieldset>
+    <label for="dueDate">Due Date</label>
+    <input type="date" name="dueDate" id="dueDate" required />
+  </fieldset>
+  <fieldset>
+    <label for="course">Course</label>
+    <input type="text" name="course" id="course" required />
+  </fieldset>
+  {{! Add button to trigger the POST event }}
+  <button class="offset-3 btn btn-primary">Save</button>
+</form>
