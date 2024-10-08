@@ -11,6 +11,9 @@ var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 var projectsRouter = require("./routes/projects");
 
+// import HBS to add helper functions for my views
+var hbs = require("hbs");
+
 var app = express();
 
 // view engine setup
@@ -37,6 +40,21 @@ mongoose
   .catch((err) => {
     console.log("Error connecting to MongoDB", err);
   });
+
+// HBS Helper Functions
+// Returns a date in short date format string
+hbs.registerHelper("toShortDate", (longDateValue) => {
+  return new hbs.SafeString(longDateValue.toLocaleDateString("en-CA"));
+});
+
+// Compares two values and returns a corresponding option element for a select input
+hbs.registerHelper("createOptionElement", (currentValue, selectedValue) => {
+  if (currentValue === selectedValue) {
+    return new hbs.SafeString("<option selected>" + currentValue + "</option>");
+  } else {
+    return new hbs.SafeString("<option>" + currentValue + "</option>");
+  }
+});
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

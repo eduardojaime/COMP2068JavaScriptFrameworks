@@ -15,10 +15,19 @@
     {{#each dataset}}
       <tr>
         <td>{{this.name}}</td>
-        <td>{{this.dueDate}}</td>
+        <td>{{toShortDate this.dueDate}}</td>
         <td>{{this.course}}</td>
         <td>{{this.status}}</td>
-        {{! TODO: Add DELETE and UPDATE buttons inside the table }}
+        {{! UPDATE and DELETE buttons }}
+        <td>
+          <a href="/projects/edit/{{this._id}}" class="btn btn-info">Update</a>
+          &nbsp;
+          <a
+            href="/projects/delete/{{this._id}}"
+            class="btn btn-danger"
+            onclick="return confirmDeletion()"
+          >Delete</a>
+        </td>
       </tr>
     {{/each}}
   </tbody>

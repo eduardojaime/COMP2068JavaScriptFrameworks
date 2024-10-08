@@ -36,5 +36,41 @@ router.post("/add", async (req, res, next) => {
     res.redirect("/projects");
 });
 
+// GET /projects/delete/:_id > when I click on the delete button in the index page
+router.get("/delete/:_id", async (req, res, next) => {
+    // you can access _id from the request object
+    let projectId = req.params._id;
+    // Delete the project by id
+    await Project.findByIdAndDelete(projectId);
+    // Redirect to the index page to show the updated data\
+    res.redirect("/projects");
+});
+
+// GET /projects/edit/:_id > when I click on the edit button in the index page
+router.get("/edit/:_id", async (req, res, next) => {
+    let projectId = req.params._id;
+    // find the project by id
+    let projectData = await Project.findById(projectId);
+    // render the edit view with the project data
+    res.render("projects/edit", { title: "Edit Project", project: projectData });
+});
+
+// POST /projects/edit/:_id > when I submit the form in the edit page by clicking the Save button
+router.post("/edit/:_id", async (req, res, next) => {
+    let projectId = req.params._id;
+    // find by id and update
+    await Project.findByIdAndUpdate(
+        { _id: projectId }, // ID
+        {
+            name: req.body.name,
+            dueDate: req.body.dueDate,
+            course: req.body.course,
+            status: req.body.status,
+        } // new data
+    );
+    // redirect to the index page to show the updated data
+    res.redirect("/projects");
+});
+
 // Export the router object
 module.exports = router;
