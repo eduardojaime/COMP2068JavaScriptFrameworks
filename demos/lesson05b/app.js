@@ -26,7 +26,7 @@ app.use("/", indexRouter);
 app.use("/users", usersRouter);
 // Connect to MongoDB
 mongoose.connect(configs.ConnectionStrings.MongoDB)
-  .then(()=> { console.log("Connected to MongoDB...") })
+  .then(() => { console.log("Connected to MongoDB...") })
   .catch((error) => { console.log("Error connecting to MongoDB...", error) });
 
 
