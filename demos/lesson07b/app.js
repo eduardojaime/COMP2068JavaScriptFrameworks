@@ -11,6 +11,11 @@ var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 var projectsRouter = require("./routes/projects");
 
+// Authentication Mechanism (Passport base and session)
+var passport = require("passport");
+var session = require("express-session");
+var User = require("./models/user");
+
 // import HBS to add helper functions for my views
 var hbs = require("hbs");
 
@@ -25,6 +30,22 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
+// Configure Authentication Strategies and Sessions
+// https://www.npmjs.com/package/express-session
+app.use(session(
+  {
+    secret: "ProjectTrackerApp", // used to sign the session ID cookie
+    resave: false,
+    saveUninitialized: false
+  }
+));
+// Initialize passport
+app.use(passport.initialize());
+app.use(passport.session()); // enables middleware for persistent login sessions
+// Configure local strategy for username/password authentication
+passport.use(User.createStrategy()); // createStrategy() comes from plm plugin
+passport.serializeUser(User.serializeUser()); // serializeUser() comes from plm plugin
+passport.deserializeUser(User.deserializeUser()); // deserializeUser() comes from plm plugin
 // Route Configuration
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
