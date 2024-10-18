@@ -13,6 +13,10 @@ var mongoose = require("mongoose");
 var configs = require("./configs/globals");
 // Import HBS to register helper methods
 var hbs = require("hbs");
+// Import passport and session modules
+var passport = require("passport");
+var session = require("express-session");
+var User = require("./models/user");
 
 var app = express();
 
@@ -25,6 +29,19 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
+// Configure session and passport
+// https://www.npmjs.com/package/express-session
+app.use(session({
+  secret: "ProjectTracker", // value used to sign the session ID cookie
+  resave: false, // prevents session from being saved if empty
+  saveUninitialized: false, 
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+// Local strategy configuration
+passport.use(User.createStrategy()); // these 3 methods are coming from PLM
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser()); 
 // Route configuration
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
