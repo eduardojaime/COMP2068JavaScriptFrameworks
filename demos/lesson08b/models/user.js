@@ -6,6 +6,10 @@ const plm = require("passport-local-mongoose");
 const schemaObj = {
     username: { type: String },
     password: { type: String }, // never store passwords in plain text
+    // fields for oauth users
+    oauthID: { type: String }, // ID from the OAuth provider
+    oauthProvider: { type: String }, // GitHub, Google, etc.
+    created: { type: Date, default: Date.now }
 }
 const mongooseSchema = new mongoose.Schema(schemaObj);
 // Inject passport-local-mongoose into the User model

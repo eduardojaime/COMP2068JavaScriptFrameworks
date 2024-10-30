@@ -15,6 +15,8 @@ var projectsRouter = require("./routes/projects");
 var passport = require("passport");
 var session = require("express-session");
 var User = require("./models/user");
+// Import Authentication Strategies
+var GitHubStrategy = require("passport-github2").Strategy;
 
 // import HBS to add helper functions for my views
 var hbs = require("hbs");
@@ -44,7 +46,32 @@ app.use(passport.initialize());
 app.use(passport.session()); // enables middleware for persistent login sessions
 // Configure local strategy for username/password authentication
 passport.use(User.createStrategy()); // createStrategy() comes from plm plugin
-passport.serializeUser(User.serializeUser()); // serializeUser() comes from plm plugin
+// Configure GitHub Strategy for OAuth
+passport.use(new GitHubStrategy(
+  {
+    clientID: configs.Authentication.GitHub.ClientID,
+    clientSecret: configs.Authentication.GitHub.ClientSecret,
+    callbackURL: "http://localhost:3000/github/callback" // same as on github app registration
+  },
+  // callback function to handle user profile
+  async (accessToken, refreshToken, profile, done) => {
+    // find user, if not found create a new user
+    let user = await User.findOne({ oauthID: profile.id });
+    if (user) {
+      return done(null, user);
+    }
+    else {
+      let newUser = new User({
+        username: profile.username,
+        oauthID: profile.id,
+        oauthProvider: "GitHub"
+      });
+      await newUser.save();
+      return done(null, newUser);
+    }
+  }));
+
+  passport.serializeUser(User.serializeUser()); // serializeUser() comes from plm plugin
 passport.deserializeUser(User.deserializeUser()); // deserializeUser() comes from plm plugin
 // Route Configuration
 app.use("/", indexRouter);
