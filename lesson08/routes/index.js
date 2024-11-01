@@ -76,11 +76,13 @@ router.get(
 
 // GET /github/callback
 router.get(
-  "/github/callback", // path
-  passport.authenticate("github", { failureRedirect: "/login" }), // github middleware
-  (req, res, next) => {
-    res.redirect("/projects");
-  } // custom middleware (success)
+  "/github/callback", 
+  passport.authenticate(
+    "github", 
+    { successRedirect: "/projects", // if successful, go to projects
+      failureRedirect: "/login"  // if not (user clicked cancel), go to login
+    }
+  )
 );
 
 module.exports = router;

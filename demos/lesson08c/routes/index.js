@@ -5,7 +5,10 @@ var passport = require("passport");
 
 /* GET home page. */
 router.get("/", function (req, res, next) {
-  res.render("index", { title: "Express" });
+  res.render("index", { 
+    title: "Express",
+    user: req.user, // request contains the information about logged in user
+  });
 });
 
 // GET /login > loads the form
@@ -49,5 +52,25 @@ router.post("/register", (req, res, next) => {
     }
   );
 });
+
+// GET /logout > logs the user out
+router.get("/logout", (req, res, next) => {
+  req.logout((err) => { res.redirect("/login"); });
+});
+
+// GET /github > authenticate with GitHub
+// Passport will take care of the starting the authentication flow and redirecting user to github.com
+router.get("/github", passport.authenticate("github", { scope: ["user:email"] }));
+
+// GET /github/callback > GitHub will redirect here after authentication
+router.get("/github/callback", 
+  passport.authenticate(
+    "github", 
+    { 
+      successRedirect: "/projects", // if successful, go to projects
+      failureRedirect: "/login"  // if not (user clicked cancel), go to login
+    }
+  )
+);
 
 module.exports = router;

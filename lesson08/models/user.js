@@ -8,7 +8,7 @@ var dataSchemaObj = {
     // add fields to handle oauth authenticated users
     oauthId: { type: String }, // id value to identify this user in the third-party system
     oauthProvider: { type: String }, // what auth provider was used? Github, google, etc.
-    created: { type: Date }, // keeps track of when user was created
+    created: { type: Date, default: Date.now }, // when was this user record created
 }
 var userSchema = new mongoose.Schema(dataSchemaObj);
 // Use passport-local-mongoose to indicate this is a special authentication model

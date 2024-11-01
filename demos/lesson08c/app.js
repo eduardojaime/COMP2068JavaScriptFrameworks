@@ -17,6 +17,7 @@ var hbs = require("hbs");
 var passport = require("passport");
 var session = require("express-session");
 var User = require("./models/user");
+var GitHubStrategy = require("passport-github2").Strategy;
 
 var app = express();
 
@@ -40,6 +41,32 @@ app.use(passport.initialize());
 app.use(passport.session());
 // Local strategy configuration
 passport.use(User.createStrategy()); // these 3 methods are coming from PLM
+// GitHub strategy configuration
+passport.use(new GitHubStrategy(
+  {
+    clientID: configs.Authentication.GitHub.clientID,
+    clientSecret: configs.Authentication.GitHub.clientSecret,
+    callbackURL: configs.Authentication.GitHub.callbackURL,
+  },
+  async (accessToken, refreshToken, profile, done) => {
+    // find user
+    const user = await User.findOne({ oauthID: profile.id });
+    // if it exists return done(null, user)
+    if (user)
+      return done(null, user);
+    // if null then create
+    else 
+    {
+      const newUser = new User({
+        username: profile.username,
+        oauthID: profile.id,
+        oauthProvider: "GitHub",
+      });
+      let savedUser = await newUser.save();
+      return done(null, savedUser);
+    }
+  }  
+));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser()); 
 // Route configuration
