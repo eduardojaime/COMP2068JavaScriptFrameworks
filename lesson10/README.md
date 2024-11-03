@@ -51,9 +51,10 @@
 - Go back to PowerShell or Command Prompt and navigate back to the folder where your projects are
     - > cd ..
 - Create the angular project template by running
-    - > ng new project-spa-frontend
-        - Yes to routing
-        - CSS as default
+    - > ng new project-spa-frontend --no-standalone
+    - When prompted, select the following options:
+        - Stylesheet to use > CSS
+        - Enable SSR and SSG? > No
     - Navigate into the project folder > cd project-spa-frontend
     - Run > npm install
     - Open up the project in VS Code > code .
@@ -65,6 +66,10 @@
     - Modify \<app-root> to \<app-project>
 - In app.module.ts
     - Modify bootstrap to use AppComponent
+- Navigate to https://www.bootstrapcdn.com/
+    - Add Bootstrap CSS reference link to Index.html
+- Open Styles.css
+    - Add card styles from https://pastebin.com/mS5eYvt1
     
 ### Part 3 Creating the service layer that will call our server app
 

@@ -1,17 +1,42 @@
 # Instructions
 
+### Comparing Standalone (default) vs Component-Based (legacy default) Approaches
+
+Feature | Standalone Components | Module-Based Components
+---|---|---
+Angular Version | Default project template since v17. Introduced in v15. | Legacy default project template. In v17 and above, you need to use the --no-standalone parameter when executing 'ng new'.
+Declaration | Standalone with standalone: true | Declared within NgModule
+Dependency Management | Imports dependencies directly | Shares dependencies within the module
+Modularity | Highly modular and flexible | Structured for larger, more complex apps
+Boilerplate | Less boilerplate without modules | Additional module setup required
+Use Cases | Great for micro-frontends, isolated components, or small apps where modules might add unnecessary complexity. | Suitable for large applications where structure and organization are essential, especially when components need to share services or dependencies.
+
+### Comparing Server-Side Rendering (SSR) vs Client-Side Rendering (CSR)
+Feature | Server-Side Rendering (SSR) | Client-Side Rendering (CSR)
+---|---|---
+Rendering | HTML is generated on the server and sent to the client | HTML is generated on the client using JavaScript
+Performance | Faster initial load time | Slower initial load time, but faster subsequent interactions
+SEO | Better SEO as content is available on initial load | Poorer SEO as content is rendered after JavaScript execution
+Complexity | More complex setup, requires server infrastructure | Simpler setup, can be hosted on static file servers
+Interactivity | Initial load is fast, but subsequent interactions may be slower | Initial load is slower, but subsequent interactions are faster
+Use Cases | Suitable for content-heavy sites, blogs, e-commerce | Suitable for web applications, SPAs with heavy interactivity
+
+
 ### Part 1 Setting up your environment
 
-- Navigate to https://angular.io/guide/setup-local and follow the instructions to download the required packages:
+- Navigate to https://angular.dev/tools/cli/setup-local and follow the instructions to download the required packages:
     - Knowledge of Typescript (we'll cover this)
     - NodeJs
     - npm
-    - Angular CLI (install globally via npm) by running npm install -g @angular/cli@16.2.10
+    - Angular CLI (install globally via npm) by running npm install -g @angular/cli
 - On a Console or PowerShell window, navigate to a folder where you wish to create your Angular project
     - E.g. cd source
 - This next step is similar to using the Express Generator
     - Create a new workspace by running
-        - ng new my-app
+        - ng new my-app --no-standalone
+    - When prompted, select the following options:
+        - Stylesheet to use > CSS
+        - Enable SSR and SSG? > No
     - Open the application by navigating into the created app and running the serve command
         - cd my-app
         - If there are any errors related to npm packages run npm i --force
@@ -50,23 +75,22 @@
 
 - In the src/app folder
     - Open app.component.html
-        - Scroll down and find the Welcome span element
-            - Modify it to read Welcome to our first Angular App!!
-            - Notice how the changes will be sent to the browser automatically
     - Data Binding Examples:
         - Property Binding
-            - line 308 modify img element [src]="logoImg"
-            - Declare a property named logoImg in the component file and set its value to the base64 string with the logo in the \<img> element specified above
+            - Scroll down to line 243, [href] points to the selected item.link value
         - Interpolation Binding
-            - Scroll down and find the span element with {{ title }}
+            - Scroll down to line 228 and find the h1 element with {{ title }}
                 - This is similar to handlebars
                 - Go back to app.component.ts and modify the title value to My Angular App
         - Event Binding
-            - Find cards, and see code around (click) and [ngSwitch] statements
-            - How do they work?
+            - This works by using parenthesis around an element's event such as (click) and linking it to a function in the UI.
         
 ### Part 3 Displaying mock data on the application
 
+- Navigate to https://www.bootstrapcdn.com/
+    - Add Bootstrap CSS reference link to Index.html
+- Open Styles.css
+    - Add card styles from https://pastebin.com/mS5eYvt1
 - Back to the Terminal, create a component by running:
     - ng generate component project
     - Explore the new 'project' folder that's created inside the app folder
@@ -82,7 +106,7 @@
         - Modify the \<app-root> element and make it \<app-project>
 - For adding custom CSS styles we have two options:
     - Add them in styles.css in the root of our project or Component.css file
-    - Copy all the style sheets inside app.component.html and copy them in Styles.css (without the \<style> element)
+    - Copy all the style sheets inside app.component.html and copy them in Styles.css \(without the \<style> element\)
     - Create a custom rule to modify the font
         - body {}
 - In project.component.html

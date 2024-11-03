@@ -1,6 +1,8 @@
 # Custom
 legacy
 archive
+.angular
+.vscode
 
 # Logs
 logs

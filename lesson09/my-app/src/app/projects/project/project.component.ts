@@ -9,9 +9,9 @@ export class Project {
 
 // Create a mock list of projects
 const PROJECTS: Project[] = [
-  {id: 101, name: 'Labl 1', course: 'JS Frameworks'},
-  {id: 102, name: 'Labl 2', course: 'JS Frameworks'},
-  {id: 103, name: 'Labl 3', course: 'JS Frameworks'},
+  {id: 101, name: 'LAB01', course: 'JS Frameworks'},
+  {id: 102, name: 'LAB02', course: 'JS Frameworks'},
+  {id: 103, name: 'LAB03', course: 'JS Frameworks'},
   {id: 104, name: 'Tutorials', course: 'JS Frameworks'},
 ];
 
