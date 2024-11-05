@@ -12,6 +12,7 @@ export class ProjectService {
 
   // Method to get all projects from the backend
   getProjects() {
+    // Make a GET request to the backend to get all projects
     return this.http.get('http://localhost:3000/api/projects');
   }
 }
