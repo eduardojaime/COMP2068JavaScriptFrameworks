@@ -1,3 +1,5 @@
+// Similar to app.js in Express
+// Here we configure modules, services, and components globally in the application
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 

@@ -1,3 +1,5 @@
+// This is for unit test of the app component
+// We didn't cover anything like this in the Express demo
 import { TestBed } from '@angular/core/testing';
 import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
