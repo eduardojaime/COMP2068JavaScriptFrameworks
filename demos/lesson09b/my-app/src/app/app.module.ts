@@ -5,16 +5,18 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { ProjectComponent } from './project/project.component';
 
 @NgModule({
-  declarations: [
-    AppComponent
+  declarations: [ // Components, directives, and pipes
+    AppComponent,
+    ProjectComponent
   ],
-  imports: [
+  imports: [ // Modules
     BrowserModule,
     AppRoutingModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [], // Services (to retrieve data)
+  bootstrap: [ProjectComponent] // This is the root component
 })
 export class AppModule { }
