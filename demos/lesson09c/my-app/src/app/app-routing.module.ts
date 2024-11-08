@@ -1,3 +1,5 @@
+// Similar to routing code inside app.js in Express
+// app.use("/mysection", somerouterobject);
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 

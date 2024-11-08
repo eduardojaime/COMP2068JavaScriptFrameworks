@@ -1,3 +1,4 @@
+// Similar to router objects in Express.js
 import { Component } from '@angular/core';
 
 @Component({
