@@ -1,0 +1,9 @@
+<div class="card highlight-card">Project Tracker</div>
+<!-- Use a for loop to iterate through the list of projects -->
+<div class="card-container">
+  <!-- Angular Directive ngFor (for loop) -->
+  <div class="card" *ngFor="let project of projects">
+    <!-- Interpolation Binding -->
+    {{ project.name }} for {{ project.course }}
+  </div>
+</div>
