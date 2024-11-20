@@ -8,20 +8,22 @@ import { ProjectComponent } from './project/project.component';
 import { HttpClientModule } from '@angular/common/http';
 // Import the project service so we can inject it into the component
 import { ProjectService } from './services/project.service';
+// Import the FormsModule so we can bind input fields with component variables
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    ProjectComponent
-  ],
-  imports: [ // list of modules that are required by the app
+  declarations: [AppComponent, ProjectComponent],
+  imports: [
+    // list of modules that are required by the app
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule 
+    HttpClientModule,
+    FormsModule,
   ],
-  providers: [ // list of services that are required by the app
-    ProjectService
+  providers: [
+    // list of services that are required by the app
+    ProjectService,
   ],
-  bootstrap: [ProjectComponent]
+  bootstrap: [ProjectComponent],
 })
-export class AppModule { }
+export class AppModule {}
