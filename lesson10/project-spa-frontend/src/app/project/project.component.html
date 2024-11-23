@@ -8,10 +8,10 @@
     </tr>
   </thead>
   <tbody>
-    <!-- Syntax uses 'of' instead of 'in' let elem of list -->
+    <!-- Syntax uses 'of' instead of 'in' -->
     <tr *ngFor="let project of projects">
       <td>{{ project.name }}</td>
-      <td>{{ project.dueDate }}</td>
+      <td>{{ project.dueDate | date }}</td>
       <td>{{ project.course }}</td>
     </tr>
   </tbody>

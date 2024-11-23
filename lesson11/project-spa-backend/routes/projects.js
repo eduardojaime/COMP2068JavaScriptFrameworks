@@ -1,67 +1,35 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
+const Project = require("../models/project");
 
-const Project = require('../models/project');
-const config = require('../config/globals')
-
-// Allow cross-origin requests
-// Middleware executes before any other method in my router
-router.use((req,res,next) => {
-    // hardcoded for now but must be made configurable
-    console.log('Request from ' + req)
-    res.header('Access-Control-Allow-Origin', config.clientServer); // 'http://localhost:4200');
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-    res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
-    next();
+// GET /api/projects > retrieves all projects in the database
+router.get("/", async (req, res, next) => {
+  let projects = await Project.find();
+  // HTTP Response with status code 200 OK containing the projects in JSON format
+  res.status(200).json(projects);
 });
 
-// GET handler for /projects
-router.get('/', (req, res, next)=>{
-    // const projects = [{ id: 1, name: 'Project A'}];
-    // return res.json(projects).status(200);
-    Project.find((err, projects) => {
-        if (err) {
-            return res.json(err).status(400); // bad request
-        }
-        else {
-            return res.json(projects).status(200); // OK success
-        }
-    });
+// POST /api/projects > creates a new project in the database
+router.post("/", async (req, res, next) => {
+  // expected {name: 'LAB04', dueDate: '2024-11-27', course: 'ASP.NET'}
+  let project = new Project(req.body);
+  await project.save();
+  res.status(201).json(project); // 201 means 'created' as per https://developer.mozilla.org/en-US/docs/Web/HTTP/Status
 });
 
-router.post('/', (req,res,next) => {
-    Project.create(req.body, (err, project) => {
-        if (err) {
-            return res.json(err).status(501);
-        }
-        else {
-            return res.json(project).status(201); //resource created
-        }
-    });
+// PUT /api/projects > updates a project in the database
+router.put("/", async (req, res, next) => {
+  let project = await Project.findByIdAndUpdate(
+    { _id: req.body._id },
+    req.body
+  );
+  res.status(200).json(project);
 });
 
-router.delete('/:_id', (req, res ,next) => {
-    Project.remove({ _id: req.params._id }, (err, project) => {
-        if (err) {
-            return res.json(err).status(400); // bad request
-        }
-        else {
-            return res.json(project).status(204); // success no content
-        }
-    });
-});
-
-router.put('/', (req, res, next) => {
-    // find one based on id sent in the request body
-    Project.findOneAndUpdate({ _id: req.body._id }, req.body, (err, project) => {
-        console.log(req.body);
-        if (err) {
-            return res.json(err).status(400); // bad request
-        }
-        else {
-            return res.json(project).status(202); // resource accepted
-        }
-    });
+// DELETE /api/projects > deletes a project in the database
+router.delete("/:_id", async (req, res, next) => {
+  let project = await Project.findByIdAndDelete(req.params._id);
+  res.status(200).json(project);
 });
 
 module.exports = router;

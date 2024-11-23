@@ -1,20 +1,18 @@
-const mongoose = require('mongoose');
+// This is a mongoose model which represents users in my DB
+const mongoose = require("mongoose");
+// We'll use the out-of-the-box functionality in PLM to extend the model
+const plm = require("passport-local-mongoose");
 
-const plm = require('passport-local-mongoose');
-
-var userSchemaDefinition = {
-    username: String,
-    password: String,
-    oauthId: String,
-    oauthProvider: String,
-    created: Date
+const schemaObj = {
+    username: { type: String },
+    password: { type: String }, // never store passwords in plain text
+    // fields for oauth users
+    oauthID: { type: String }, // ID from the OAuth provider
+    oauthProvider: { type: String }, // GitHub, Google, etc.
+    created: { type: Date, default: Date.now }
 }
-
-var userSchema = new mongoose.Schema(userSchemaDefinition);
-
-// Use passport-local-mongoose to indicate this is a special authentication model
-// plugin() adds plm functionality to our model
-// i.e. hashing/salting password, and handling authentication attemps
-userSchema.plugin(plm);
-
-module.exports = new mongoose.model('User', userSchema);
+const mongooseSchema = new mongoose.Schema(schemaObj);
+// Inject passport-local-mongoose into the User model
+// to handle password encryption, serialization, and deserialization of the user
+mongooseSchema.plugin(plm);
+module.exports = mongoose.model("User", mongooseSchema);
