@@ -22,10 +22,10 @@ closedFunction();
 // closedFunctions returns the definition of increment not its execution
 
 // 4) Create a variable and set it to the result of calling closedFunction() which is increment
-let counter = closedFunction();
+let myCounter = counter();
 // 5) Call twice, what values will be shown?
-counter.increment();
-counter.increment();
-counter.decrement();
-counter.decrement();
+myCounter.increment();
+myCounter.increment();
+myCounter.decrement();
+myCounter.decrement();
 // 6) why? The closure keeps our values in memory
