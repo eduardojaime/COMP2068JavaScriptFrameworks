@@ -3,12 +3,15 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
+var hbs = require("hbs");
 // Import configurations file and mongoose to connect to DB
 var configs = require("./configs/globals");
 var mongoose = require("mongoose");
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
+var projectsRouter = require("./routes/projects");
+var coursesRouter = require("./routes/courses");
 
 var app = express();
 
@@ -24,10 +27,32 @@ app.use(express.static(path.join(__dirname, "public")));
 // Routing Rules
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
+app.use("/projects", projectsRouter);
+app.use('/courses', coursesRouter);
 // Connect to MongoDB
 mongoose.connect(configs.ConnectionStrings.MongoDB)
   .then(() => { console.log("Connected to MongoDB!"); }) // success
   .catch((err) => { console.log("Error connecting to MongoDB!", err); }); // error
+
+// Sub-Expressions https://handlebarsjs.com/guide/builtin-helpers.html#sub-expressions
+// function name and helper function with parameters
+hbs.registerHelper("createOptionElement", (currentValue, selectedValue) => {
+  // initialize selected property
+  var selectedProperty = "";
+  // if values are equal set selectedProperty accordingly
+  if (currentValue == selectedValue.toString()) {
+    selectedProperty = "selected";
+  }
+  // return html code for this option element
+  // return new hbs.SafeString('<option '+ selectedProperty +'>' + currentValue + '</option>');
+  return new hbs.SafeString(
+    `<option ${selectedProperty}>${currentValue}</option>`
+  );
+});
+// helper function to format date values
+hbs.registerHelper('toShortDate', (longDateValue) => {
+  return new hbs.SafeString(longDateValue.toLocaleDateString('en-CA'));
+});
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
