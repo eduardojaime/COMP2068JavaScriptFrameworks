@@ -20,6 +20,6 @@ const dataSchemaObject = {
     }
 }
 // Create mongoose schema
-const mongooseSchema = mongoose.Schema(dataSchemaObject);
+const mongooseSchema = new mongoose.Schema(dataSchemaObject);
 // Create and export mongoose model
 module.exports = mongoose.model("Project", mongooseSchema);
