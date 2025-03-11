@@ -238,12 +238,14 @@
           { title: 'Angular Language Service', link: 'https://angular.dev/tools/language-service' },
           { title: 'Angular DevTools', link: 'https://angular.dev/tools/devtools' },
         ]; track item.title) {
+          <!-- Property Binding using [] > href property is tied to a value from the list above -->
           <a
             class="pill"
-            [href]="item.link"
+            [href]="item.link" 
             target="_blank"
             rel="noopener"
           >
+            <!-- Interpolation Binding using {} > prints title value as string -->
             <span>{{ item.title }}</span>
             <svg
               xmlns="http://www.w3.org/2000/svg"

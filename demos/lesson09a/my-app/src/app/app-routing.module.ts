@@ -1,3 +1,4 @@
+// This module defines custom routes for the Angular application.
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 

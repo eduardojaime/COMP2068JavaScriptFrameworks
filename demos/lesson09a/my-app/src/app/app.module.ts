@@ -1,3 +1,6 @@
+// Similar to app.js in Express.js
+// This is the root module of the Angular application. 
+// It defines the components, directives, and pipes that belong to the application.
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -5,7 +8,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 @NgModule({
-  declarations: [
+  declarations: [ // list of components available in my app
     AppComponent
   ],
   imports: [
@@ -13,6 +16,6 @@ import { AppComponent } from './app.component';
     AppRoutingModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent] // Starting component
 })
 export class AppModule { }
