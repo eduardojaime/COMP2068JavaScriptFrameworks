@@ -6,10 +6,11 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { ProjectComponent } from './project/project.component';
 
 @NgModule({
   declarations: [ // list of components available in my app
-    AppComponent
+    AppComponent, ProjectComponent
   ],
   imports: [
     BrowserModule,
