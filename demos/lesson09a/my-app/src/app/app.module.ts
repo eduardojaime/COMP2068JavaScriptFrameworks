@@ -17,6 +17,6 @@ import { ProjectComponent } from './project/project.component';
     AppRoutingModule
   ],
   providers: [],
-  bootstrap: [AppComponent] // Starting component
+  bootstrap: [ProjectComponent] // Starting component
 })
 export class AppModule { }
