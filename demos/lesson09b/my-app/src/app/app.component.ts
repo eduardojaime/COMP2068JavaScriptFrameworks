@@ -9,5 +9,5 @@ import { Component } from '@angular/core';
 })
 // This is an OOP class with data and behaviour
 export class AppComponent {
-  title = 'my-app';
+  title = 'My First Angular App';
 }
