@@ -1,0 +1,9 @@
+<div class="card highlight-card">Project Tracker</div>
+
+<!-- Print cards from a list -->
+ <div class="card-container">
+    <!-- use angular for loop directive -->
+    <div class="card" *ngFor="let project of projects">
+        {{ project.name }}
+    </div>
+ </div>
