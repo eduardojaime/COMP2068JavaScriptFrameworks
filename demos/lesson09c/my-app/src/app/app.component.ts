@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-
+// Component Class for AppComponent
 @Component({
-  selector: 'app-root',
+  selector: 'app-root', // HTML Tag for AppComponent
   templateUrl: './app.component.html',
   standalone: false,
   styleUrl: './app.component.css'
