@@ -4,7 +4,7 @@
 
 - Open a command prompt and navigate to the folder where you have your projects OR Open Windows Explorer and go to the folder where you keep your projects, press and hold SHIFT and right click inside the folder at the same time, then select Command Prompt or PowerShell
 - Use the Express Generator tool to generate a new project:
-    - Run > express project-spa-backend
+    - Run > npx express-generator project-spa-backend --view=hbs
     - Navigate into the project folder > cd project-spa-backend
     - Run > npm install
     - Open up the project in VS Code > code .
