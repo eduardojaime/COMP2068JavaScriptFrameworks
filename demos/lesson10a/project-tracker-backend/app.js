@@ -12,12 +12,21 @@ var projectsRouter = require('./routes/projects'); // import projects router
 var configs = require('./configs/globals');
 var mongoose = require('mongoose');
 
+// configure cors policy to allow http://localhost:4200/
+var cors = require('cors');
+var corsOptions = {
+  origin: 'http://localhost:4200', // best practice is to make this an env variable to update it on render
+  optionsSuccessStatus: 200
+}
+
 var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
+// middlewares
+app.use(cors(corsOptions)); 
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
