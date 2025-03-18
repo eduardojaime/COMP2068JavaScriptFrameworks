@@ -15,11 +15,11 @@
     - Delete users.js inside routes folder
     - Create new folder called models
         - Copy over files from original ProjectTracker project or recreate them
-    - Install mongoose npm package
-        - Run > npm i mongoose
-    - Create a new folder called config
-        - Create a new file called globals.js file
-        - Copy over MongoDB configurations from ProjectTracker into this file
+    - Install mongoose and dotenv npm packages
+        - Run > npm i mongoose dotenv
+    - Copy over code from ProjectTracker project (Express, lesson 5)
+        - Copy over the models and configs folder
+        - Also copy the .env file from ProjectTracker
 - In app.js:
     - Remove usersRouter object import
     - Remove app.use that calls usersRouter
