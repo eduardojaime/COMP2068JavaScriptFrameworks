@@ -6,6 +6,11 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var projectsRouter = require('./routes/projects');
+
+// import mongoose and configs object
+var mongoose = require("mongoose");
+var configs = require("./configs/globals");
 
 var app = express();
 
@@ -18,9 +23,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
+// Route configuration
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/api/projects', projectsRouter);
+// Connect to Mongoose
+mongoose.connect(configs.ConnectionStrings.MongoDB)
+.then(() => console.log("Connected to MongoDB"))
+.catch((error) => console.log("Error connecting to MongoDB", error));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
