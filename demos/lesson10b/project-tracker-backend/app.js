@@ -11,13 +11,20 @@ var projectsRouter = require('./routes/projects');
 // import mongoose and configs object
 var mongoose = require("mongoose");
 var configs = require("./configs/globals");
+// import cors and create policy
+var cors = require("cors");
+var corsPolicy = {
+  origin: "http://localhost:4200", // no slash at the end
+  optionsSuccessStatus: 200
+}
 
 var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
-
+// Middleware
+app.use(cors(corsPolicy)); // configure globally for all my endppoints
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
