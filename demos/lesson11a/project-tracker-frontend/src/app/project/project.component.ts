@@ -52,13 +52,35 @@ export class ProjectComponent {
     });
   }
 
-  // Add a method to call the deleteProject method from the ProjectService
-  deleteProject(_id: string) { 
+  // Method to call the deleteProject method from the ProjectService
+  deleteProject(_id: string) {
     if (confirm('Are you sure you want to delete this project?')) {
       this.projectService.deleteProject(_id).subscribe((data) => {
         this.getProjects();
       });
     }
+  }
+
+  // Method to select a project from the table
+  selectProject(project: any) {
+    this._id = project._id;
+    this.name = project.name;
+    this.dueDate = project.dueDate;
+    this.course = project.course;
+  }
+
+  // Method to update a project
+  updateProject() {
+    let updatedProject = {
+      _id: this._id,
+      name: this.name,
+      dueDate: this.dueDate,
+      course: this.course,
+    }
+    this.projectService.updateProject(updatedProject).subscribe((data) => {
+      this.getProjects(); // refresh data
+      this.clearForm(); // clear form
+    });  
   }
 
   clearForm() {

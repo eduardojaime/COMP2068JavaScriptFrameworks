@@ -14,7 +14,7 @@
       <td>{{ project.dueDate }}</td>
       <td>{{ project.course }}</td>
       <td>
-        <a class="btn btn-info">Update</a>
+        <a class="btn btn-info" (click)="selectProject(project)">Update</a>
         &nbsp;
         <a class="btn btn-danger" (click)="deleteProject(project._id)" >Delete</a> 
       </td>
@@ -56,6 +56,7 @@
     />
   </fieldset>
   <hr />
-  <button class="btn btn-primary" (click)="addProject()" >Save</button>
+  <button class="btn btn-primary" (click)="addProject()" *ngIf="!this._id" >Save</button>
+  <button class="btn btn-info" (click)="updateProject()" *ngIf="this._id">Update</button>
   <button class="btn btn-warning" (click)="clearForm()" >Cancel</button>
 </form>

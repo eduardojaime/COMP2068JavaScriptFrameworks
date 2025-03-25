@@ -32,4 +32,11 @@ export class ProjectService {
     // Make DELETE request to backend API and send project ID to delete
     return this.http.delete(`${this.baseUrl}/api/projects/${_id}`);
   }
+
+  // Method to update a project by ID calling the API
+  updateProject(updatedProject: any) {
+    // Make PUT request to backend API and send updated project data
+    // updatedProject is an object and contains all the fields of the project including ID
+    return this.http.put(`${this.baseUrl}/api/projects`, updatedProject);
+  }
 }

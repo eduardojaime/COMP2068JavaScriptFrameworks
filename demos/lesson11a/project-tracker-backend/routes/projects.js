@@ -30,5 +30,18 @@ router.delete("/:_id", async (req, res, next) => {
     res.status(204).json(null); // 204 means no content
 });
 
+// PUT /api/projects/ - update a project by id (included in the request body)
+router.put("/", async (req, res, next) => {
+    // retrieve JSON from req.body, this will contain the updated project details
+    let project = req.body;
+    // update the project in the database
+    let updatedProject = await Project.findByIdAndUpdate(
+        project._id, // id of the project to update
+        project, // the new project details
+    );
+    // return the updated project as JSON
+    res.status(200).json(updatedProject);
+});
+
 // export the router object
 module.exports = router;
