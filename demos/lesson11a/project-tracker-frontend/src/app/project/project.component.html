@@ -5,6 +5,7 @@
     <th>Name</th>
     <th>Due Date</th>
     <th>Course</th>
+    <th>Actions</th>
   </thead>
   <tbody>
     <!-- use ngFor directive in the html element we want to repeat -->
@@ -12,6 +13,49 @@
       <td>{{ project.name }}</td>
       <td>{{ project.dueDate }}</td>
       <td>{{ project.course }}</td>
+      <td>
+        <a class="btn btn-info">Update</a>
+        &nbsp;
+        <a class="btn btn-danger" (click)="deleteProject(project._id)" >Delete</a> 
+      </td>
     </tr>
   </tbody>
 </table>
+
+<!-- Add a form to enter project information (create/update) -->
+<form style="max-width: 500px;">
+  <h2>Project Details</h2>
+  <fieldset class="form-group">
+    <label class="form-label" for="name">Name: </label>
+    <input
+      class="form-control"
+      id="name"
+      name="name"
+      required
+      [(ngModel)]="name"
+    />
+  </fieldset>
+  <fieldset class="form-group">
+    <label class="form-label" for="dueDate">Due Date: </label>
+    <input
+      class="form-control"
+      id="dueDate"
+      name="dueDate"
+      required
+      [(ngModel)]="dueDate"
+    />
+  </fieldset>
+  <fieldset class="form-group">
+    <label class="form-label" for="course">Course: </label>
+    <input
+      class="form-control"
+      id="course"
+      name="course"
+      required
+      [(ngModel)]="course"
+    />
+  </fieldset>
+  <hr />
+  <button class="btn btn-primary" (click)="addProject()" >Save</button>
+  <button class="btn btn-warning" (click)="clearForm()" >Cancel</button>
+</form>

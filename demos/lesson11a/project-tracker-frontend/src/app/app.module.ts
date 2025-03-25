@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { ProjectComponent } from './project/project.component';
 import { ProjectService } from './services/project.service';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [ // list of modules available for my app to use via DI
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule // to bind html input fields with component variables
   ],
   providers: [ProjectService], // list of data providers for my app to use via DI
   bootstrap: [ProjectComponent] // initial component to load when app starts
