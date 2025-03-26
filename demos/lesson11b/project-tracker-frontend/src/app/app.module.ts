@@ -9,6 +9,8 @@ import { ProjectComponent } from './project/project.component';
 import { HttpClientModule } from '@angular/common/http';
 // Import ProjectsService so we can use it in the ProjectComponent
 import { ProjectService } from './services/project.service';
+// Import FormsModule to enable 2-way data binding
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,8 @@ import { ProjectService } from './services/project.service';
   imports: [ // list of modules required by the app (available via DI)
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule 
+    HttpClientModule,
+    FormsModule
   ],
   providers: [ProjectService], // list of services available (via DI) for my app to use
   bootstrap: [ProjectComponent] // starting component

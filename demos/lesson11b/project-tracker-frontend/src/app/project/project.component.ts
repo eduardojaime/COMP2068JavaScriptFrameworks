@@ -10,6 +10,11 @@ import { ProjectService } from '../services/project.service';
 export class ProjectComponent {
   // Define a property to hold the projects so we can display them in the template
   projects: any;
+  // Define properties to hold the form data with 2-way data binding
+  _id!: string;
+  name!: string;
+  dueDate!: string;
+  course!: string;
   // Define a constructor method to use DI and get an instance of ProjectService
   constructor(private projectService: ProjectService) {}
   // Define a method to get all projects from the service
@@ -21,8 +26,34 @@ export class ProjectComponent {
       this.projects = data;
     });
   }
+
+  // Define a method to add a new project
+  addProject() {
+    // create json object to send with the form data
+    let newProject = {
+      name: this.name,
+      dueDate: this.dueDate,
+      course: this.course,
+    };
+    // call the service method, and subscribe to the response
+    this.projectService.addProject(newProject).subscribe(
+      // callback function to handle the response
+      (data) => {
+        this.getProjects(); // refresh the list
+        this.clearForm(); // clear the form data
+      }
+    );
+  }
   // Load data when the component is initialized (life cycle hook)
   ngOnInit() {
     this.getProjects();
+  }
+
+  // Method to clear the form data
+  clearForm() {
+    this._id = '';
+    this.name = '';
+    this.dueDate = '';
+    this.course = '';
   }
 }
