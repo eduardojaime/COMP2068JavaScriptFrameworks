@@ -44,6 +44,46 @@ export class ProjectComponent {
       }
     );
   }
+
+  // Method to select a project to update
+  selectProject(project: any) {
+    // assign the project data to the form properties
+    // so the form is populated with the selected project data
+    this._id = project._id;
+    this.name = project.name;
+    this.dueDate = project.dueDate;
+    this.course = project.course;
+  }
+
+  // Method to save updated project data
+  updateProject() {
+    let updatedProject = {
+      _id: this._id, // this must be included for the backend api to find the project that will be updated
+      name: this.name,
+      dueDate: this.dueDate,
+      course: this.course,
+    };
+    this.projectService.updateProject(updatedProject).subscribe(
+      (data) => {
+        this.getProjects(); // refresh the list
+        this.clearForm(); // clear the form data
+      }
+    );
+  }
+
+  // Method to delete a project
+  deleteProject(_id: string) {
+    if (confirm('Are you sure you want to delete this project?')) {
+      // if user clicks OK this block is executed
+      this.projectService.deleteProject(_id).subscribe(
+        (data) => {
+          this.getProjects(); // refresh the list
+          this.clearForm(); // clear the form data
+        }
+      );
+    }
+  }
+
   // Load data when the component is initialized (life cycle hook)
   ngOnInit() {
     this.getProjects();

@@ -21,4 +21,15 @@ export class ProjectService {
     // two parameters: the URL and the project object that goes in the request body
     return this.http.post(`${this.baseUrl}/api/projects`, newProject);
   }
+
+  // Method to update project data calling the backend API
+  updateProject(updatedProject: any) {
+    return this.http.put(`${this.baseUrl}/api/projects`, updatedProject);
+  }
+
+  // Method to delete project by ID
+  deleteProject(_id: string) {
+    // this includes the id value in the URL
+    return this.http.delete(`${this.baseUrl}/api/projects/${_id}`);
+  }
 }

@@ -22,8 +22,25 @@ router.post("/", async (req, res, next) => {
 });
 
 // PUT /api/projects/ - Update all projects
+router.put("/", async (req, res, next) => {
+    let project = req.body; // e.g. { _id: 1, name: "Project 1", dueDate: "2021-12-31", course: "COMP2068"}
+    // req.body contains the updated project info including _id value
+    let updatedProject = await Project.findByIdAndUpdate(
+        project._id,
+        project
+    );
+    res.status(200).json(updatedProject);   
+});
 
 // DELETE /api/projects/:_id - Delete all projects
+router.delete("/:_id", async (req, res, next) => {
+    // retrieve project id from req.params
+    let projectId = req.params._id;
+    // call findByIdAndDelete method of the Project model
+    await Project.findByIdAndDelete(projectId);
+    // return a restful response with status code 204 (no content) and null json data
+    res.status(204).json(null);
+}); 
 
 // export the router
 module.exports = router;
