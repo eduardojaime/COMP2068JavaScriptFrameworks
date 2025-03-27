@@ -10,6 +10,11 @@ import { ProjectService } from '../services/project.service';
 export class ProjectComponent {
   // Define a property to store the list of projects
   projects: any = [];
+  // Define variables to store values from the form input fields
+  _id!: string;
+  name!: string;
+  dueDate!: string;
+  course!: string;
 
   // Use DI to request an instance of ProjectService object from the app
   constructor(
@@ -26,8 +31,36 @@ export class ProjectComponent {
     );
   }
 
+  // Method to add a new project by calling the service class
+  addProject() {
+    // create a new project object with the values from the form
+    const newProject = {
+      name: this.name, // get the value from the name input field
+      dueDate: this.dueDate,
+      course: this.course
+    }
+    // Call service method to add the project and subscribe to response
+    this.projectService.addProject(newProject).subscribe(
+      (data) => {
+        // refresh the project list to show the new project
+        this.getProjects();
+        // clear the form
+        this.clearForm();
+      }
+    );
+  }
+
   // Angular lifecycle hook to call getProjects() method when the component is initialized
   ngOnInit() {
     this.getProjects();
+  }
+
+  // Method to clear the form
+  clearForm() {
+    // reset all values to empty string, this will refresh the form
+    this._id = '';
+    this.name = '';
+    this.dueDate = '';
+    this.course = '';
   }
 }

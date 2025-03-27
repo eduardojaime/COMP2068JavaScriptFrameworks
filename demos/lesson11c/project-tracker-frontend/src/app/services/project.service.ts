@@ -17,4 +17,10 @@ export class ProjectService {
   getProjects() {
     return this.http.get(`${this.baseUrl}/api/projects`);
   }
+
+  // Declare a method to make a POST request to the create endpoint
+  addProject(newProject: any) {
+    // two parameters: the URL and the data to be sent (in req.body)
+    return this.http.post(`${this.baseUrl}/api/projects`, newProject);
+  }
 }
