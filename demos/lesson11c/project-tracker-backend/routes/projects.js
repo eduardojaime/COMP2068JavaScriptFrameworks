@@ -29,7 +29,25 @@ router.post("/", async (req, res, next) => {
 });
 
 // PUT /api/projects/ > Update a project
+router.put("/", async (req, res, next) => {    
+    // Expecting to receive a JSON object that represents a project in the request body
+    // E.g. { "_id": "ABCDEF12345", "name": "Project 1", "dueDate": "2025-03-30", "course": "COMP2068" }
+    let projectData = req.body;
+    // Find by id and update the project
+    await Project.findByIdAndUpdate(projectData._id, projectData);
+    // Respond with a JSON formatted response
+    return res.status(200).json(projectData);
+});
 
-// DELETE /api/projects/:_id > Delete a project 
+// DELETE /api/projects/:_id > Delete a project
+router.delete("/:_id", async (req, res, next) => {
+    // retrieve id from url parameters
+    let projectId = req.params._id;
+    // Find by id and delete the project
+    await Project.findByIdAndDelete(projectId);
+    // Respond with a JSON formatted response
+    return res.status(204).json(null);
+});
+
 
 module.exports = router;

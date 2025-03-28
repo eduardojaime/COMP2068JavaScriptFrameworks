@@ -23,4 +23,16 @@ export class ProjectService {
     // two parameters: the URL and the data to be sent (in req.body)
     return this.http.post(`${this.baseUrl}/api/projects`, newProject);
   }
+
+  // Declare a method to make a PUT request to the update endpoint
+  updateProject(updatedProject: any) {    
+    // two parameters: the URL and the data to be sent (in req.body)
+    return this.http.put(`${this.baseUrl}/api/projects/`, updatedProject);
+  }
+
+  // Declare a method to make a DELETE request to the delete endpoint
+  deleteProject(projectId: string) {
+    // Using interpolation to insert the project ID into the URL
+    return this.http.delete(`${this.baseUrl}/api/projects/${projectId}`);
+  }
 }

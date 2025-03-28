@@ -5,6 +5,7 @@
       <th>Name</th>
       <th>Due Date</th>
       <th>Course</th>
+      <th>Actions</th>
     </tr>
   </thead>
   <tbody>
@@ -12,6 +13,10 @@
       <td>{{ project.name }}</td>
       <td>{{ project.dueDate }}</td>
       <td>{{ project.course }}</td>
+      <td>
+        <a class="btn btn-info" (click)="selectProject(project)">Update</a>
+        <a class="btn btn-danger" (click)="deleteProject(project._id)">Delete</a>
+      </td>
     </tr>
   </tbody>
 </table>
@@ -30,6 +35,9 @@
     <label for="course">Course: </label>
     <input type="text" class="form-control" id="course" name="course" [(ngModel)]="course" />
   </fieldset>
-  <button class="btn btn-primary" (click)="addProject()">Save</button>
+  <!-- Show only if _id is empty or null -->
+  <button class="btn btn-primary" (click)="addProject()" *ngIf="!this._id">Save</button>
+  <!-- Show only if _id has a value -->
+  <button class="btn btn-info" (click)="updateProject()" *ngIf="this._id">Update</button>
   <button class="btn btn-warning" (click)="clearForm()">Cancel</button>
 </form>

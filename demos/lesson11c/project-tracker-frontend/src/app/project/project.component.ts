@@ -50,6 +50,43 @@ export class ProjectComponent {
     );
   }
 
+  // Method to select a project and populate the form with its values
+  selectProject(project: any) {
+    // once these are populated, the form will be updated with the new values automatically
+    this._id = project._id;
+    this.name = project.name;
+    this.dueDate = project.dueDate;
+    this.course = project.course;
+  }
+
+  // Method to update a project by calling the service class
+  updateProject() {
+    const updatedProject = {
+      _id: this._id,
+      name: this.name, // get the value from the name input field
+      dueDate: this.dueDate,
+      course: this.course
+    };
+    this.projectService.updateProject(updatedProject).subscribe(
+      (data) => {
+        this.getProjects();
+        this.clearForm();
+      }
+    );
+  }
+
+  // Method to delete a project by calling the service class
+  deleteProject(projectId: string) {
+    if (confirm("Are you sure you want to delete this project?")) {
+      this.projectService.deleteProject(projectId).subscribe(
+        (data) => {
+          this.getProjects();
+          this.clearForm();
+        }
+      );
+    }
+  }
+
   // Angular lifecycle hook to call getProjects() method when the component is initialized
   ngOnInit() {
     this.getProjects();
