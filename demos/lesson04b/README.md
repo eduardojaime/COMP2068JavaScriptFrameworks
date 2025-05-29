@@ -1,0 +1,103 @@
+# Instructions
+
+### Part 1 Creating a Hello World app using Express
+
+- Create an empty folder and open with VS Code
+- Create a new file named app.js
+- Open a terminal and run the npm init command to initialize the project and generate a package.json file
+    - Set main as app.js
+    - All other options can be set to their default value
+- Afterwards, install Express using the following command in your terminal:
+    - npm i express
+- In app.js
+    - Import the express module and create an instance of the Express application by calling the express() method.
+    - Define a port number on which your application will listen for incoming requests.
+    - Define a route handler for the root URL (/) of your application. When a GET request is made to the root URL, a response containing "Home Page" will be sent.
+    - Use the app.listen() method to start the server and listen for incoming requests on the specified port.
+    - Run the application by opening the terminal and executing the following command
+        - node app
+- Open a browser, navigate to http://localhost:3000 and verify
+    - Try navigating to other paths. What do you see?
+- To add additional routes, go back to app.js
+    - Define additional route handlers for the /hello and /goodbye URLs. 
+    - When a GET request is made to these URLs, responses containing "Hello World" and "Goodbye", respectively, will be sent.
+    - Run the application by opening the terminal and executing the following command
+        - node app
+- Open a browser
+    - Navigate to http://localhost:3000 and verify
+    - Navigate to http://localhost:3000/hello and verify
+    - Navigate to http://localhost:3000/goodbye and verify
+
+### Part 2 Scaffolding a Project Template Using the Express Generator Tool
+
+- Create a new folder and open with VS Code
+- Open the Terminal
+- Install express generator tool globally (only need to do this once)
+    - npm i -g express-generator
+- Scaffold a new project template with the following command
+    - express --view=hbs
+- Restore project dependencies
+    - npm i
+- Run the application by opening the terminal and executing the following command
+        - npm start
+- Examine the newly created folders and files
+    - Views
+    - Routes
+    - Bin/www
+- Answer the following questions:
+    - Where is the routing configuration?
+        - Open index.js inside the Routes folder, notice how it's structured and exported
+        - See how the routing is handled in app.js
+    - Where are all the Views?
+        - Note views have .hbs extensions because we opted for the Handlebars template engine
+        - Pug (formely Jade) is the default and it can be neat to work with but extremely hard to debug due to the importance of indenting
+        - Handlebars is closer syntactically to what we may use when we add Angular or React to the UI so we will use it instead of Pug (or EJS)
+        - Look at the views – what's new here?  The {{ }} delimiters around server-side values
+        - Using Handlebars w/Express Generator: 
+            - https://itnext.io/using-handlebars-helpers-with-express-generator-ad163f7f89d6?gi=1e6cc21c7ae3 
+- Add an /ABOUT route to your new project
+    - Go to index.js and add the new route pointing to /about
+        - Add a JSON object to be returned, this would come from MongoDB in a real-life app
+    - Go to Views folder and create a new file named about.hbs
+        - Add html code to the views using the handlebars syntax
+- Add Bootstrap
+    - 3 ways to get it:
+        - Via CDN https://www.bootstrapcdn.com/ (this is the recommended approach)
+        - Download and add to public c folder
+        - Install the following packages
+            - npm i bootstrap –save
+            - npm i jquery –save
+            - npm i popper --save
+            - Copy bootstrap files over from /node_modules/bootstrap/dist/folder to public/stylesheets
+    - Add the corresponding bootstrap links in layout.hbs
+    - Add menu bar to the template https://www.w3schools.com/bootstrap5/bootstrap_navbar.php
+    - Add a jumbotron header to the template https://www.w3schools.com/bootstrap5/bootstrap_jumbotron.php
+- You can also consider using Bootstrap Themes for your projects:
+    - https://startbootstrap.com/themes?showVue=false&showPro=false
+    - https://themes.getbootstrap.com/
+
+### Part 3 Deploying the app to Render.com
+
+- Create a new repository for your project (public preferably)
+    - Remember to add a .gitignore file for Node
+    - Upload your code to the repository
+- Check instructions here https://geshan.com.np/blog/2021/01/free-nodejs-hosting/#render
+- Navigate to Render.com
+- Sign up and create a Free Account (using GitHub account to sign up is recommended)
+    - Add a new Web Service
+    - Connect to GitHub Repo using your credentials
+    - Modify build command to npm install
+    - Modify start command to npm start
+    - Navigate to your app link, e.g.: https://render-app-test-m9ki.onrender.com
+- Alternatively, if you connect Render to a repository that contains subfolders, you can indicate which subfolder contains the code you wish to deploy:
+    - Create a Web App as indicated above
+    - Once the app is created, deployment will likely fail with an error
+    - Open your Web App Dashboard
+    - On the left-hand side menu, select Settings (last option)
+        - Scroll down to Build & Deploy
+        - Identify Root Directory option and click the Edit button next to it
+        - Enter the path to the folder which contains the code. E.g. subfolder/project
+        - Set build command
+            - npm install
+        - Set start command
+            - npm start
