@@ -58,7 +58,7 @@
     - Add a GET handler for /delete
     - Remember to use 'async' in the middleware function declaration and 'await' when calling a method from the model
     - Retrieve id value from req.params object
-    - Call the findByIdAndRemove method of the Project model and pass id as parameter in a JSON object
+    - Call the findByIdAndDelete method of the Project model and pass id as parameter in a JSON object
     - Redirect to /projects once it's done
 
 ### Part 3 Handle UPDATE

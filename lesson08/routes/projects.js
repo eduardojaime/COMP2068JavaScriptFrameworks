@@ -60,7 +60,7 @@ router.post("/add", AuthenticationMiddleware, async (req, res, next) => {
 // access parameters via req.params object
 router.get("/delete/:_id", AuthenticationMiddleware, async (req, res, next) => {
   let projectId = req.params._id;
-  await Project.findByIdAndRemove({ _id: projectId });
+  await Project.findByIdAndDelete(projectId);
   res.redirect("/projects");
 });
 
