@@ -17,6 +17,8 @@ var hbs = require("hbs");
 // Import passport and session modules
 var session = require("express-session");
 var passport = require("passport");
+// Import User model so we can configure passport with the plm functionality
+var User = require("./models/user"); // ./ means root directory
 
 var app = express();
 
@@ -38,7 +40,12 @@ app.use(session({
 // Initialize passport middleware
 app.use(passport.initialize());
 app.use(passport.session());
-
+// Initialize Basic Authentication Strategy
+passport.use(User.createStrategy()); // Out-of-the-box strategy from passport-local-mongoose
+// Configure serialization and deserialization of user instances to support persistent login sessions (read/write to session)
+passport.serializeUser(User.serializeUser()); // Serialize user instance to session
+passport.deserializeUser(User.deserializeUser()); // Deserialize user instance from session
+// Routing configurations
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/projects", projectsRouter);
