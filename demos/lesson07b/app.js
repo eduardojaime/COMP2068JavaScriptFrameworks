@@ -17,6 +17,8 @@ var hbs = require("hbs");
 // Import passport and session
 var session = require("express-session");
 var passport = require("passport");
+// Import user model with passport-local-mongoose plugin
+var User = require("./models/user");
 
 var app = express();
 
@@ -38,6 +40,11 @@ app.use(session({
 // Initialize passport for authentication
 app.use(passport.initialize());
 app.use(passport.session());
+// User strategy for passport (using plm)
+passport.use(User.createStrategy());
+// Serialize/Deserialize user for session management (using plm)
+passport.serializeUser(User.serializeUser()); // stores user info in session object
+passport.deserializeUser(User.deserializeUser()); // retrieves user info from session object
 // Routing configurations
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
