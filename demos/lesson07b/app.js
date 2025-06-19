@@ -14,19 +14,31 @@ var configs = require("./configs/globals");
 var mongoose = require("mongoose");
 // HBS Helper Methods
 var hbs = require("hbs");
+// Import passport and session
+var session = require("express-session");
+var passport = require("passport");
 
 var app = express();
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "hbs");
-
+// Middleware configurations
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
-
+// Set up session management
+app.use(session({
+  secret: "ProjectTrackerSecret123",
+  resave: false, 
+  saveUninitialized: false, 
+}));
+// Initialize passport for authentication
+app.use(passport.initialize());
+app.use(passport.session());
+// Routing configurations
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/projects", projectsRouter);
