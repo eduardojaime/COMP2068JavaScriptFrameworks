@@ -10,5 +10,8 @@ export class ProjectsService {
   // Method to get projects from the API
   getProjects() {
     return this.http.get('http://localhost:3000/api/projects');
-  }  
+  }
+  // TODO: method to add a new project
+  // TODO: method to update an existing project
+  // TODO: method to delete a project
 }
