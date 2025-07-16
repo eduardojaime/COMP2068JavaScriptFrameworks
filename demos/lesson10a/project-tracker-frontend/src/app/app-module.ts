@@ -4,6 +4,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing-module';
 import { App } from './app';
 import { Projects } from './projects/projects';
+// HttpModule is used for making HTTP requests
+import { HttpClientModule } from '@angular/common/http';
+// Register services in the root injector
+import { ProjectsService } from './services/projects';
 
 @NgModule({
   declarations: [
@@ -12,11 +16,13 @@ import { Projects } from './projects/projects';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule 
   ],
   providers: [
     provideBrowserGlobalErrorListeners(),
-    provideZonelessChangeDetection()
+    provideZonelessChangeDetection(),
+    ProjectsService
   ],
   bootstrap: [App]
 })
