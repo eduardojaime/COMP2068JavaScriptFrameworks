@@ -10,6 +10,13 @@ var projectsRouter = require("./routes/projects");
 // import global configurations and mongoose
 var mongoose = require("mongoose");
 var configs = require("./configs/globals");
+// import cors package
+var cors = require("cors");
+// define cors policy
+var corsOptions = {
+  origin: "http://localhost:4200", // allow requests from this origin
+  optionSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+}
 
 var app = express();
 
@@ -17,6 +24,7 @@ var app = express();
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "hbs");
 // Middleware configurations
+app.use(cors(corsOptions)); // enable CORS with specified options
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
