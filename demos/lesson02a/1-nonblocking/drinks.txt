@@ -1,5 +1,0 @@
-coffee
-tea
-water
-chocolate milk
-orange juice
