@@ -2,6 +2,7 @@
 
 ### Part 1 Setting up your environment
 
+- Install Node.js (LTS) https://nodejs.org/en/
 - Install VS Code https://code.visualstudio.com/
 - Install Recommended Extensions
     - MongoDB for VS Code by MongoDB
@@ -12,7 +13,6 @@
     - Angular Language Service by Angular
     - Handlebars by Andre Junges
     - Todo Tree by Gruntfuggly
-- Install Node.js (LTS) https://nodejs.org/en/
 
 ### Part 2 Creating a simple Hello World application
 
