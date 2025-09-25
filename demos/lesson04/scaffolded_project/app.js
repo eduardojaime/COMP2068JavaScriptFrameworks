@@ -9,16 +9,17 @@ var usersRouter = require('./routes/users');
 
 var app = express();
 
+// Templating Engine Setup
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
-
+// Global Middleware Setup
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
+// Routing Configuration
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
@@ -37,5 +38,5 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-
+// Export app as a module to be loaded in bin/www
 module.exports = app;
