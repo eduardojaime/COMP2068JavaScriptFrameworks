@@ -88,9 +88,6 @@
         - Create the connection string variable
         - Call the connect() method of the mongoose object:
             - Pass connection string
-            - Pass options as parameters to avoid warnings
-                - useNewUrlParser set to true
-                - useUnifiedTopology set to true
         - Chain the .then() and .catch() methods, and add the corresponding callback function printing a success or error message to the terminal
         
 ### Part 4 Creating a Model and binding it to the UI to add new projects
