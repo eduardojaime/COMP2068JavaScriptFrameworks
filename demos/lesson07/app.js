@@ -13,6 +13,10 @@ const mongoose = require("mongoose");
 const configs = require("./configs/globals");
 // HBS Helper Methods
 var hbs = require("hbs");
+// Import passport and session modules
+var passport = require("passport");
+var session = require("express-session");
+var User = require("./models/user");
 // Express App Object
 var app = express();
 
@@ -25,6 +29,18 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
+// Passport, Session and Strategy configuration
+app.use(session({
+  secret: "ProjectTracker2025",
+  resave: false,
+  saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+// Add basic auth strategy, configure in User Model
+passport.use(User.createStrategy()); // out-of-the-box local strategy creation method from plm package
+passport.serializeUser(User.serializeUser()); // these methods were injected via Plugin
+passport.deserializeUser(User.deserializeUser());
 // Routing Configuration
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
