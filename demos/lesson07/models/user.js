@@ -7,7 +7,7 @@ const plm = require("passport-local-mongoose");
 // Create a mongoose schema object
 const mongooseSchema = mongoose.Schema({
   username: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
+  password: { type: String },
 });
 // Extend with plugin (the user model will have the additional methods out of the box)
 mongooseSchema.plugin(plm);
