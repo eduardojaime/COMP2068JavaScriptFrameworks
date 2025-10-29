@@ -6,7 +6,8 @@ var User = require("../models/user");
 
 /* GET home page. */
 router.get("/", function (req, res, next) {
-  res.render("index", { title: "Express" });
+  // Get user object from request (cookie) and pass to the view
+  res.render("index", { title: "Express", user: req.user });
 });
 
 // GET /login
@@ -52,6 +53,12 @@ router.post("/register", function (req, res, next) {
       }
     }
   );
+});
+
+router.get("/logout", function (req, res, next) {
+  req.logout((error) => {
+    res.redirect("/login");
+  });
 });
 
 module.exports = router;

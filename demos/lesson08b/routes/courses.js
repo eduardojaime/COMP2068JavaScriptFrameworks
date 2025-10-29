@@ -5,12 +5,12 @@ const Course = require("../models/course");
 // GET /Courses/
 router.get("/", async (req, res, next) => {
   let courses = await Course.find().sort([["name", "ascending"]]);
-  res.render("courses/index", { title: "Course List", dataset: courses });
+  res.render("courses/index", { title: "Course List", dataset: courses, user: req.user });
 });
 
 // GET /Courses/Add
 router.get("/add", (req, res, next) => {
-  res.render("courses/add", { title: "Add a new Course" });
+  res.render("courses/add", { title: "Add a new Course", user: req.user });
 });
 
 // POST /Courses/Add
