@@ -61,4 +61,18 @@ router.get("/logout", function (req, res, next) {
   });
 });
 
+// GET /github > initiate OAuth login via GitHub
+router.get("/github",
+  passport.authenticate("github", { 
+    scope: ["user:email"] 
+  }));
+
+// GET /github/callback > callback URL that GitHub will redirect to
+router.get("/github/callback",
+  passport.authenticate("github", {
+    successRedirect: "/projects",
+    failureRedirect: "/login"
+  })
+);
+
 module.exports = router;
