@@ -14,6 +14,7 @@ var app = express();
 // Import passport & session packages
 var passport = require('passport');
 var session = require('express-session');
+var githubStrategy = require('passport-github2').Strategy;
 // Import user model
 var User = require('./models/user');
 // view engine setup
@@ -38,6 +39,39 @@ app.use(passport.session());
 // Initialize Passport Strategies to enable different login mechanisms
 // Username/Password strategy (local)
 passport.use(User.createStrategy()); // methods comes from PLM plugin
+// GitHub Strategy
+passport.use(new githubStrategy(
+  // options object
+  {
+    clientID: configs.Authentication.GitHub.ClientID,
+    clientSecret: configs.Authentication.GitHub.ClientSecret,
+    callbackURL: configs.Authentication.GitHub.CallbackURL
+  },
+  // callback function
+  // profile is github profile
+  async (accessToken, refreshToken, profile, done) => {
+    // search user by ID
+    const user = await User.findOne({ oauthId: profile.id });
+    // user exists (returning user)
+    if (user) {
+      // no need to do anything else
+      return done(null, user);
+    }
+    else {
+      // new user so register them in the db
+      const newUser = new User({
+        username: profile.username,
+        oauthId: profile.id,
+        oauthProvider: 'Github',
+        created: Date.now()
+      });
+      // add to DB
+      const savedUser = await newUser.save();
+      // return
+      return done(null, savedUser);
+    }
+  }
+));
 passport.serializeUser(User.serializeUser()); // store user data in session
 passport.deserializeUser(User.deserializeUser()); // retrieve user data from session
 // Routing Configuration
