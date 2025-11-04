@@ -11,16 +11,29 @@ var mongoose = require('mongoose');
 var configs = require('./configs/globals');
 var hbs = require('hbs');
 var app = express();
+// Import passport & session packages
+var passport = require('passport');
+var session = require('express-session');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
-
+// Middleware Configuration
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+// configure session middleware
+app.use(session(
+  {
+    secret: "ProjectTracker2025", // secret key to sign the session ID cookie
+    resave: false, // don't save session if unmodified
+    saveUninitialized: false, // prevent creating session cookie until user logs in
+  }
+));
+app.use(passport.initialize());
+app.use(passport.session());
 // Routing Configuration
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
