@@ -1,23 +1,52 @@
-var express = require('express');
+var express = require("express");
 var router = express.Router();
+// Import passport and user model
+var passport = require("passport");
+// ../ navigates out of routes folder
+var User = require("../models/user");
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+router.get("/", function (req, res, next) {
+  res.render("index", { title: "Express" });
 });
 
 // GET /login > render the form
 router.get("/login", (req, res, next) => {
-  res.render("login", { title: "Login to your Account" });
+  let messages = req.session.messages || []; // if null then set to empty array
+  req.session.messages = []; // clear messages after retrieving
+  res.render("login", { title: "Login to your Account", messages: messages });
 });
 
-// TODO POST /login > click on the button in the form
+// POST /login > click on the button in the form
+router.post("/login", passport.authenticate("local", 
+  {
+    successRedirect: "/projects", // on success
+    failureRedirect: "/login",   // on failure
+    failureMessage: "Invalid Login" // optional messages
+  }
+));
 
 // GET /register
 router.get("/register", (req, res, next) => {
   res.render("register", { title: "Create a New Account" });
 });
 
-// TODO POST /register
+// POST /register
+router.post("/register", (req, res, next) => {
+  User.register(
+    new User({ username: req.body.username }),
+    req.body.password,
+    (error, newUser) => {
+      if (error) {
+        console.log(error);
+        return res.redirect("/register");
+      } else {
+        req.login(newUser, (error) => {
+          res.redirect("/projects");
+        });
+      }
+    }
+  );
+});
 
 module.exports = router;

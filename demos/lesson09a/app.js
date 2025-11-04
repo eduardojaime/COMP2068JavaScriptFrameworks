@@ -14,7 +14,8 @@ var app = express();
 // Import passport & session packages
 var passport = require('passport');
 var session = require('express-session');
-
+// Import user model
+var User = require('./models/user');
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
@@ -34,6 +35,11 @@ app.use(session(
 ));
 app.use(passport.initialize());
 app.use(passport.session());
+// Initialize Passport Strategies to enable different login mechanisms
+// Username/Password strategy (local)
+passport.use(User.createStrategy()); // methods comes from PLM plugin
+passport.serializeUser(User.serializeUser()); // store user data in session
+passport.deserializeUser(User.deserializeUser()); // retrieve user data from session
 // Routing Configuration
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
