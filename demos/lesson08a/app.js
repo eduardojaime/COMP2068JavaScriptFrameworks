@@ -7,7 +7,9 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var projectsRouter = require('./routes/projects');
-
+var mongoose = require('mongoose');
+var configs = require('./configs/globals');
+var hbs = require('hbs');
 var app = express();
 
 // view engine setup
@@ -26,6 +28,35 @@ app.use('/projects', projectsRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
+});
+// Database Connection
+mongoose
+  .connect(configs.ConnectionStrings.MongoDB)
+  .then(() => {
+    console.log("Connected to MongoDB...");
+  })
+  .catch((err) => {
+    console.error("Could not connect to MongoDB...", err);
+  });
+// Sub-Expressions https://handlebarsjs.com/guide/builtin-helpers.html#sub-expressions
+// function name and helper function with parameters
+hbs.registerHelper("createOptionElement", (currentValue, selectedValue) => {
+  console.log(currentValue + " " + selectedValue);
+  // initialize selected property
+  var selectedProperty = "";
+  // if values are equal set selectedProperty accordingly
+  if (currentValue == selectedValue.toString()) {
+    selectedProperty = "selected";
+  }
+  // return html code for this option element
+  // return new hbs.SafeString('<option '+ selectedProperty +'>' + currentValue + '</option>');
+  return new hbs.SafeString(
+    `<option ${selectedProperty}>${currentValue}</option>`
+  );
+});
+// helper function to format date values
+hbs.registerHelper('toShortDate', (longDateValue) => {
+  return new hbs.SafeString(longDateValue.toLocaleDateString('en-CA'));
 });
 
 // error handler
