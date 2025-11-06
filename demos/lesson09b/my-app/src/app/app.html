@@ -318,6 +318,28 @@
   </div>
 </main>
 
+<div class="container">
+  <!-- Add a table than renders projects -->
+   <table class="table table-hover table-striped">
+    <thead>
+      <tr>
+        <th>Project Name</th>
+        <th>Due Date</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (project of projects; track project.name) {
+        <tr>
+          <td>{{ project.name }}</td>
+          <td>{{ project.dueDate }}</td>
+          <td>{{ project.status }}</td>
+        </tr>
+      }
+    </tbody>
+   </table>
+</div>
+
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 <!-- * * * * * * * * * * * The content above * * * * * * * * * * * * -->
 <!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * * -->
