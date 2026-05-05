@@ -8,9 +8,6 @@
     - MongoDB for VS Code by MongoDB
     - Code Spell Checker by Street Side Software
     - Prettier - Code Formatter by Prettier
-    - HTML CSS Support by ecmel
-    - IntelliCode by Microsoft
-    - Angular Language Service by Angular
     - Handlebars by Andre Junges
     - Todo Tree by Gruntfuggly
 
