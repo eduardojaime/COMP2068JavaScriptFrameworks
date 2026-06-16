@@ -10,6 +10,7 @@
       <th>Name</th>
       <th>Due Date</th>
       <th>Status</th>
+      <th>Actions</th>
     </tr>
   </thead>
   <tbody>
@@ -19,6 +20,12 @@
         <td>{{name}}</td>
         <td>{{dueDate}}</td>
         <td>{{status}}</td>
+        <td>
+            {{! UPDATE button }}
+            <a href="/projects/edit/{{_id}}" class="btn btn-warning">Edit</a>
+            {{! DELETE button }}
+            <a href="/projects/delete/{{_id}}" onclick="return confirmDelete();" class="btn btn-danger">Delete</a>
+        </td>
     </tr>
     {{/each}}
   </tbody>
