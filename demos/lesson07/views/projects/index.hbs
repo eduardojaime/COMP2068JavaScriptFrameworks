@@ -1,0 +1,25 @@
+<h1>{{title}}</h1>
+{{! CRUD Functionality }}
+{{! CREATE button }}
+<a href="/projects/new" class="btn btn-info">Add a New Project</a>
+{{! READ table, each row represents a project }}
+{{! UPDATE/DELETE buttons in each row }}
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Due Date</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{! loop dataset to show project list }}
+    {{#each dataset}}
+    <tr>
+        <td>{{name}}</td>
+        <td>{{dueDate}}</td>
+        <td>{{status}}</td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
