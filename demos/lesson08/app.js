@@ -11,6 +11,12 @@ var projectsRouter = require('./routes/projects');
 // Load mongoose and global configurations
 var mongoose = require('mongoose');
 var configs = require('./configs/globals');
+// Load passport and related modules
+var passport = require('passport');
+var session = require('express-session');
+// Load the User model that contains passport-local-mongoose functionality
+var User = require('./models/user');
+
 // App object creation
 var app = express();
 
@@ -23,6 +29,22 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+// Configure session middleware
+app.use(session(
+  {
+    secret: '2026jsframeworks', // Replace with a strong secret in production
+    resave: false,
+    saveUninitialized: false // prevents storing empty sessions
+  }
+));
+// Add passport and session middleware
+app.use(passport.initialize());
+app.use(passport.session());
+// Configure passport strategies and serialization/deserialization here
+passport.use(User.createStrategy()); // Uses plm provided functionality
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
 // Routing Tables
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
