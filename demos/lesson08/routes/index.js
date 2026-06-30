@@ -44,7 +44,7 @@ router.post("/register", (req, res, next) => {
     new User({ username: req.body.username }),
     req.body.password, 
     (error, user) => { 
-      if (error) { console.log(error); return res.redirect("/projects"); }
+      if (error) { console.log(error); res.redirect("/register"); }
       else {
         req.login(user, (error) => { res.redirect("/projects"); });
       }
