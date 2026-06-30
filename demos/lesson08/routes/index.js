@@ -1,5 +1,7 @@
 var express = require('express');
 var router = express.Router();
+var User = require("../models/user"); 
+var passport = require("passport");
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -16,20 +18,39 @@ router.get("/about", (req, res, next) => {
 
 // GET /login
 router.get("/login", (req, res, next) => {
-  // TODO handle validation messages from failed login attempts
-  res.render("login", { title: "Login" });
+  // Handle validation messages from failed login attempts
+  let messages = req.session.messages || [];
+  req.session.messages = []; // clear messages after displaying
+  res.render("login", { title: "Login", messages: messages });
 });
 
-// TODO POST /login
-
+// POST /login
+router.post("/login", passport.authenticate("local",  {
+  successRedirect: "/projects",
+  failureRedirect: "/login",
+  failureMessage: "Invalid Login"
+}));
 
 // GET /register
 router.get("/register", (req, res, next) => {
   res.render("register", { title: "Register" });
 });
 
-// TODO POST /register
-
+// POST /register
+router.post("/register", (req, res, next) => {
+  // Create user based on form data and store in db
+  // login user and redirect to /projects
+  User.register(
+    new User({ username: req.body.username }),
+    req.body.password, 
+    (error, user) => { 
+      if (error) { console.log(error); return res.redirect("/projects"); }
+      else {
+        req.login(user, (error) => { res.redirect("/projects"); });
+      }
+    }
+  );
+});
 
 
 module.exports = router;
