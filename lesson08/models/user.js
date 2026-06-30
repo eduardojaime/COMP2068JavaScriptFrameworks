@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 // Take the out of the box functionality from the plm package to extend the user model
-const plm = require('passport-local-mongoose');
+const plmModule = require('passport-local-mongoose');
+const plm = plmModule.default || plmModule;
 
 var dataSchemaObj = {
     username: { type: String },

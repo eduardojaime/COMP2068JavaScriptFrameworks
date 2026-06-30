@@ -1,7 +1,8 @@
 // This is a mongoose model which represents users in my DB
 const mongoose = require("mongoose");
 // We'll use the out-of-the-box functionality in PLM to extend the model
-const plm = require("passport-local-mongoose");
+const plmModule = require("passport-local-mongoose");
+const plm = plmModule.default || plmModule;
 
 const schemaObj = {
     username: { type: String },
