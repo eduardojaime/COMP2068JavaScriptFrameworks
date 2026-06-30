@@ -14,4 +14,22 @@ router.get("/about", (req, res, next) => {
   res.render("about", { title: "About Us" });
 });
 
+// GET /login
+router.get("/login", (req, res, next) => {
+  // TODO handle validation messages from failed login attempts
+  res.render("login", { title: "Login" });
+});
+
+// TODO POST /login
+
+
+// GET /register
+router.get("/register", (req, res, next) => {
+  res.render("register", { title: "Register" });
+});
+
+// TODO POST /register
+
+
+
 module.exports = router;

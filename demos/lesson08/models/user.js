@@ -3,7 +3,9 @@ const mongoose = require('mongoose');
 // Enhance this model with a plugin to handle:
 // password hashing and salting, and password validation
 // user serialization and deserialization for passport
-const plm = require('passport-local-mongoose');
+// Compatibility fix for latest versions of mongoose and passport-local-mongoose
+const plmModule = require('passport-local-mongoose');
+const plm = plmModule.default || plmModule;
 
 const schemaObject = {
     username: String,
