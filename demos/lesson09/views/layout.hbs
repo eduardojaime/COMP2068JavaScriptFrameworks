@@ -34,12 +34,23 @@
         </ul>
         {{!-- add right-aligned items here for login and register --}}
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="/login">Login</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/register">Register</a>
-          </li>
+          {{#if user}} 
+            {{!-- user is authenticated --}}
+            <li class="nav-item">
+              <a class="nav-link" href="#">{{user.username}}</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/logout">Logout</a>
+            </li>
+          {{else}}
+            {{!-- user not authenticated --}}
+            <li class="nav-item">
+              <a class="nav-link" href="/login">Login</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/register">Register</a>
+            </li>
+          {{/if}}
         </ul>
       </div>
     </nav>

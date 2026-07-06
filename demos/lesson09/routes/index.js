@@ -5,7 +5,9 @@ var passport = require("passport");
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  // Access user from the session storage and pass it to the view for rendering
+  let user = req.user;
+  res.render('index', { title: 'Express', user: user });
 });
 
 // All paths in this file are relative to the configured path in app.js
@@ -13,7 +15,7 @@ router.get('/', function(req, res, next) {
 router.get("/about", (req, res, next) => {
   // any processing logic goes here
   // render a view, standard is to name it the same as the path
-  res.render("about", { title: "About Us" });
+  res.render("about", { title: "About Us", user: req.user });
 });
 
 // GET /login
@@ -21,7 +23,7 @@ router.get("/login", (req, res, next) => {
   // Handle validation messages from failed login attempts
   let messages = req.session.messages || [];
   req.session.messages = []; // clear messages after displaying
-  res.render("login", { title: "Login", messages: messages });
+  res.render("login", { title: "Login", messages: messages, user: req.user });
 });
 
 // POST /login
@@ -33,7 +35,7 @@ router.post("/login", passport.authenticate("local",  {
 
 // GET /register
 router.get("/register", (req, res, next) => {
-  res.render("register", { title: "Register" });
+  res.render("register", { title: "Register", user: req.user });
 });
 
 // POST /register
@@ -52,5 +54,9 @@ router.post("/register", (req, res, next) => {
   );
 });
 
+// GET /logout
+router.get("/logout", (req, res, next) => {
+  req.logout((error) => { res.redirect("/login"); });
+});
 
 module.exports = router;
