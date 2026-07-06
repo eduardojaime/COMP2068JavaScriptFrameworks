@@ -1,0 +1,36 @@
+<h1>
+  {{title}}
+</h1>
+<form method="POST">
+  {{! Input names have to match the name of the fields in the mongo schema object }}
+  {{! Mapping is not automatic, but it's best practices }}
+  <fieldset>
+    <label for="name" class="col-2">
+      Name:
+    </label>
+    {{!-- Connect the input to the project's name property using 'value' --}}
+    <input name="name" id="name" required value="{{project.name}}" />
+  </fieldset>
+  <fieldset>
+    <label for="dueDate" class="col-2">
+      Due Date:
+    </label>
+    {{!-- Connect the input to the project's dueDate property using 'value' --}}
+    <input name="dueDate" id="dueDate" required type="date" value="{{project.dueDate}}" />
+  </fieldset>
+  {{!-- Status Dropdown--}}
+    <fieldset>
+        <label for="status" class="col-2">
+        Status:
+        </label>
+        <select name="status" id="status" required>
+            <option value="TO DO">TO DO</option>    
+            <option value="IN PROGRESS">IN PROGRESS</option>
+            <option value="DONE">DONE</option>
+        </select>
+    </fieldset>
+  {{! Button needs to be inside <form> element to trigger POST }}
+  <button class="offset-3 btn btn-primary">
+    Save Changes
+  </button>
+</form>
