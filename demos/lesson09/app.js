@@ -16,6 +16,8 @@ var passport = require('passport');
 var session = require('express-session');
 // Load the User model that contains passport-local-mongoose functionality
 var User = require('./models/user');
+// Load GitHub strategy for OAuth authentication
+var GitHubStrategy = require('passport-github2').Strategy;
 
 // App object creation
 var app = express();
@@ -42,6 +44,29 @@ app.use(passport.initialize());
 app.use(passport.session());
 // Configure passport strategies and serialization/deserialization here
 passport.use(User.createStrategy()); // Uses plm provided functionality
+// Additional Strategy for GitHub OAuth
+passport.use(new GitHubStrategy({
+    clientID: configs.Authentication.GitHub.ClientID,
+    clientSecret: configs.Authentication.GitHub.ClientSecret,
+    callbackURL: configs.Authentication.GitHub.CallbackURL
+  },
+  async function(accessToken, refreshToken, profile, done) {
+    // TODO find user in the db, if exists do nothing, else create it
+    const user = await User.findOne({ oauthId: profile.id });
+    if (user) {
+      return done(null, user);
+    } else {
+      const newUser = new User({
+        username: profile.username,
+        oauthId: profile.id,
+        oauthProvider: 'github'
+      })
+      const savedUser = await newUser.save();
+      return done(null, savedUser);
+    }
+  }
+));
+
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 

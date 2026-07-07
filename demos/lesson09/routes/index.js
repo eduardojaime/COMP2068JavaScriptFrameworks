@@ -59,4 +59,13 @@ router.get("/logout", (req, res, next) => {
   req.logout((error) => { res.redirect("/login"); });
 });
 
+// GET /github
+router.get("/github", passport.authenticate("github", { scope: [ "user:email" ] }));
+
+// GET /github/callback
+router.get("/github/callback", passport.authenticate("github", {
+  successRedirect: "/projects", // user successfully authenticated, redirect to projects page
+  failureRedirect: "/login", // user clicked cancel or denied access, redirect to login page
+}));
+
 module.exports = router;
