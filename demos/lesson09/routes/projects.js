@@ -4,6 +4,16 @@ const express = require("express");
 const router = express.Router();
 // Import the project model to interact with the database
 const Project = require("../models/project");
+// Import authentication middleware to protect routes
+// Use in both GET and POST routes that require login > NEW/EDIT/DELETE
+const ensureAuthenticated = require("../extensions/authentication");
+
+// // applies to everything in this router, so if the user is not logged in, redirect to login page
+// router.use((req, res, next) => {
+//     if (!req.user) {
+//     res.redirect("/login");
+//   }
+// });
 
 // Configure routes
 // All paths in this file are relative to the configured path in app.js
@@ -14,13 +24,15 @@ router.get("/", async (req, res, next) => {
   console.log(projects);
   res.render("projects/index", { title: "All Projects", dataset: projects, user: req.user });
 });
+// Add authentication middleware to protect the routes that require login
+// It goes before the middleware that handles the route
 // CREATE - GET /projects/new > shows an empty form to create a new project
-router.get("/new", (req, res, next) => {
+router.get("/new", ensureAuthenticated, (req, res, next) => {
   res.render("projects/new", { title: "Create New Project", user: req.user });
 });
 
 // CREATE - POST /projects/new > receives from data and creates project in database
-router.post("/new", async (req, res, next) => {
+router.post("/new", ensureAuthenticated, async (req, res, next) => {
   const newProject = new Project({
     name: req.body.name,
     dueDate: req.body.dueDate
@@ -30,13 +42,13 @@ router.post("/new", async (req, res, next) => {
 });
 
 // UPDATE - GET /projects/edit/:id > shows a form with the project data to edit
-router.get("/edit/:id", async (req, res, next) => {
+router.get("/edit/:id", ensureAuthenticated, async (req, res, next) => {
   const project = await Project.findById(req.params.id);
   res.render("projects/edit", { title: "Edit Project", project: project, user: req.user });
 });
 
 // UPDATE - POST /projects/edit/:id > receives form data and updates project in database
-router.post("/edit/:id", async (req, res, next) => {
+router.post("/edit/:id", ensureAuthenticated, async (req, res, next) => {
   const project = await Project.findById(req.params.id);
   project.name = req.body.name;
   project.dueDate = req.body.dueDate;
@@ -46,7 +58,7 @@ router.post("/edit/:id", async (req, res, next) => {
 });
 
 // DELETE - GET /projects/delete/:id > deletes project from database and redirects to /projects
-router.get("/delete/:id", async (req, res, next) => {
+router.get("/delete/:id", ensureAuthenticated, async (req, res, next) => {
   await Project.findByIdAndDelete(req.params.id);
   res.redirect("/projects");
 });
