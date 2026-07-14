@@ -1,3 +1,4 @@
+<!-- HTML Template for my App Component -->
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 <!-- * * * * * * * * * * * The content below * * * * * * * * * * * -->
 <!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
@@ -185,6 +186,9 @@
 </style>
 
 <main class="main">
+  <!-- Example of event binding -->
+  <button class="btn btn-warning" (click)="handleClickEvent()">Click to Trigger Log Event</button>
+
   <div class="content">
     <div class="left-side">
       <svg
@@ -232,26 +236,23 @@
           <clipPath id="a"><path fill="#fff" d="M0 0h982v239H0z" /></clipPath>
         </defs>
       </svg>
+      <!-- Interpolation Binding using {{ variablename }} -->
       <h1>Hello, {{ title() }}</h1>
       <p>Congratulations! Your app is running. 🎉</p>
     </div>
     <div class="divider" role="separator" aria-label="Divider"></div>
     <div class="right-side">
       <div class="pill-group">
-        @for (item of [
-          { title: 'Explore the Docs', link: 'https://angular.dev' },
-          { title: 'Learn with Tutorials', link: 'https://angular.dev/tutorials' },
-          { title: 'Prompt and best practices for AI', link: 'https://angular.dev/ai/develop-with-ai'},
-          { title: 'CLI Docs', link: 'https://angular.dev/tools/cli' },
-          { title: 'Angular Language Service', link: 'https://angular.dev/tools/language-service' },
-          { title: 'Angular DevTools', link: 'https://angular.dev/tools/devtools' },
-        ]; track item.title) {
+        <!-- Angular For Loop directive using @for -->
+        @for (item of items(); track item.title) {
           <a
             class="pill"
+            /* Property Binding */
             [href]="item.link"
             target="_blank"
             rel="noopener"
           >
+            <!-- Interpolation -->
             <span>{{ item.title }}</span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -331,6 +332,8 @@
     </div>
   </div>
 </main>
+
+
 
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 <!-- * * * * * * * * * * * The content above * * * * * * * * * * * * -->
