@@ -245,14 +245,15 @@
       <div class="pill-group">
         <!-- Angular For Loop directive using @for -->
         @for (item of items(); track item.title) {
-          <a
+          <app-list-item [link]="item.link" [title]="item.title"></app-list-item>
+          <!-- <a
             class="pill"
             /* Property Binding */
             [href]="item.link"
             target="_blank"
             rel="noopener"
           >
-            <!-- Interpolation -->
+            <- Interpolation ->
             <span>{{ item.title }}</span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -265,7 +266,7 @@
                 d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h560v-280h80v280q0 33-23.5 56.5T760-120H200Zm188-212-56-56 372-372H560v-80h280v280h-80v-144L388-332Z"
               />
             </svg>
-          </a>
+          </a> -->
         }
       </div>
       <div class="social-links">
